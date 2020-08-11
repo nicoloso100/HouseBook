@@ -1,0 +1,28 @@
+{
+  "name": "housebook",
+  "version": "1.0.0",
+  "description": "Inmobiliaria HouseBook",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicoloso100/HouseBook.git"
+  },
+  "keywords": [
+    "housebook"
+  ],
+  "author": "HouseBook",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicoloso100/HouseBook/issues"
+  },
+  "homepage": "https://github.com/nicoloso100/HouseBook#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
