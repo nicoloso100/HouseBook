@@ -4,7 +4,8 @@
   "description": "Inmobiliaria HouseBook",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js"
+    "start": "nodemon src/index.js",
+    "deploy": "node src/index.js"
   },
   "repository": {
     "type": "git",
