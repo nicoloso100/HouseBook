@@ -1,8 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./settings/index.css";
-import App from "./pages/home/App";
+import "./assets/styles/index.css";
+import App from "./pages/Home";
 import * as serviceWorker from "./serviceWorker";
+
+import "assets/icons/nucleo/css/nucleo.css";
+import "assets/icons/font-awesome/css/font-awesome.min.css";
+import "assets/scss/argon-design-system-react.scss?v1.1.0";
 
 ReactDOM.render(
   <React.StrictMode>
