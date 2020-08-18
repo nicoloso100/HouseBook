@@ -5,12 +5,16 @@ import HomeTitle from "organisms/HomeTitle";
 import HomeFilters from "organisms/HomeFilters";
 
 const Home = () => {
+  const onFilter = (filters: IFilters) => {
+    console.log(filters);
+  };
+
   return (
     <React.Fragment>
       <FrameContent>
         <Header />
         <HomeTitle />
-        <HomeFilters />
+        <HomeFilters onFilter={onFilter} />
       </FrameContent>
       <FrameContent></FrameContent>
     </React.Fragment>

@@ -1,31 +1,28 @@
 import * as React from "react";
 import { FilterCont } from "./styles";
+import MySectionTitle from "atoms/MySectionTitle";
+import MyCheckbox from "atoms/MyCheckbox";
 
-const Filter1 = () => {
+interface Filter1Props {
+  filter1: IFilter1;
+  setFilter1: (filter1: IFilter1) => void;
+}
+
+const Filter1: React.FC<Filter1Props> = ({ filter1, setFilter1 }) => {
+  const setVenta = (value: boolean) => setFilter1({ ...filter1, venta: value });
+
+  const setArriendo = (value: boolean) =>
+    setFilter1({ ...filter1, arriendo: value });
+
   return (
-    <FilterCont>
-      <h6>¿QUÉ DESEA BUSCAR?</h6>
-      <div className="custom-control custom-checkbox mb-3">
-        <input
-          className="custom-control-input"
-          id="customCheck1"
-          type="checkbox"
-        />
-        <label className="custom-control-label" htmlFor="customCheck1">
-          Venta
-        </label>
-      </div>
-      <div className="custom-control custom-checkbox mb-3">
-        <input
-          className="custom-control-input"
-          defaultChecked
-          id="customCheck2"
-          type="checkbox"
-        />
-        <label className="custom-control-label" htmlFor="customCheck2">
-          Arriendo
-        </label>
-      </div>
+    <FilterCont customFlex={1}>
+      <MySectionTitle text="¿QUÉ DESEA BUSCAR?" />
+      <MyCheckbox label="Venta" checked={filter1.venta} onChange={setVenta} />
+      <MyCheckbox
+        label="Arriendo"
+        checked={filter1.arriendo}
+        onChange={setArriendo}
+      />
     </FilterCont>
   );
 };

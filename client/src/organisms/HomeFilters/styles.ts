@@ -1,6 +1,12 @@
 import styled from "styled-components";
 
-export const HomeFIltersContainer = styled.div`
+export const HomeFiltersContainer = styled.div`
   width: 100%;
   flex: 1;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  max-width: 1200px;
+  align-self: center;
+  overflow: hidden;
 `;
