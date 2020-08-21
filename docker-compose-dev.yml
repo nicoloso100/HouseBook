@@ -1,5 +1,9 @@
 version: "3.4"
 
+volumes:
+  HouseBookVolume:
+    name: HouseBookVolume
+
 services:
   mongo:
     image: mongo
@@ -9,6 +13,8 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: HouseBook123
     ports:
       - 27017:27017
+    volumes:
+      - HouseBookVolume:/data/db
 
   mongo-express:
     image: mongo-express
@@ -20,10 +26,3 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: HouseBook123
     depends_on:
       - mongo
-
-  housebook:
-    build: .
-    depends_on:
-      - mongo
-    ports:
-      - "4000:4000"

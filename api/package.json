@@ -4,9 +4,10 @@
   "description": "Inmobiliaria HouseBook",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
-    "deploy": "node src/index.js",
-    "dev": "concurrently 'tsc -w' 'nodemon dist/index.js'"
+    "startdb": "cd .. && docker-compose -f docker-compose-dev.yml up && cd ./api/",
+    "start": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
+    "deploy": "node dist/index.js",
+    "test": "ttsc && babel dist -d dist"
   },
   "repository": {
     "type": "git",
@@ -28,13 +29,15 @@
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.7.36",
     "concurrently": "^5.3.0",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "ttypescript": "^1.5.10"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mongo-seeding": "^3.4.1",
     "mongoose": "^5.10.0",
     "typescript": "^3.9.7"
   }
