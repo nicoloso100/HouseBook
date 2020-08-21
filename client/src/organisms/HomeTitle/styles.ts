@@ -28,7 +28,6 @@ export const HomeBackgroundImage = styled.div`
   background-attachment: fixed;
   background-size: cover;
   height: 60vh;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
