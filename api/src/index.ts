@@ -30,7 +30,7 @@ class Server {
     this.pages();
     this.middlewares();
   }
-
+  
   routes(): void {
     this.app.use("/api/auth", authRoutes);
     this.app.use("/api/general", this.generalRoutes.router);
