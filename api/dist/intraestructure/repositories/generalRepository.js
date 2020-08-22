@@ -12,25 +12,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const customError_1 = require("../utils/errorHandler/customError");
-const generalRepository_1 = __importDefault(require("../intraestructure/repositories/generalRepository"));
-class GeneralController {
-    getCities(req, res, next) {
+const City_1 = __importDefault(require("../models/City"));
+class GeneralRepository {
+    getCities(filter) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                let filter = req.query["filter"];
-                if (!filter) {
-                    filter = "";
-                }
-                const cities = yield generalRepository_1.default.getCities(filter);
-                res.json(cities);
-            }
-            catch (_a) {
-                next(new customError_1.HandledError("No se ha podido obtener la lista de ciudades."));
-            }
+            const cities = yield City_1.default.find({
+                municipio: { $regex: filter, $options: "i" },
+            });
+            return cities;
         });
     }
 }
-const generalController = new GeneralController();
-exports.default = generalController;
-//# sourceMappingURL=generalController.js.map
+const generalRepository = new GeneralRepository();
+exports.default = generalRepository;
+//# sourceMappingURL=generalRepository.js.map

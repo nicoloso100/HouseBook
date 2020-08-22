@@ -1,34 +1,59 @@
 import dotenv from "dotenv";
 import express, { Application } from "express";
 import authRoutes from "./routes/authRoutes";
-import generalRoutes from "./routes/generalRoutes";
-
-//Inicia base de datos
-import "./intraestructure/database/config";
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
+import GeneralRoutes from "./routes/generalRoutes";
+import { StartDatabase } from "./intraestructure/database/config";
+import cors from "cors";
 
-//config
-dotenv.config();
-const app: Application = express();
-const port = 4000;
+class Server {
+  private app: Application;
+  private port = 4000;
+  private generalRoutes: GeneralRoutes;
 
-app.use(express.json());
+  constructor() {
+    this.app = express();
+    this.generalRoutes = new GeneralRoutes();
+    this.config();
+  }
 
-//routes
-app.use("/api/auth", authRoutes);
-app.use("/api/general", generalRoutes);
+  config(): void {
+    dotenv.config();
+    this.app.use(express.json());
+    this.app.use(
+      cors({
+        origin: "*",
+      })
+    );
+    StartDatabase();
+    this.routes();
+    this.pages();
+    this.middlewares();
+  }
 
-app.get("/", (req, res) => {
-  res.send("El API está funcionando!");
-});
+  routes(): void {
+    this.app.use("/api/auth", authRoutes);
+    this.app.use("/api/general", this.generalRoutes.router);
+  }
 
-//client
-app.use("/app", express.static("../client/build"));
-app.use("/static", express.static("../client/build/static"));
+  pages(): void {
+    this.app.get("/", (req, res) => {
+      res.send("El API está funcionando!");
+    });
+    this.app.use("/app", express.static("../client/build"));
+    this.app.use("/static", express.static("../client/build/static"));
+  }
 
-//middlewares
-app.use(errorHandlerMiddleware);
+  middlewares(): void {
+    this.app.use(errorHandlerMiddleware);
+  }
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+  start(): void {
+    this.app.listen(this.port, () => {
+      console.log(`Example app listening at http://localhost:${this.port}`);
+    });
+  }
+}
+
+const server = new Server();
+server.start();

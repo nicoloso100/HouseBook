@@ -12,25 +12,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const customError_1 = require("../utils/errorHandler/customError");
-const generalRepository_1 = __importDefault(require("../intraestructure/repositories/generalRepository"));
-class GeneralController {
-    getCities(req, res, next) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                let filter = req.query["filter"];
-                if (!filter) {
-                    filter = "";
-                }
-                const cities = yield generalRepository_1.default.getCities(filter);
-                res.json(cities);
-            }
-            catch (_a) {
-                next(new customError_1.HandledError("No se ha podido obtener la lista de ciudades."));
-            }
-        });
-    }
-}
-const generalController = new GeneralController();
-exports.default = generalController;
-//# sourceMappingURL=generalController.js.map
+exports.getCities = void 0;
+const mongoose_1 = __importDefault(require("mongoose"));
+exports.getCities = () => __awaiter(void 0, void 0, void 0, function* () {
+    const cities = yield mongoose_1.default.model("cities").find();
+    return cities;
+});
+//# sourceMappingURL=generalServices.js.map

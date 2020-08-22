@@ -1,8 +1,16 @@
 import { Router } from "express";
-import { getCities } from "../controllers/generalController";
+import generalController from "../controllers/generalController";
 
-const router: Router = Router();
+class GeneralRoutes {
+  public router: Router = Router();
 
-router.get("/getCities", getCities);
+  constructor() {
+    this.setRoutes();
+  }
 
-export default router;
+  setRoutes(): void {
+    this.router.get("/getCities", generalController.getCities);
+  }
+}
+
+export default GeneralRoutes;

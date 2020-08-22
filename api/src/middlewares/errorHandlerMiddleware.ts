@@ -1,6 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { HandledError } from "../utils/errorHandler/customError";
 
+interface IError {
+  error: string;
+}
+
 export const errorHandlerMiddleware = (
   err: any,
   req: Request,
@@ -8,12 +12,15 @@ export const errorHandlerMiddleware = (
   next: NextFunction
 ) => {
   if (err instanceof HandledError) {
-    res.status(400).send(err.message);
+    const newError: IError = {
+      error: err.message,
+    };
+    res.status(400).json(newError);
   } else {
-    res
-      .status(500)
-      .send(
-        "Ha ocurrido un error en el servidor, por favor intentelo nuevamente."
-      );
+    const newError: IError = {
+      error:
+        "Ha ocurrido un error en el servidor, por favor intentelo nuevamente.",
+    };
+    res.status(500).json(newError);
   }
 };

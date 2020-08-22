@@ -6,27 +6,48 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
-const generalRoutes_1 = __importDefault(require("./routes/generalRoutes"));
-//Inicia base de datos
-require("./intraestructure/database/config");
 const errorHandlerMiddleware_1 = require("./middlewares/errorHandlerMiddleware");
-//config
-dotenv_1.default.config();
-const app = express_1.default();
-const port = 4000;
-app.use(express_1.default.json());
-//routes
-app.use("/api/auth", authRoutes_1.default);
-app.use("/api/general", generalRoutes_1.default);
-app.get("/", (req, res) => {
-    res.send("El API está funcionando!");
-});
-//client
-app.use("/app", express_1.default.static("../client/build"));
-app.use("/static", express_1.default.static("../client/build/static"));
-//middlewares
-app.use(errorHandlerMiddleware_1.errorHandlerMiddleware);
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
-});
+const generalRoutes_1 = __importDefault(require("./routes/generalRoutes"));
+const config_1 = require("./intraestructure/database/config");
+const cors_1 = __importDefault(require("cors"));
+class Server {
+    constructor() {
+        this.port = 4000;
+        this.app = express_1.default();
+        this.generalRoutes = new generalRoutes_1.default();
+        this.config();
+    }
+    config() {
+        dotenv_1.default.config();
+        this.app.use(express_1.default.json());
+        this.app.use(cors_1.default({
+            origin: "*",
+        }));
+        config_1.StartDatabase();
+        this.routes();
+        this.pages();
+        this.middlewares();
+    }
+    routes() {
+        this.app.use("/api/auth", authRoutes_1.default);
+        this.app.use("/api/general", this.generalRoutes.router);
+    }
+    pages() {
+        this.app.get("/", (req, res) => {
+            res.send("El API está funcionando!");
+        });
+        this.app.use("/app", express_1.default.static("../client/build"));
+        this.app.use("/static", express_1.default.static("../client/build/static"));
+    }
+    middlewares() {
+        this.app.use(errorHandlerMiddleware_1.errorHandlerMiddleware);
+    }
+    start() {
+        this.app.listen(this.port, () => {
+            console.log(`Example app listening at http://localhost:${this.port}`);
+        });
+    }
+}
+const server = new Server();
+server.start();
 //# sourceMappingURL=index.js.map
