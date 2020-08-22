@@ -5,10 +5,12 @@ import HomeTitle from "organisms/HomeTitle";
 import HomeFilters from "organisms/HomeFilters";
 import HomeInformation from "organisms/HomeInformation";
 import Footer from "molecules/Footer";
+import { GetServices } from "actions/APICalls/generalActions";
 
 const Home = () => {
   const onFilter = (filters: IFilters) => {
     console.log(filters);
+    GetServices();
   };
 
   return (
