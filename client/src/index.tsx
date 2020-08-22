@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./assets/styles/index.css";
 import App from "./pages/Home";
 import * as serviceWorker from "./serviceWorker";
+import Login from "./organisms/login/index2";
 
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
