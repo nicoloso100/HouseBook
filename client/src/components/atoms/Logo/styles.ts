@@ -5,6 +5,6 @@ export const LogoCont = styled.img`
   height: 60px;
 `;
 
-export const Logo2Cont = styled.img`
-  width: 20%;
+export const LogoConNombreCont = styled.img`
+  width: 40%;
 `;

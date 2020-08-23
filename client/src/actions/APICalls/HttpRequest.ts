@@ -1,3 +1,5 @@
+import ErrorAlert from "utils/errorAlert";
+
 enum RequestMethod {
   GET = "GET",
   POST = "POST",
@@ -19,7 +21,7 @@ const defaultHeader: IHeaders = {
 };
 
 export class HttpRequest {
-  async Get<T>(request: string): Promise<T> {
+  async Get<T>(request: string): Promise<IAPIResult<T>> {
     let headers = {
       ...defaultHeader,
       method: RequestMethod.GET,
@@ -27,10 +29,17 @@ export class HttpRequest {
     };
     const response = await fetch(request, headers);
     const body = await response.json();
-    return body;
+    if (!response.ok) {
+      ErrorAlert.show(body.error);
+      throw new Error(body.error);
+    }
+    return {
+      ok: response.ok,
+      result: body,
+    };
   }
 
-  async Post<T>(request: string, object: any): Promise<T> {
+  async Post<T>(request: string, object: any): Promise<IAPIResult<T>> {
     let headers = {
       ...defaultHeader,
       method: RequestMethod.POST,
@@ -39,6 +48,13 @@ export class HttpRequest {
     };
     const response = await fetch(request, headers);
     const body = await response.json();
-    return body;
+    if (!response.ok) {
+      ErrorAlert.show(body.error);
+      throw new Error(body.error);
+    }
+    return {
+      ok: response.ok,
+      result: body,
+    };
   }
 }

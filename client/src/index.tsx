@@ -9,11 +9,12 @@ import {
   Redirect,
 } from "react-router-dom";
 import Home from "./pages/Home";
+import Login from "pages/Login";
 
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
 import "assets/scss/argon-design-system-react.scss?v1.1.0";
-import Login from "pages/Login";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 const redirectMainPath = () => <Redirect to="/home" />;
 

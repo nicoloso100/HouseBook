@@ -5,15 +5,18 @@ import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
 import GeneralRoutes from "./routes/generalRoutes";
 import { StartDatabase } from "./intraestructure/database/config";
 import cors from "cors";
+import AuthRoutes from "./routes/authRoutes";
 
 class Server {
   private app: Application;
   private port = 4000;
   private generalRoutes: GeneralRoutes;
+  private authRoutes: AuthRoutes;
 
   constructor() {
     this.app = express();
     this.generalRoutes = new GeneralRoutes();
+    this.authRoutes = new AuthRoutes();
     this.config();
   }
 
@@ -30,9 +33,9 @@ class Server {
     this.pages();
     this.middlewares();
   }
-  
+
   routes(): void {
-    this.app.use("/api/auth", authRoutes);
+    this.app.use("/api/auth", this.authRoutes.router);
     this.app.use("/api/general", this.generalRoutes.router);
   }
 

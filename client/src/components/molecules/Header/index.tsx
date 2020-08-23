@@ -4,7 +4,7 @@ import {
   NavigationHeaderButtonsCont,
   NavigationHeaderButton,
 } from "./styles";
-import { Logo } from "components/atoms/Logo";
+import Logo from "components/atoms/Logo/Logo";
 
 const Header = () => {
   return (
