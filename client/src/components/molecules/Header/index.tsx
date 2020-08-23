@@ -5,11 +5,18 @@ import {
   NavigationHeaderButton,
 } from "./styles";
 import Logo from "components/atoms/Logo/Logo";
+import { useHistory } from "react-router-dom";
 
-const Header = () => {
+const Header: React.FC = () => {
+  let history = useHistory();
+
+  const onLogoClick = () => {
+    history.push("/home");
+  };
+
   return (
     <NavigationHeaderCont>
-      <Logo />
+      <Logo onClick={onLogoClick} />
       <NavigationHeaderButtonsCont>
         <NavigationHeaderButton>Publicar inmueble</NavigationHeaderButton>
         <NavigationHeaderButton>Ingresar</NavigationHeaderButton>

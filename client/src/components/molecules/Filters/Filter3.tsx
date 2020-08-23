@@ -7,6 +7,7 @@ import {
 import MySectionTitle from "components/atoms/MySectionTitle";
 import MyAutosuggest from "components/atoms/MyAutosuggest";
 import MyButton from "components/atoms/MyButton";
+import { generalURLs } from "actions/APICalls/URLs";
 
 interface Filter3Props {
   filter3: IFilter3;
@@ -22,7 +23,7 @@ const Filter3: React.FC<Filter3Props> = ({ filter3, setFilter3, onSearch }) => {
     <FilterCont customFlex={2}>
       <MySectionTitle text="¿EN QUÉ CIUDAD BUSCA SU INMUEBLE?" />
       <FilterSearchContainer>
-        <MyAutosuggest APIURL="" value={filter3.ciudad} onChange={setCiudad} />
+        <MyAutosuggest APIURL={generalURLs.getCities} onSelect={setCiudad} />
         <FilterSearchContainerSpacer />
         <MyButton onClick={onSearch} text="Buscar" />
       </FilterSearchContainer>

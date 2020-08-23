@@ -1,48 +1,11 @@
 import * as React from "react";
 import Autosuggest from "react-autosuggest";
-import { useState } from "react";
 import MySearchBar from "../MySearchBar";
 
-const defaultSuggestions = [
-  {
-    name: "C",
-    year: 1972,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-  {
-    name: "Elm",
-    year: 2012,
-  },
-];
-
-const renderSuggestion = (suggestion: any) => <div>{suggestion.name}</div>;
+const getSuggestionValue = (suggestion: any) => suggestion.municipio;
+const renderSuggestion = (suggestion: any) => (
+  <span>{`${suggestion.departamento}-${suggestion.municipio}`}</span>
+);
 
 const customInput = (inputProps: any) => (
   <MySearchBar
@@ -54,51 +17,56 @@ const customInput = (inputProps: any) => (
 
 interface MyAutosuggestProps {
   APIURL: string;
-  value: string;
-  onChange: (text: string) => void;
+  onSelect: (text: string) => void;
 }
 
-export const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
-  value,
-  onChange,
-}) => {
-  const [suggestions, setSuggestion] = useState<any[]>([]);
+const MyAutosuggest: React.FC<MyAutosuggestProps> = ({ APIURL, onSelect }) => {
+  const [value, setValue] = React.useState<any>("");
+  const [suggestions, setSuggestions] = React.useState<any[]>([]);
 
-  const getSuggestionValue = (suggestion: any) => suggestion.name;
-
-  const getSuggestions = (value: string) => {
-    const inputValue = value;
-    const inputLength = inputValue.length;
-
-    return inputLength === 0
-      ? []
-      : defaultSuggestions.filter(
-          (lang) => lang.name.toLowerCase().slice(0, inputLength) === inputValue
-        );
+  const onChange = (event: any, { newValue, method }: any) => {
+    setValue(newValue);
   };
 
   const onSuggestionsFetchRequested = ({ value }: any) => {
-    const suggestionList = getSuggestions(value);
-    setSuggestion(suggestionList ? suggestionList : []);
+    fetch(`${APIURL}?filter=${value}`)
+      .then((response) => response.json())
+      .then((data) => setSuggestions(data));
   };
 
-  const onSuggestionsClearRequested = () => {
-    setSuggestion([]);
+  const onSuggestionsClearRequested = () => {};
+
+  const onSuggestionSelected = (event: any, { suggestionValue }: any) => {
+    onSelect(suggestionValue);
+  };
+
+  const onBlur = () => {
+    const exists = suggestions.find((x) => x.municipio === value);
+    if (exists) {
+      onSelect(value);
+    } else if (suggestions.length === 1) {
+      onSelect(suggestions[0].municipio);
+      setValue(suggestions[0].municipio);
+    } else {
+      onSelect("");
+      setValue("");
+    }
   };
 
   const inputProps = {
-    placeholder: "Type a programming language",
     value,
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) =>
-      onChange(event.target.value),
+    onChange: onChange,
+    onBlur: onBlur,
   };
 
   return (
     <Autosuggest
       suggestions={suggestions}
+      highlightFirstSuggestion
       onSuggestionsFetchRequested={onSuggestionsFetchRequested}
       onSuggestionsClearRequested={onSuggestionsClearRequested}
       getSuggestionValue={getSuggestionValue}
+      onSuggestionSelected={onSuggestionSelected}
       renderSuggestion={renderSuggestion}
       renderInputComponent={customInput}
       inputProps={inputProps}

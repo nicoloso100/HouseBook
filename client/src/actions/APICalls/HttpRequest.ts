@@ -22,21 +22,27 @@ const defaultHeader: IHeaders = {
 
 export class HttpRequest {
   async Get<T>(request: string): Promise<IAPIResult<T>> {
-    let headers = {
-      ...defaultHeader,
-      method: RequestMethod.GET,
-      headers: { ...defaultHeader.headers },
-    };
-    const response = await fetch(request, headers);
-    const body = await response.json();
-    if (!response.ok) {
-      ErrorAlert.show(body.error);
-      throw new Error(body.error);
+    try {
+      let headers = {
+        ...defaultHeader,
+        method: RequestMethod.GET,
+        headers: { ...defaultHeader.headers },
+      };
+      const response = await fetch(request, headers);
+      const body = await response.json();
+      if (!response.ok) {
+        throw new Error(body.error);
+      } else {
+        return {
+          ok: response.ok,
+          result: body,
+        };
+      }
+    } catch (error) {
+      const errorMessage = JSON.stringify(error);
+      ErrorAlert.show(errorMessage);
+      throw new Error(error);
     }
-    return {
-      ok: response.ok,
-      result: body,
-    };
   }
 
   async Post<T>(request: string, object: any): Promise<IAPIResult<T>> {

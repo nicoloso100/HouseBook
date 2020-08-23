@@ -1,10 +1,13 @@
 import { HttpRequest } from "./HttpRequest";
 import { authURLs } from "./URLs";
 
-export const SingIn = async (values: LoginValues): Promise<void> => {
-  try {
-    await new HttpRequest().Post(authURLs.singIn, values);
-  } catch (err) {
-    throw new Error(err);
-  }
+export const SingIn = (values: LoginValues): Promise<void> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await new HttpRequest().Post(authURLs.singIn, values);
+      resolve();
+    } catch {
+      reject();
+    }
+  });
 };

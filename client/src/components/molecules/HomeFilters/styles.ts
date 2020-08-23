@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "utils/responsiveTemplate";
 
 export const HomeFiltersContainer = styled.div`
   width: 100%;
@@ -9,4 +10,8 @@ export const HomeFiltersContainer = styled.div`
   max-width: 1200px;
   align-self: center;
   overflow: hidden;
+  @media ${device.mobile} {
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
 `;

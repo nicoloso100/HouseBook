@@ -2,13 +2,17 @@ import * as React from "react";
 import { FrameContent } from "assets/styles/styledComponents";
 import Header from "components/molecules/Header";
 import HomeTitle from "components/organisms/HomeTitle";
-import HomeFilters from "components/organisms/HomeFilters";
 import HomeInformation from "components/organisms/HomeInformation";
 import Footer from "components/molecules/Footer";
+import HomeFilters from "components/molecules/HomeFilters";
+import { useHistory } from "react-router-dom";
 
-const Home = () => {
+const Home: React.FC = () => {
+  let history = useHistory();
+
   const onFilter = (filters: IFilters) => {
     console.log(filters);
+    history.push("/main");
   };
 
   return (

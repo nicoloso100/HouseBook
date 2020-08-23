@@ -4,7 +4,7 @@ export const NavigationHeaderCont = styled.div`
   width: 100%;
   height: 75px;
   background-color: hsla(0, 0%, 0%, 0.26);
-  position: fixed;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: space-between;
