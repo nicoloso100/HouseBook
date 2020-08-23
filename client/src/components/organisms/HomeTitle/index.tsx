@@ -4,14 +4,27 @@ import {
   HomeTitleText,
   HomeSubTitle,
   HomeBackgroundImage,
+  HomeTitleCollapsedCont,
+  HomeBackgroundImageCollapsed,
 } from "./styles";
 
-const HomeTitle = () => {
-  return (
+interface HomeTitleProps {
+  collapsed?: boolean;
+}
+
+const HomeTitle: React.FC<HomeTitleProps> = ({ collapsed }) => {
+  return collapsed ? (
+    <HomeBackgroundImageCollapsed>
+      <HomeTitleCollapsedCont>
+        <HomeTitleText>House Book</HomeTitleText>
+        <HomeSubTitle space="10px">Busca tu inmueble...</HomeSubTitle>
+      </HomeTitleCollapsedCont>
+    </HomeBackgroundImageCollapsed>
+  ) : (
     <HomeBackgroundImage>
       <HomeTitleCont>
         <HomeTitleText>House Book</HomeTitleText>
-        <HomeSubTitle>Busca tu inmueble...</HomeSubTitle>
+        <HomeSubTitle space="0px">Busca tu inmueble...</HomeSubTitle>
       </HomeTitleCont>
     </HomeBackgroundImage>
   );

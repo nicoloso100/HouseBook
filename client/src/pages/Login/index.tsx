@@ -5,7 +5,7 @@ import LoginLogoCont from "components/molecules/LoginLogoCont";
 import LoginForm from "components/organisms/LoginForm";
 import { SingIn } from "actions/APICalls/authActions";
 
-const Login = () => {
+const Login: React.FC = () => {
   const onLogin = (values: LoginValues) => {
     SingIn(values).then(() => {
       console.log("autenticado");

@@ -86,3 +86,9 @@ body {
 .react-autosuggest__suggestion--highlighted {
   background-color: #ddd;
 }
+
+/* Reactstrap Paggination */
+
+.pagination {
+  margin: 0;
+}

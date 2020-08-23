@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "pages/Login";
+import Main from "pages/Main";
 
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
@@ -23,8 +24,15 @@ ReactDOM.render(
     <Router>
       <Switch>
         <Route exact path="/" render={redirectMainPath} />
-        <Route exact path="/home" render={Home} />
-        <Route exact path="/login" render={Login} />
+        <Route exact path="/home">
+          <Home />
+        </Route>
+        <Route exact path="/main">
+          <Main />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
       </Switch>
     </Router>
   </React.StrictMode>,

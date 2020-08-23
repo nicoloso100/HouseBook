@@ -22,7 +22,7 @@ const MySearchBar: React.FC<MySearchBarProps> = ({
       <Input
         {...inputProps}
         className="form-control-alternative"
-        placeholder="Search"
+        placeholder="Escriba para filtrar"
         type="text"
         value={value}
         onChange={onChange}
