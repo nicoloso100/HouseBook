@@ -1,11 +1,19 @@
 import { Router } from "express";
-import { singup, singin, profile } from "../controllers/authController";
 import { tokenValidation } from "../utils/auth/validateToken";
+import authController from "../controllers/authController";
 
-const router: Router = Router();
+class AuthRoutes {
+  public router: Router = Router();
 
-router.post("/singup", singup);
-router.post("/singin", singin);
-router.get("/profile", tokenValidation, profile);
+  constructor() {
+    this.setRoutes();
+  }
 
-export default router;
+  setRoutes(): void {
+    this.router.post("/singup", authController.singup);
+    this.router.post("/singin", authController.singin);
+    this.router.get("/profile", tokenValidation, authController.profile);
+  }
+}
+
+export default AuthRoutes;

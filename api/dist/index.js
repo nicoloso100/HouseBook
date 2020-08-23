@@ -5,16 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
-const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const errorHandlerMiddleware_1 = require("./middlewares/errorHandlerMiddleware");
 const generalRoutes_1 = __importDefault(require("./routes/generalRoutes"));
 const config_1 = require("./intraestructure/database/config");
 const cors_1 = __importDefault(require("cors"));
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 class Server {
     constructor() {
         this.port = 4000;
         this.app = express_1.default();
         this.generalRoutes = new generalRoutes_1.default();
+        this.authRoutes = new authRoutes_1.default();
         this.config();
     }
     config() {
@@ -29,7 +30,7 @@ class Server {
         this.middlewares();
     }
     routes() {
-        this.app.use("/api/auth", authRoutes_1.default);
+        this.app.use("/api/auth", this.authRoutes.router);
         this.app.use("/api/general", this.generalRoutes.router);
     }
     pages() {
@@ -50,3 +51,4 @@ class Server {
 }
 const server = new Server();
 server.start();
+//# sourceMappingURL=index.js.map

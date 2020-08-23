@@ -30,7 +30,7 @@ const userSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
 });
 userSchema.methods.encryptPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = yield bcryptjs_1.default.genSalt(10);
@@ -41,5 +41,5 @@ userSchema.methods.validatePassword = function (password) {
         return yield bcryptjs_1.default.compare(password, this.password);
     });
 };
-exports.default = mongoose_1.model('User', userSchema);
+exports.default = mongoose_1.model("User", userSchema);
 //# sourceMappingURL=User.js.map

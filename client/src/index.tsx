@@ -1,17 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./assets/styles/index.css";
-import App from "./pages/Home";
 import * as serviceWorker from "./serviceWorker";
-import Login from "./organisms/login/index2";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "pages/Login";
 
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
 import "assets/scss/argon-design-system-react.scss?v1.1.0";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
+const redirectMainPath = () => <Redirect to="/home" />;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Switch>
+        <Route exact path="/" render={redirectMainPath} />
+        <Route exact path="/home" render={Home} />
+        <Route exact path="/login" render={Login} />
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
