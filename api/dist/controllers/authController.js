@@ -17,14 +17,25 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const authRepository_1 = __importDefault(require("../intraestructure/repositories/authRepository"));
 const customAuthError_1 = require("../utils/errorHandler/customAuthError");
 class AuthController {
-    singup(req, res) {
+    singup(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
+            try { 
+                if (!req.body || !req.body.username || !req.body.email || !req.body.password ){
+                    next(new customAuthError_1.AuthError("Falta ingresar datos"));
+                }
                 const user = new User_1.default({
                     username: req.body.username,
                     email: req.body.email,
                     password: req.body.password,
                 });
+                const validateEmail = yield authRepository_1.default.userSingIn(user.email);
+                if (validateEmail){
+                    next(new customAuthError_1.AuthError("El correo electronico ingresado ya se encuentra registrado"));
+                } 
+                const validateUsername = yield authRepository_1.default.validateUsername(user.username);
+                if (validateUsername){
+                    next(new customAuthError_1.AuthError("El nombre de usuario ya se encuentra registrado"));
+                }                 
                 user.password = yield user.encryptPassword(user.password);
                 const savedUSer = yield user.save();
                 const token = jsonwebtoken_1.default.sign({ _id: savedUSer._id }, process.env.TOKEM_SECRET || "tokenTest");

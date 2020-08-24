@@ -2,12 +2,12 @@ import * as React from "react";
 import Header from "components/molecules/Header";
 import { RightContainer, LeftContainer, LoginContainer } from "./styles";
 import LoginLogoCont from "components/molecules/LoginLogoCont";
-import LoginForm from "components/organisms/LoginForm";
-import { SingIn } from "actions/APICalls/authActions";
+import RegisterUserForm from "components/organisms/RegisterUserForm";
+import { SingUp } from "actions/APICalls/authActions";
 
 const Login: React.FC = () => {
-  const onLogin = (values: LoginValues) => {
-    SingIn(values).then(() => {
+  const onRegisterUser = (values: registerUserValues) => {
+    SingUp(values).then(() => {
     });
   };
 
@@ -19,7 +19,7 @@ const Login: React.FC = () => {
           <LoginLogoCont />
         </LeftContainer>
         <RightContainer>
-          <LoginForm onLogin={onLogin} />
+          <RegisterUserForm onRegisterUser={onRegisterUser} />
         </RightContainer>
       </LoginContainer>
     </React.Fragment>
