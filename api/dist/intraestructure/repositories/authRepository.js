@@ -20,12 +20,6 @@ class AuthRepository {
             return user;
         });
     }
-    validateUsername(username){
-        return __awaiter(this, void 0, void 0, function* () {
-            const user = yield User_1.default.findOne({ username: username });
-            return user;
-        });
-    }
 }
 const authRepository = new AuthRepository();
 exports.default = authRepository;
