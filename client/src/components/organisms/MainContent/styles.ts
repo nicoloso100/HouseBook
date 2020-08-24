@@ -1,10 +1,14 @@
 import styled from "styled-components";
+import { device } from "utils/responsiveTemplate";
 
 export const MainContentCont = styled.div`
   flex: 1;
   display: flex;
   overflow: hidden;
   padding: 1%;
+  @media ${device.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const MainFilterPanel = styled.div`
@@ -35,6 +39,7 @@ export const MainFilterListCont = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   align-content: flex-start;
+  justify-content: space-evenly;
 `;
 export const MainFilterListPagination = styled.div`
   height: 50px;

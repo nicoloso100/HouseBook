@@ -78,4 +78,7 @@ export const HomeTitleCollapsedCont = styled.div`
   display: flex;
   flex-direction: row;
   align-items: baseline;
+  @media ${device.mobile} {
+    flex-direction: column;
+  }
 `;

@@ -15,7 +15,9 @@ import Main from "pages/Main";
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
 import "assets/scss/argon-design-system-react.scss?v1.1.0";
+import "assets/scss/argon-dashboard-react.scss";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import User from "pages/User";
 
 const redirectMainPath = () => <Redirect to="/home" />;
 
@@ -32,6 +34,9 @@ ReactDOM.render(
         </Route>
         <Route exact path="/login">
           <Login />
+        </Route>
+        <Route path="/user">
+          <User />
         </Route>
       </Switch>
     </Router>
