@@ -9,7 +9,7 @@ export const HomeInformationContainer = styled.div`
 `;
 
 export const HomeInfoLeftSide = styled.div`
-  flex: 1;
+  flex: 2;
   padding: 15px;
   min-width: 600px;
   display: flex;

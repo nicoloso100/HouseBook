@@ -26,14 +26,17 @@ const InformationCard: React.FC<InformationCardProps> = ({
 
   return (
     <InformationCardContainer>
-      <Card className="card-lift--hover shadow border-0">
+      <Card
+        style={{ height: "100%" }}
+        className="card-lift--hover shadow border-0"
+      >
         <CardBody className="py-5">
           <div
             className={`icon icon-shape icon-shape-${theme} rounded-circle mb-4`}
           >
             <i className="ni ni-check-bold" />
           </div>
-          <h6 className={`text-${theme} text-uppercase`}>{title}</h6>
+          <h4 className={`text-${theme} text-uppercase`}>{title}</h4>
           <p className="description mt-3">{text}</p>
           <div>
             {tags.map((text: string, index: number) => {

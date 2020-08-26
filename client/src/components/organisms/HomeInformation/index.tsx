@@ -19,18 +19,26 @@ const HomeInformation: React.FC<HomeInformationProps> = () => {
         </HomeInfoRightSideTitle>
         <HomeInfoLeftSideCardsCont>
           <InformationCard
-            theme="primary"
+            theme="warning"
             title="Prueba gratis"
-            text="Mediante las pruebas gratis tendrás acceso a crear las publicaciones que desees por un mes, luego de un mes tus publicaciones serán pausadas"
+            text="Mediante las pruebas gratis tendrás acceso a crear las publicaciones que desees por un mes."
             tags={["1 mes", "publicaciones"]}
             buttonText="COMENZAR"
             buttonAction={() => {}}
           />
           <InformationCard
+            theme="primary"
+            title="Plan básico"
+            text="Si te suscribes al plan básico podrás crear las publicaciones que desees por 4 meses, el costo de éste plan es $"
+            tags={["4 mes", "publicaciones"]}
+            buttonText="COMPRAR"
+            buttonAction={() => {}}
+          />
+          <InformationCard
             theme="success"
-            title="Plan ilimitado"
-            text="Si te suscribes al plan ilimitado podrás crear las publicaciones que desees y no tendrás límite de tiempo, el costo de éste plan es $"
-            tags={["ilimitado", "premium"]}
+            title="Plan premium"
+            text="Si te suscribes al plan premium podrás crear las publicaciones que desees por 12 meses, el costo de éste plan es $"
+            tags={["12 meses", "premium"]}
             buttonText="COMPRAR"
             buttonAction={() => {}}
           />
