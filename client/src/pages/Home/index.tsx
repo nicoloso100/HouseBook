@@ -12,7 +12,7 @@ const Home: React.FC = () => {
 
   const onFilter = (filters: IFilters) => {
     console.log(filters);
-    history.push("/main");
+    history.push({ pathname: "/main", state: { filters } });
   };
 
   return (

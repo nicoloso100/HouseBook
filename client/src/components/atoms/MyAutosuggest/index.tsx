@@ -16,13 +16,24 @@ const customInput = (inputProps: any) => (
 );
 
 interface MyAutosuggestProps {
+  defaultValue?: string;
   APIURL: string;
   onSelect: (text: string) => void;
 }
 
-const MyAutosuggest: React.FC<MyAutosuggestProps> = ({ APIURL, onSelect }) => {
+const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
+  defaultValue,
+  APIURL,
+  onSelect,
+}) => {
   const [value, setValue] = React.useState<any>("");
   const [suggestions, setSuggestions] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    if (defaultValue) {
+      setValue(defaultValue);
+    }
+  }, [defaultValue]);
 
   const onChange = (event: any, { newValue, method }: any) => {
     setValue(newValue);

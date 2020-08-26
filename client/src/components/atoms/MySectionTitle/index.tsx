@@ -5,7 +5,7 @@ interface MySectionTitlePros {
 }
 
 const MySectionTitle: React.FC<MySectionTitlePros> = ({ text }) => {
-  return <h6>{text}</h6>;
+  return <h5>{text}</h5>;
 };
 
 export default MySectionTitle;
