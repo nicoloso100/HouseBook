@@ -24,7 +24,12 @@ const information: IPropertyCard = {
     "https://image.shutterstock.com/image-photo/contemporary-residential-building-exterior-daylight-260nw-1658896948.jpg",
 };
 
-const MainContent = () => {
+interface MainContentProps {
+  defaultFilter: IFilters;
+  isEdit?: boolean;
+}
+
+const MainContent: React.FC<MainContentProps> = ({ defaultFilter, isEdit }) => {
   const onFilter = (filters: IFilters) => {
     console.log(filters);
   };
@@ -39,10 +44,17 @@ const MainContent = () => {
 
   return (
     <MainContentCont>
-      <MainFilterPanel>
-        <HomeCompleteFilters onFilter={onFilter} />
-      </MainFilterPanel>
-      <MainLineSeparator />
+      {!isEdit && (
+        <React.Fragment>
+          <MainFilterPanel>
+            <HomeCompleteFilters
+              defaultFilter={defaultFilter}
+              onFilter={onFilter}
+            />
+          </MainFilterPanel>
+          <MainLineSeparator />
+        </React.Fragment>
+      )}
       <MainFilterList>
         <MainFilterListCont>
           <PropertyCard

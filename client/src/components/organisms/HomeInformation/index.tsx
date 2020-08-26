@@ -14,7 +14,7 @@ const HomeInformation: React.FC<HomeInformationProps> = () => {
   return (
     <HomeInformationContainer>
       <HomeInfoLeftSide>
-        <HomeInfoRightSideTitle className="h4">
+        <HomeInfoRightSideTitle className="display-4">
           ¿Quieres publicar tu inmueble?
         </HomeInfoRightSideTitle>
         <HomeInfoLeftSideCardsCont>
@@ -30,17 +30,17 @@ const HomeInformation: React.FC<HomeInformationProps> = () => {
             theme="success"
             title="Plan ilimitado"
             text="Si te suscribes al plan ilimitado podrás crear las publicaciones que desees y no tendrás límite de tiempo, el costo de éste plan es $"
-            tags={["1 mes", "publicaciones"]}
+            tags={["ilimitado", "premium"]}
             buttonText="COMPRAR"
             buttonAction={() => {}}
           />
         </HomeInfoLeftSideCardsCont>
       </HomeInfoLeftSide>
       <HomeInfoRightSide>
-        <HomeInfoRightSideTitle className="h5">
+        <HomeInfoRightSideTitle className="display-4">
           ¿Quiénes somos?
         </HomeInfoRightSideTitle>
-        <p className="h6">
+        <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting
           industry. Lorem Ipsum has been the industry's standard dummy text ever
           since the 1500s, when an unknown printer took a galley of type and

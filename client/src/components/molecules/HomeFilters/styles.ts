@@ -11,7 +11,7 @@ export const HomeFiltersContainer = styled.div`
   align-self: center;
   overflow: hidden;
   @media ${device.mobile} {
-    flex-direction: column;
+    flex-direction: column-reverse;
     padding-bottom: 20px;
   }
 `;

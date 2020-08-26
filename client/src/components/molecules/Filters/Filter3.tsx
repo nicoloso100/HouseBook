@@ -23,7 +23,11 @@ const Filter3: React.FC<Filter3Props> = ({ filter3, setFilter3, onSearch }) => {
     <FilterCont customFlex={2}>
       <MySectionTitle text="¿EN QUÉ CIUDAD BUSCA SU INMUEBLE?" />
       <FilterSearchContainer>
-        <MyAutosuggest APIURL={generalURLs.getCities} onSelect={setCiudad} />
+        <MyAutosuggest
+          defaultValue={filter3.ciudad}
+          APIURL={generalURLs.getCities}
+          onSelect={setCiudad}
+        />
         <FilterSearchContainerSpacer />
         <MyButton onClick={onSearch} text="Buscar" />
       </FilterSearchContainer>

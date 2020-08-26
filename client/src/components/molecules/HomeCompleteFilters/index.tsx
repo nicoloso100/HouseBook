@@ -6,11 +6,19 @@ import Filter3 from "components/molecules/Filters/Filter3";
 import { defaultFilters } from "constants/filterConstants";
 
 interface HomeFiltersProps {
+  defaultFilter: IFilters;
   onFilter: (fitlers: IFilters) => void;
 }
 
-const HomeCompleteFilters: React.FC<HomeFiltersProps> = ({ onFilter }) => {
+const HomeCompleteFilters: React.FC<HomeFiltersProps> = ({
+  onFilter,
+  defaultFilter,
+}) => {
   const [filter, setFilter] = React.useState<IFilters>(defaultFilters);
+
+  React.useEffect(() => {
+    setFilter(defaultFilter);
+  }, [defaultFilter]);
 
   const setOnFilter = () => {
     onFilter(filter);

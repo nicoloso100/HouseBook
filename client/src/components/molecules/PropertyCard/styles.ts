@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "utils/responsiveTemplate";
 
 export const PropertyCardSpace = styled.div`
   padding: 10px;
@@ -7,6 +8,11 @@ export const PropertyCardSpace = styled.div`
   min-width: 430px;
   max-width: 700px;
   display: flex;
+  @media ${device.mobile} {
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+  }
 `;
 
 export const PropertyCardCont = styled.div`
