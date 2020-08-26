@@ -38,6 +38,7 @@ ReactDOM.render(
         </Route>
         <Route exact path="/RegisterUser">
           <RegisterUser />
+        </Route>
         <Route path="/user">
           <User />
         </Route>
