@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { HandledError } from "../utils/errorHandler/customError";
+import { AuthError } from "../utils/errorHandler/customAuthError";
 
 interface IError {
   error: string;
@@ -11,11 +12,17 @@ export const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(err)
   if (err instanceof HandledError) {
     const newError: IError = {
       error: err.message,
     };
     res.status(400).json(newError);
+  } if (err instanceof AuthError) {
+    const newError: IError = {
+      error: err.message,
+    };
+    res.status(401).json(newError);
   } else {
     const newError: IError = {
       error:

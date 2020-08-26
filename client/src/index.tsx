@@ -11,6 +11,7 @@ import {
 import Home from "./pages/Home";
 import Login from "pages/Login";
 import Main from "pages/Main";
+import RegisterUser from "pages/RegisterUser";
 
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
@@ -34,6 +35,9 @@ ReactDOM.render(
         </Route>
         <Route exact path="/login">
           <Login />
+        </Route>
+        <Route exact path="/RegisterUser">
+          <RegisterUser />
         </Route>
         <Route path="/user">
           <User />
