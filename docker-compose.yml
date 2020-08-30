@@ -1,5 +1,8 @@
 version: "3.4"
 
+volumes:
+  HouseBookDB:
+
 services:
   mongo:
     image: mongo
