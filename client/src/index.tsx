@@ -2,12 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./assets/styles/index.css";
 import * as serviceWorker from "./serviceWorker";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Route, Redirect, HashRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "pages/Login";
 import Main from "pages/Main";
@@ -24,7 +19,7 @@ const redirectMainPath = () => <Redirect to="/home" />;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <HashRouter>
       <Switch>
         <Route exact path="/" render={redirectMainPath} />
         <Route exact path="/home">
@@ -43,7 +38,7 @@ ReactDOM.render(
           <User />
         </Route>
       </Switch>
-    </Router>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );
