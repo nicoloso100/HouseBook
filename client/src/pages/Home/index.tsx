@@ -1,12 +1,18 @@
 import * as React from "react";
 import { FrameContent } from "assets/styles/styledComponents";
-import Header from "molecules/Header";
-import HomeTitle from "organisms/HomeTitle";
-import HomeFilters from "organisms/HomeFilters";
+import Header from "components/molecules/Header";
+import HomeTitle from "components/organisms/HomeTitle";
+import HomeInformation from "components/organisms/HomeInformation";
+import Footer from "components/molecules/Footer";
+import HomeFilters from "components/molecules/HomeFilters";
+import { useHistory } from "react-router-dom";
 
-const Home = () => {
+const Home: React.FC = () => {
+  let history = useHistory();
+
   const onFilter = (filters: IFilters) => {
     console.log(filters);
+    history.push({ pathname: "/main", state: { filters } });
   };
 
   return (
@@ -16,7 +22,10 @@ const Home = () => {
         <HomeTitle />
         <HomeFilters onFilter={onFilter} />
       </FrameContent>
-      <FrameContent></FrameContent>
+      <FrameContent>
+        <HomeInformation />
+        <Footer />
+      </FrameContent>
     </React.Fragment>
   );
 };
