@@ -14,6 +14,9 @@ const User: React.FC = () => {
           <Route exact path="/user/index">
             <MyPosts />
           </Route>
+          <Route path="/user/create">
+            <h3>Please select a topic. 1</h3>
+          </Route>
           <Route path="/user/edit">
             <h3>Please select a topic 2.</h3>
           </Route>

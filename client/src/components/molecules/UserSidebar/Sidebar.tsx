@@ -96,6 +96,17 @@ const UserSidebar: React.FC = () => {
             </NavItem>
             <NavItem>
               <NavLink
+                to={"/user/create"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+                activeClassName="active"
+              >
+                <i className="fa fa-file text-success" />
+                Crear publicaciones
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
                 to={"/user/edit"}
                 tag={NavLinkRRD}
                 onClick={closeCollapse}
