@@ -1,6 +1,5 @@
 import dotenv from "dotenv";
 import express, { Application } from "express";
-import authRoutes from "./routes/authRoutes";
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
 import GeneralRoutes from "./routes/generalRoutes";
 import { StartDatabase } from "./intraestructure/database/config";
