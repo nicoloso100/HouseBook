@@ -34,6 +34,6 @@ RUN npm install --quiet
 # Copia el api
 COPY api/ .
 
-# Expone la aplicación en el puerto 3000
-EXPOSE 3000
+# Expone la aplicación en el puerto 4000
+EXPOSE 4000
 CMD npm run deploy
