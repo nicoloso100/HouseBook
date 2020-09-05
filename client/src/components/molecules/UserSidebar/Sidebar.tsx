@@ -13,8 +13,6 @@ import {
   NavLink,
   Nav,
   Container,
-  Row,
-  Col,
 } from "reactstrap";
 import { SidebarLogoCont, SidebarLogoTitle } from "./styles";
 import Logo from "components/atoms/Logo/Logo";
