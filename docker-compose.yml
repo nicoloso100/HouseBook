@@ -1,8 +1,7 @@
 version: "3.4"
 
 volumes:
-  HouseBookVolume:
-    name: HouseBookVolume
+  HouseBookDB:
 
 services:
   mongo:
@@ -14,9 +13,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - HouseBookVolume:/data/db
-    environment:
-      - MONGODB=mongodb://root:HouseBook123@mongo:27017/HouseBook?authSource=admin
+      - HouseBookDB:/data/db
 
   housebook:
     image: nicoloso100/housebook:latest
@@ -26,3 +23,5 @@ services:
       - "80:4000"
     links:
       - mongo
+    environment:
+      - MONGODB=mongodb://root:HouseBook123@mongo:27017/HouseBook?authSource=admin
