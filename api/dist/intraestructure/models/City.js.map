@@ -1,1 +1,0 @@
-{"version":3,"file":"City.js","sourceRoot":"","sources":["../../../src/intraestructure/models/City.ts"],"names":[],"mappings":";;AAAA,uCAAmD;AAInD,MAAM,UAAU,GAAG,IAAI,iBAAM,CAAC;IAC5B,MAAM,EAAE,MAAM;IACd,sBAAsB,EAAE,MAAM;IAC9B,YAAY,EAAE,MAAM;IACpB,mBAAmB,EAAE,MAAM;IAC3B,SAAS,EAAE,MAAM;CAClB,CAAC,CAAC;AAEH,MAAM,SAAS,GAAG,gBAAK,CAAa,QAAQ,EAAE,UAAU,CAAC,CAAC;AAC1D,kBAAe,SAAS,CAAC"}
