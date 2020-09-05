@@ -10,8 +10,7 @@ import RegisterUser from "pages/RegisterUser";
 import "./assets/styles/index.css";
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
-//import "assets/scss/argon-design-system-react.scss?v1.1.0";
-import "assets/scss/argon-dashboard-react.scss";
+import "assets/styles/argon-dashboard-react.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import User from "pages/User";
 
