@@ -1,8 +1,7 @@
 version: "3.4"
 
 volumes:
-  HouseBookVolume:
-    name: HouseBookVolume
+  HouseBookDB:
 
 services:
   mongo:
@@ -14,7 +13,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - HouseBookVolume:/data/db
+      - HouseBookDB:/data/db
 
   housebook:
     image: nicoloso100/housebook:latest
