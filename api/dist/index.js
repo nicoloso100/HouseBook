@@ -34,10 +34,10 @@ class Server {
         this.app.use("/api/general", this.generalRoutes.router);
     }
     pages() {
-        this.app.get("/", (req, res) => {
+        this.app.get("/checkapi", (req, res) => {
             res.send("El API está funcionando!");
         });
-        this.app.use("/app", express_1.default.static("../client/build"));
+        this.app.use("/", express_1.default.static("../client/build"));
         this.app.use("/static", express_1.default.static("../client/build/static"));
     }
     middlewares() {
