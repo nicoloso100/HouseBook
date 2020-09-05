@@ -198,7 +198,7 @@ a {
   -webkit-text-decoration-skip: objects;
 }
 a:hover {
-  color: #233dd2;
+  color: #f5d960;
   text-decoration: none;
 }
 
@@ -2321,7 +2321,7 @@ fieldset:disabled a.btn {
 .btn-primary:not(:disabled):not(.disabled).active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #324cdd;
+  background-color: #f2ce39;
   border-color: #f2ce39;
 }
 .btn-primary:not(:disabled):not(.disabled):active:focus,
@@ -3117,7 +3117,7 @@ fieldset:disabled a.btn {
   background-color: transparent;
 }
 .btn-link:hover {
-  color: #233dd2;
+  color: #f5d960;
   text-decoration: none;
   background-color: transparent;
   border-color: transparent;
@@ -4897,7 +4897,7 @@ input[type="button"].btn-block {
 .badge-primary[href]:focus {
   color: #fff;
   text-decoration: none;
-  background-color: #324cdd;
+  background-color: #f2ce39;
 }
 
 .badge-secondary {
@@ -5075,7 +5075,7 @@ input[type="button"].btn-block {
   border-top-color: #6276e4;
 }
 .alert-primary .alert-link {
-  color: #324cdd;
+  color: #f2ce39;
 }
 
 .alert-secondary {
@@ -6243,7 +6243,7 @@ a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-  background-color: #324cdd !important;
+  background-color: #f2ce39 !important;
 }
 
 .bg-secondary {
@@ -11507,7 +11507,7 @@ button.bg-darker:focus {
 
 a.text-primary:hover,
 a.text-primary:focus {
-  color: #324cdd !important;
+  color: #f2ce39 !important;
 }
 
 .text-secondary {
@@ -11742,7 +11742,7 @@ a.bg-blue:hover,
 a.bg-blue:focus,
 button.bg-blue:hover,
 button.bg-blue:focus {
-  background-color: #324cdd !important;
+  background-color: #f2ce39 !important;
 }
 
 .bg-indigo {
@@ -12986,7 +12986,7 @@ button.section-darker:focus {
 
 a.text-blue:hover,
 a.text-blue:focus {
-  color: #324cdd !important;
+  color: #f2ce39 !important;
 }
 
 .text-indigo {
@@ -14423,9 +14423,6 @@ textarea[resize="horizontal"] {
 .icon-xl svg {
   font-size: 4.25rem;
 }
-.icon-xl + .icon-text {
-  width: calc(100% - $icon-size-xl - 1);
-}
 
 .icon-lg {
   width: 4rem;
@@ -14435,9 +14432,6 @@ textarea[resize="horizontal"] {
 .icon-lg svg {
   font-size: 3.25rem;
 }
-.icon-lg + .icon-text {
-  width: calc(100% - $icon-size-lg - 1);
-}
 
 .icon-sm {
   width: 2rem;
@@ -14446,9 +14440,6 @@ textarea[resize="horizontal"] {
 .icon-sm i,
 .icon-sm svg {
   font-size: 1.25rem;
-}
-.icon-sm + .icon-text {
-  width: calc(100% - $icon-size-sm - 1);
 }
 
 .icon-shape {
@@ -15844,10 +15835,15 @@ textarea[resize="horizontal"] {
     transform: rotate(-135deg);
   }
   .navbar-collapse .navbar-collapse-header {
-    display: block;
+    display: flex;
+    justify-items: center;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .navbar-collapse .navbar-collapse-header-text {
+    flex: 1;
+    text-align: center;
   }
   .navbar-collapse .collapse-brand img {
     height: 36px;
@@ -16684,7 +16680,7 @@ article h5 + figure {
 .datepicker table tr td.range.disabled,
 .datepicker table tr td.range.disabled:active,
 .datepicker table tr td.range.day.disabled:hover {
-  background: #324cdd;
+  background: #f2ce39;
   color: #8a98eb;
 }
 .datepicker table tr td.range.highlighted.focused {
@@ -17401,7 +17397,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 }
 .btn-clipboard:hover {
   color: #fff;
-  background-color: #324cdd;
+  background-color: #f2ce39;
 }
 
 @media (min-width: 768px) {
