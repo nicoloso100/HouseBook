@@ -13,9 +13,6 @@ import {
   NavLink,
   Nav,
   Container,
-  Row,
-  Col,
-  NavbarBrand,
 } from "reactstrap";
 import { SidebarLogoCont, SidebarLogoTitle } from "./styles";
 import Logo from "components/atoms/Logo/Logo";
@@ -54,12 +51,15 @@ const UserSidebar: React.FC = () => {
             <DropdownToggle nav>
               <Media className="align-items-center">
                 <span className="avatar avatar-sm rounded-circle">
-                  <img src={UserImage} />
+                  <img alt="..." src={UserImage} />
                 </span>
               </Media>
             </DropdownToggle>
             <DropdownMenu className="dropdown-menu-arrow" right>
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+              <DropdownItem className="noti-title" header tag="div">
+                <h6 className="text-overflow m-0">Hola!</h6>
+              </DropdownItem>
+              <DropdownItem to="/admin/user-profile">
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
               </DropdownItem>
@@ -68,19 +68,17 @@ const UserSidebar: React.FC = () => {
         </Nav>
         <Collapse navbar isOpen={collapseOpen}>
           <div className="navbar-collapse-header d-md-none">
-            <Row>
-              <img src={UserImage} />
-              <Col className="collapse-close" xs="6">
-                <button
-                  className="navbar-toggler"
-                  type="button"
-                  onClick={toggleCollapse}
-                >
-                  <span />
-                  <span />
-                </button>
-              </Col>
-            </Row>
+            <button
+              className="navbar-toggler"
+              type="button"
+              onClick={toggleCollapse}
+            >
+              <span />
+              <span />
+            </button>
+            <div className="navbar-collapse-header-text">
+              <h3>¿Qué deseas hacer?</h3>
+            </div>
           </div>
           <Nav navbar>
             <NavItem>
@@ -92,6 +90,17 @@ const UserSidebar: React.FC = () => {
               >
                 <i className="fa fa-list text-info" />
                 Mis publicaciones
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                to={"/user/create"}
+                tag={NavLinkRRD}
+                onClick={closeCollapse}
+                activeClassName="active"
+              >
+                <i className="fa fa-file text-success" />
+                Crear publicaciones
               </NavLink>
             </NavItem>
             <NavItem>
