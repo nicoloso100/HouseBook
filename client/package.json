@@ -7,7 +7,6 @@
     "classnames": "^2.2.6",
     "module-alias": "^2.2.2",
     "moment": "^2.27.0",
-    "node-sass": "^4.14.1",
     "nouislider": "^14.6.1",
     "react": "^16.13.1",
     "react-autosuggest": "^10.0.2",

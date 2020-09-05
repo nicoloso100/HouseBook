@@ -1,14 +1,5 @@
 import * as React from "react";
-import { defaultFilters } from "constants/filterConstants";
 import {
-  Navbar,
-  Container,
-  Form,
-  FormGroup,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  Input,
   Nav,
   UncontrolledDropdown,
   DropdownToggle,
@@ -52,6 +43,9 @@ const UserNavbar: React.FC = () => {
                 </Media>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
+                <DropdownItem className="noti-title" header tag="div">
+                  <h6 className="text-overflow m-0">Hola!</h6>
+                </DropdownItem>
                 <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
                   <i className="ni ni-user-run" />
                   <span>Logout</span>

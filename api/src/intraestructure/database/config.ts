@@ -23,5 +23,9 @@ export const StartDatabase = () => {
         });
       console.log("Se ha conectado satisfactoriamente con la base de datos.");
     })
-    .catch(() => console.log("No se ha podido iniciar la base de datos."));
+    .catch((e) =>
+      console.log(
+        `No se ha podido iniciar la base de datos.\n\n ${e} \n\nCadena de conexión:${mongoConfig.database}`
+      )
+    );
 };

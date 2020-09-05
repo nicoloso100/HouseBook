@@ -6,8 +6,7 @@
   "scripts": {
     "startdb": "cd .. && docker-compose -f docker-compose-dev.yml up && cd ./api/",
     "start": "concurrently \"tsc -w\" \"nodemon dist/index.js\"",
-    "deploy": "node dist/index.js",
-    "test": "ttsc && babel dist -d dist"
+    "deploy": "tsc && node dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +28,7 @@
     "@types/express": "^4.17.7",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.7.36",
+    "@types/node": "^14.6.4",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.4",
     "ttypescript": "^1.5.10"

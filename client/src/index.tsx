@@ -1,22 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./assets/styles/index.css";
 import * as serviceWorker from "./serviceWorker";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
+import { Switch, Route, Redirect, HashRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "pages/Login";
 import Main from "pages/Main";
 import RegisterUser from "pages/RegisterUser";
 
+import "./assets/styles/index.css";
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
-import "assets/scss/argon-design-system-react.scss?v1.1.0";
-import "assets/scss/argon-dashboard-react.scss";
+import "assets/styles/argon-dashboard-react.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import User from "pages/User";
 
@@ -24,7 +18,7 @@ const redirectMainPath = () => <Redirect to="/home" />;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
+    <HashRouter>
       <Switch>
         <Route exact path="/" render={redirectMainPath} />
         <Route exact path="/home">
@@ -43,7 +37,7 @@ ReactDOM.render(
           <User />
         </Route>
       </Switch>
-    </Router>
+    </HashRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

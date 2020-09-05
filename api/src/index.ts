@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+dotenv.config();
+
 import express, { Application } from "express";
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
 import GeneralRoutes from "./routes/generalRoutes";
@@ -23,7 +25,6 @@ class Server {
   }
 
   config(): void {
-    dotenv.config();
     this.app.use(express.json());
     this.app.use(
       cors({
@@ -43,10 +44,10 @@ class Server {
   }
 
   pages(): void {
-    this.app.get("/", (req, res) => {
+    this.app.get("/checkapi", (req, res) => {
       res.send("El API está funcionando!");
     });
-    this.app.use("/app", express.static("../client/build"));
+    this.app.use("/", express.static("../client/build"));
     this.app.use("/static", express.static("../client/build/static"));
   }
 

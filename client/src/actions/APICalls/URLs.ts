@@ -1,5 +1,6 @@
-//export const baseURL = "http://localhost:4000/api/";
-export const baseURL = "http://192.168.0.19:4000/api/";
+import { IsDevelopment } from "utils/environment";
+
+export const baseURL = IsDevelopment ? "http://localhost:4000/api/" : "/api/";
 
 export const authURLs = {
   singIn: `${baseURL}auth/singin`,
