@@ -1,4 +1,6 @@
 import dotenv from "dotenv";
+dotenv.config();
+
 import express, { Application } from "express";
 import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
 import GeneralRoutes from "./routes/generalRoutes";
@@ -20,7 +22,6 @@ class Server {
   }
 
   config(): void {
-    dotenv.config();
     this.app.use(express.json());
     this.app.use(
       cors({
