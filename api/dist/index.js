@@ -10,12 +10,14 @@ const generalRoutes_1 = __importDefault(require("./routes/generalRoutes"));
 const config_1 = require("./intraestructure/database/config");
 const cors_1 = __importDefault(require("cors"));
 const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
+const publicationRoutes_1 = __importDefault(require("./routes/publicationRoutes"));
 class Server {
     constructor() {
         this.port = 4000;
         this.app = express_1.default();
         this.generalRoutes = new generalRoutes_1.default();
         this.authRoutes = new authRoutes_1.default();
+        this.publicationRoutes = new publicationRoutes_1.default();
         this.config();
     }
     config() {
@@ -32,6 +34,7 @@ class Server {
     routes() {
         this.app.use("/api/auth", this.authRoutes.router);
         this.app.use("/api/general", this.generalRoutes.router);
+        this.app.use("/api/publication", this.publicationRoutes.router);
     }
     pages() {
         this.app.get("/", (req, res) => {
