@@ -1,1 +1,0 @@
-{"version":3,"file":"generalRoutes.js","sourceRoot":"","sources":["../../src/routes/generalRoutes.ts"],"names":[],"mappings":";;;;;AAAA,qCAAiC;AACjC,yFAAiE;AAEjE,MAAM,aAAa;IAGjB;QAFO,WAAM,GAAW,gBAAM,EAAE,CAAC;QAG/B,IAAI,CAAC,SAAS,EAAE,CAAC;IACnB,CAAC;IAED,SAAS;QACP,IAAI,CAAC,MAAM,CAAC,GAAG,CAAC,YAAY,EAAE,2BAAiB,CAAC,SAAS,CAAC,CAAC;IAC7D,CAAC;CACF;AAED,kBAAe,aAAa,CAAC"}
