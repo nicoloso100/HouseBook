@@ -15,6 +15,7 @@ class PublicationRepository {
       publication.stratum = data.stratum;
       publication.build_time = data.build_time;
       publication.type_of_housing = data.type_of_housing;
+      publication.property_type_id = data.property_type_id;
       publication.description = data.description;
       publication.created_at = new Date;
       publication.save();
@@ -35,12 +36,45 @@ class PublicationRepository {
     try {
       const publications = await PublicationModel.find({_id: _id});
       if (publications.length > 0){
-        return {status: true, message: "Publicación encontrada", data: publications}; 
+        return publications; 
       } else{
-        return {status: false, message: "No se encuentra la publicación", data: []}; 
+        return "No se encuentra la publicación"; 
       }
     } catch (error) {
-      return {status: false, message: "No se encuentra la publicación", data: error};
+      return error;
+    }
+  }
+  async getPublicationByUser(user_id: any) {
+    try {
+      const publications = await PublicationModel.find({user_id: user_id});
+      if (publications.length > 0){
+        return publications; 
+      } else{
+        return "No se encuentra la publicación"; 
+      }
+    } catch (error) {
+      return error;
+    }
+  }
+  async getPublicationByFilters(type_of_housing: object,  property_type_id: object) {
+    try {
+      let query: any = {};
+      if (Object.keys(type_of_housing).length > 0 && Object.keys(property_type_id).length > 0){
+        query = {type_of_housing, property_type_id};
+      }else if (Object.keys(type_of_housing).length > 0 ){
+        query = {type_of_housing: type_of_housing};
+      } else if (Object.keys(property_type_id).length > 0 ){
+        query = {property_type_id: property_type_id}
+      }
+      query = {type_of_housing: type_of_housing};
+      const publications = await PublicationModel.find(query);
+      if (publications.length > 0){
+        return publications; 
+      } else{
+        return "No se encuentra la publicación"; 
+      }
+    } catch (error) {
+      return error;
     }
   }
   async getPublicationsByType(type: number, search: string) {

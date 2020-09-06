@@ -15,6 +15,8 @@ class PublicationRoutes {
         this.router.get("/getPublications/:id", publicationController_1.default.getPublicationsById);
         this.router.post("/createPublication", publicationController_1.default.createPublication);
         this.router.post("/getPublicationsByType", publicationController_1.default.getPublicationsByType);
+        this.router.post("/getPublicationsByUser", publicationController_1.default.getPublicationsByUser);
+        this.router.post("/getPublicationsByFilters", publicationController_1.default.getPublicationsByFilters);
         this.router.get("/deletePublication/:id", publicationController_1.default.deletePublicationById);
     }
 }
