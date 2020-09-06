@@ -12,6 +12,7 @@ declare interface IPublication {
     stratum: number,
     build_time: number,
     type_of_housing: number,
+    property_type_id: objectId,
     description: string,
     images: object,
     created_at: Date,

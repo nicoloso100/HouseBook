@@ -30,6 +30,7 @@ class PublicationRepository {
                 publication.stratum = data.stratum;
                 publication.build_time = data.build_time;
                 publication.type_of_housing = data.type_of_housing;
+                publication.property_type_id = data.property_type_id;
                 publication.description = data.description;
                 publication.created_at = new Date;
                 publication.save();
@@ -56,14 +57,57 @@ class PublicationRepository {
             try {
                 const publications = yield Publications_1.default.find({ _id: _id });
                 if (publications.length > 0) {
-                    return { status: true, message: "Publicación encontrada", data: publications };
+                    return publications;
                 }
                 else {
-                    return { status: false, message: "No se encuentra la publicación", data: [] };
+                    return "No se encuentra la publicación";
                 }
             }
             catch (error) {
-                return { status: false, message: "No se encuentra la publicación", data: error };
+                return error;
+            }
+        });
+    }
+    getPublicationByUser(user_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const publications = yield Publications_1.default.find({ user_id: user_id });
+                if (publications.length > 0) {
+                    return publications;
+                }
+                else {
+                    return "No se encuentra la publicación";
+                }
+            }
+            catch (error) {
+                return error;
+            }
+        });
+    }
+    getPublicationByFilters(type_of_housing, property_type_id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let query = {};
+                if (Object.keys(type_of_housing).length > 0 && Object.keys(property_type_id).length > 0) {
+                    query = { type_of_housing, property_type_id };
+                }
+                else if (Object.keys(type_of_housing).length > 0) {
+                    query = { type_of_housing: type_of_housing };
+                }
+                else if (Object.keys(property_type_id).length > 0) {
+                    query = { property_type_id: property_type_id };
+                }
+                query = { type_of_housing: type_of_housing };
+                const publications = yield Publications_1.default.find(query);
+                if (publications.length > 0) {
+                    return publications;
+                }
+                else {
+                    return "No se encuentra la publicación";
+                }
+            }
+            catch (error) {
+                return error;
             }
         });
     }

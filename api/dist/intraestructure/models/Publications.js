@@ -15,6 +15,7 @@ const publicationSchema = new mongoose_1.Schema({
     stratum: Number,
     build_time: Number,
     type_of_housing: Number,
+    property_type_id: mongoose_1.mongo.ObjectID,
     description: String,
     created_at: Date,
 });

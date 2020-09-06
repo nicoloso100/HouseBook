@@ -42,6 +42,33 @@ class PublicationController {
       next(new HandledError("No se ha podido obtener la publicacion que buscas."));
     }
   }
+  public async getPublicationsByUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const user_id: any = req.body.user_id;
+      const publications = await publicationRepository.getPublicationByUser(user_id);
+      res.json(publications);
+    } catch {
+      next(new HandledError("Error al consultar publicaciones del usuario."));
+    }
+  }
+  public async getPublicationsByFilters(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const type_of_housing: object = req.body.type_of_housing;
+      const property_type_id: object = req.body.property_type_id;
+      const publications = await publicationRepository.getPublicationByFilters(type_of_housing, property_type_id);
+      res.json(publications);
+    } catch {
+      next(new HandledError("Error al consultar publicaciones del usuario."));
+    }
+  }
   public async getPublicationsByType(
     req: Request,
     res: Response,
