@@ -1,4 +1,4 @@
-declare interface IPublication {
+declare interface IPost {
   user_id: string;
   title: string;
   price: number;
@@ -16,5 +16,4 @@ declare interface IPublication {
   type_of_housing: string;
   type_of_sale: string;
   images: object;
-  created_at: Date;
 }

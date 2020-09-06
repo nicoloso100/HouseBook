@@ -15,7 +15,7 @@ import MyModal from "components/atoms/MyModal";
 import MainContactCard from "components/molecules/MainContactCard";
 import MainContentContext from "states/context/mainContentContext";
 
-const information: IPropertyCard = {
+const information: ITypesCard = {
   _id: "asdasfascascascs",
   type: "Arriendo",
   property: "apartamento",

@@ -1,17 +1,6 @@
-declare interface IFilter1 {
-  venta: boolean;
-  arriendo: boolean;
-}
+declare interface IFilter1 extends ISaleType {}
 
-declare interface IFilter2 {
-  casas: boolean;
-  apartamentos: boolean;
-  oficinas: boolean;
-  bodegas: boolean;
-  locales: boolean;
-  fincas: boolean;
-  otros: boolean;
-}
+declare interface IFilter2 extends IProperties {}
 
 declare interface IFilter3 {
   ciudad: string;

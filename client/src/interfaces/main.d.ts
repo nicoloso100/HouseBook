@@ -1,4 +1,4 @@
-declare interface IPropertyCard {
+declare interface ITypesCard {
   _id: string;
   type: string;
   property: string;

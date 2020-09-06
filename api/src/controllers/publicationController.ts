@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, json } from "express";
 import { HandledError } from "../utils/errorHandler/customError";
-import publicationRepository from "../intraestructure/repositories/publicationRepository"
+import publicationRepository from "../intraestructure/repositories/publicationRepository";
 
 class PublicationController {
   public async createPublication(
@@ -9,11 +9,13 @@ class PublicationController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const data = req.body
-      const publication = await publicationRepository.createPublication(data as IPublication);
+      const data = req.body;
+      const publication = await publicationRepository.createPublication(
+        data as IPublication
+      );
       res.json(publication);
-    } catch(err) {
-      console.log(err)
+    } catch (err) {
+      console.log(err);
       next(new HandledError("No se ha podido crear la publicación."));
     }
   }
@@ -26,7 +28,9 @@ class PublicationController {
       const publications = await publicationRepository.getPublications();
       res.json(publications);
     } catch {
-      next(new HandledError("No se ha podido obtener la lista de publicaciones."));
+      next(
+        new HandledError("No se ha podido obtener la lista de publicaciones.")
+      );
     }
   }
   public async getPublicationsById(
@@ -39,7 +43,9 @@ class PublicationController {
       const publications = await publicationRepository.getPublicationById(id);
       res.json(publications);
     } catch {
-      next(new HandledError("No se ha podido obtener la publicacion que buscas."));
+      next(
+        new HandledError("No se ha podido obtener la publicacion que buscas.")
+      );
     }
   }
   public async getPublicationsByType(
@@ -48,12 +54,19 @@ class PublicationController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const type:number = req.body.type;
-      const search:string = req.body.search;
-      const publications = await publicationRepository.getPublicationsByType(type, search);
+      const type: number = req.body.type;
+      const search: string = req.body.search;
+      const publications = await publicationRepository.getPublicationsByType(
+        type,
+        search
+      );
       res.json(publications);
     } catch {
-      next(new HandledError("No se ha podido obtener las publicaciones por el tipo de busqueda."));
+      next(
+        new HandledError(
+          "No se ha podido obtener las publicaciones por el tipo de busqueda."
+        )
+      );
     }
   }
   public async deletePublicationById(
@@ -68,7 +81,7 @@ class PublicationController {
     } catch {
       next(new HandledError("No se ha podido eliminar la publicación."));
     }
-  }  
+  }
 }
 
 const publicationController = new PublicationController();

@@ -1,38 +1,206 @@
 import * as React from "react";
-import {
-  Form,
-  Row,
-  Col,
-  FormGroup,
-  Input,
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-} from "reactstrap";
+import { Form, Row, Col, FormGroup, Input, Button } from "reactstrap";
 import { FormContainer } from "./styles";
+import NumberFormat from "react-number-format";
+import MyAutosuggest from "components/atoms/MyAutosuggest";
+import { generalURLs } from "actions/APICalls/URLs";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { SALE_TYPE, PROPERTIES } from "constants/propertiesConstants";
+import { useToasts } from "react-toast-notifications";
+import { useHistory } from "react-router-dom";
 
-const CreatePostForm: React.FC = () => {
+interface CreatePostFormProps {
+  onCreatePost: (post: IPost) => Promise<void> | undefined;
+}
+
+const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
+  const salesTypes = SALE_TYPE as any;
+  const propertiesList = PROPERTIES as any;
+  const { register, handleSubmit, setValue } = useForm<IPost>();
+
+  const { addToast } = useToasts();
+  const history = useHistory();
+
+  const onSubmit: SubmitHandler<IPost> = (data) => {
+    if (onCreatePost) {
+      const result = onCreatePost(data);
+      if (result) {
+        result.then(() => {
+          addToast("La publicación se ha creado exitosamente", {
+            appearance: "success",
+          });
+          history.push("/user/index");
+        });
+      }
+    }
+  };
+
   return (
     <FormContainer>
-      <Form>
+      <Form role="form" autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <Row>
           <Col md="6">
             <FormGroup>
               <Input
+                type="select"
+                name="type_of_sale"
+                innerRef={register}
                 className="form-control-alternative"
-                id="exampleFormControlInput1"
-                placeholder="name@example.com"
-                type="email"
-              />
+              >
+                <option value={undefined}>
+                  -- Selecciona el tipo de publicación --
+                </option>
+                {Object.keys(salesTypes).map((key) => {
+                  return (
+                    <option key={key} value={salesTypes[key].value}>
+                      {salesTypes[key].label}
+                    </option>
+                  );
+                })}
+              </Input>
             </FormGroup>
           </Col>
           <Col md="6">
             <FormGroup>
               <Input
+                type="select"
+                name="type_of_housing"
+                innerRef={register}
                 className="form-control-alternative"
-                disabled
-                placeholder="Regular"
+              >
+                <option value={undefined}>
+                  -- Selecciona la agrupación a la que pertenece --
+                </option>
+                {Object.keys(propertiesList).map((key) => {
+                  return (
+                    <option key={key} value={propertiesList[key].value}>
+                      {propertiesList[key].label}
+                    </option>
+                  );
+                })}
+              </Input>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="6">
+            <FormGroup>
+              <Input
+                name="title"
+                innerRef={register}
+                className="form-control-alternative"
+                placeholder="Título de la publicación"
                 type="text"
+                autoComplete="off"
+              />
+            </FormGroup>
+          </Col>
+          <Col md="3">
+            <FormGroup>
+              <NumberFormat
+                name="price"
+                className="form-control-alternative"
+                placeholder="Precio del inmueble"
+                customInput={Input}
+                thousandSeparator={true}
+                prefix={"$ "}
+                onValueChange={(value) => setValue("price", value.floatValue)}
+                autoComplete="off"
+              />
+            </FormGroup>
+          </Col>
+          <Col md="3">
+            <FormGroup>
+              <NumberFormat
+                className="form-control-alternative"
+                placeholder="Área del inmueble"
+                customInput={Input}
+                thousandSeparator={true}
+                suffix={" m²"}
+                onValueChange={(value) =>
+                  setValue("dimensions", value.floatValue)
+                }
+                autoComplete="off"
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="4">
+            <FormGroup>
+              <NumberFormat
+                className="form-control-alternative"
+                placeholder="Número de habitaciones"
+                customInput={Input}
+                thousandSeparator={true}
+                suffix={" Habitaciones"}
+                onValueChange={(value) => setValue("rooms", value.floatValue)}
+                autoComplete="off"
+              />
+            </FormGroup>
+          </Col>
+          <Col md="4">
+            <FormGroup>
+              <NumberFormat
+                className="form-control-alternative"
+                placeholder="Número de baños"
+                customInput={Input}
+                thousandSeparator={true}
+                suffix={" Baños"}
+                onValueChange={(value) =>
+                  setValue("bathrooms", value.floatValue)
+                }
+                autoComplete="off"
+              />
+            </FormGroup>
+          </Col>
+          <Col md="4">
+            <FormGroup>
+              <NumberFormat
+                className="form-control-alternative"
+                placeholder="Número de parqueaderos"
+                customInput={Input}
+                thousandSeparator={true}
+                suffix={" Parqueaderos"}
+                onValueChange={(value) =>
+                  setValue("parkings", value.floatValue)
+                }
+                autoComplete="off"
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="3">
+            <FormGroup>
+              <MyAutosuggest
+                placeholder="Ciudad"
+                APIURL={generalURLs.getCities}
+                onSelect={(value: string) => setValue("city", value)}
+              />
+            </FormGroup>
+          </Col>
+          <Col md="3">
+            <FormGroup>
+              <Input
+                name="neighborhood"
+                innerRef={register}
+                className="form-control-alternative"
+                placeholder="Barrio"
+                type="text"
+                autoComplete="off"
+              />
+            </FormGroup>
+          </Col>
+          <Col md="6">
+            <FormGroup>
+              <Input
+                name="ubication"
+                innerRef={register}
+                className="form-control-alternative"
+                placeholder="Dirección"
+                type="text"
+                autoComplete="no"
               />
             </FormGroup>
           </Col>
@@ -40,53 +208,62 @@ const CreatePostForm: React.FC = () => {
         <Row>
           <Col md="6">
             <FormGroup>
-              <InputGroup className="input-group-alternative mb-4">
-                <InputGroupAddon addonType="prepend">
-                  <InputGroupText>
-                    <i className="ni ni-zoom-split-in" />
-                  </InputGroupText>
-                </InputGroupAddon>
-                <Input
-                  className="form-control-alternative"
-                  placeholder="Search"
-                  type="text"
-                />
-              </InputGroup>
+              <Input
+                name="nearby_sites"
+                innerRef={register}
+                className="form-control-alternative"
+                placeholder="Sitios cercanos"
+                type="text"
+                autoComplete="off"
+              />
             </FormGroup>
           </Col>
-          <Col md="6">
+          <Col md="3">
             <FormGroup>
-              <InputGroup className="input-group-alternative mb-4">
-                <Input placeholder="Birthday" type="text" />
-                <InputGroupAddon addonType="append">
-                  <InputGroupText>
-                    <i className="ni ni-zoom-split-in" />
-                  </InputGroupText>
-                </InputGroupAddon>
-              </InputGroup>
+              <NumberFormat
+                className="form-control-alternative"
+                placeholder="Estrato"
+                customInput={Input}
+                thousandSeparator={true}
+                prefix={"Estrato "}
+                onValueChange={(value) => setValue("stratum", value.floatValue)}
+                autoComplete="off"
+              />
+            </FormGroup>
+          </Col>
+          <Col md="3">
+            <FormGroup>
+              <NumberFormat
+                className="form-control-alternative"
+                placeholder="Antiguedad"
+                customInput={Input}
+                thousandSeparator={true}
+                suffix={" Años"}
+                onValueChange={(value) =>
+                  setValue("antiquity", value.floatValue)
+                }
+                autoComplete="off"
+              />
             </FormGroup>
           </Col>
         </Row>
         <Row>
-          <Col md="6">
-            <FormGroup className="has-success">
+          <Col>
+            <FormGroup>
               <Input
-                className="form-control-alternative is-valid"
-                placeholder="Success"
-                type="text"
-              />
-            </FormGroup>
-          </Col>
-          <Col md="6">
-            <FormGroup className="has-danger">
-              <Input
-                className="form-control-alternative is-invalid"
-                placeholder="Error Input"
-                type="email"
+                name="description"
+                innerRef={register}
+                className="form-control-alternative"
+                placeholder="Descripción del inmueble"
+                rows="4"
+                type="textarea"
               />
             </FormGroup>
           </Col>
         </Row>
+        <Button className="my-4" color="primary" type="submit">
+          Crear publicación
+        </Button>
       </Form>
     </FormContainer>
   );

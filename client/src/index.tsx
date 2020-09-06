@@ -12,6 +12,7 @@ import { createStore } from "redux";
 import rootReducer from "states";
 import { USER_STORAGE } from "constants/userConstants";
 import { setUser } from "actions/Redux/userAction";
+import { ToastProvider } from "react-toast-notifications";
 
 import "./assets/styles/index.css";
 import "assets/icons/nucleo/css/nucleo.css";
@@ -19,7 +20,7 @@ import "assets/icons/font-awesome/css/font-awesome.min.css";
 import "assets/styles/argon-dashboard-react.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const redirectMainPath = () => <Redirect to="/home" />;
+const redirectMainPath = () => <Redirect to="/user/create" />;
 
 const store = createStore(rootReducer);
 
@@ -59,11 +60,13 @@ const App = () => {
 };
 
 ReactDOM.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </Provider>,
+  <ToastProvider autoDismiss autoDismissTimeout={5000}>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+  </ToastProvider>,
   document.getElementById("root")
 );
 

@@ -28,10 +28,11 @@ class PublicationRepository {
                 publication.ubication = data.ubication;
                 publication.nearby_sites = data.nearby_sites;
                 publication.stratum = data.stratum;
-                publication.build_time = data.build_time;
+                publication.antiquity = data.antiquity;
                 publication.type_of_housing = data.type_of_housing;
+                publication.type_of_sale = data.type_of_sale;
                 publication.description = data.description;
-                publication.created_at = new Date;
+                publication.created_at = new Date();
                 publication.save();
                 return publication._id;
             }
@@ -56,14 +57,26 @@ class PublicationRepository {
             try {
                 const publications = yield Publications_1.default.find({ _id: _id });
                 if (publications.length > 0) {
-                    return { status: true, message: "Publicación encontrada", data: publications };
+                    return {
+                        status: true,
+                        message: "Publicación encontrada",
+                        data: publications,
+                    };
                 }
                 else {
-                    return { status: false, message: "No se encuentra la publicación", data: [] };
+                    return {
+                        status: false,
+                        message: "No se encuentra la publicación",
+                        data: [],
+                    };
                 }
             }
             catch (error) {
-                return { status: false, message: "No se encuentra la publicación", data: error };
+                return {
+                    status: false,
+                    message: "No se encuentra la publicación",
+                    data: error,
+                };
             }
         });
     }

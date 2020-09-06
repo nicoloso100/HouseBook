@@ -9,6 +9,7 @@ const renderSuggestion = (suggestion: any) => (
 
 const customInput = (inputProps: any) => (
   <MySearchBar
+    placeholder={inputProps.placeholder}
     inputProps={inputProps}
     value={inputProps.value}
     onChange={inputProps.onChange}
@@ -19,12 +20,14 @@ interface MyAutosuggestProps {
   defaultValue?: string;
   APIURL: string;
   onSelect: (text: string) => void;
+  placeholder?: string;
 }
 
 const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
   defaultValue,
   APIURL,
   onSelect,
+  placeholder,
 }) => {
   const [value, setValue] = React.useState<any>("");
   const [suggestions, setSuggestions] = React.useState<any[]>([]);
@@ -68,6 +71,7 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
     value,
     onChange: onChange,
     onBlur: onBlur,
+    placeholder: placeholder,
   };
 
   return (

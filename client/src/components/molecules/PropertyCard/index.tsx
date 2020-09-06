@@ -19,7 +19,7 @@ import PropertyCardIcon from "components/atoms/PropertyCardIcon";
 import MainContentContext from "states/context/mainContentContext";
 
 interface PropertyCardProps {
-  information: IPropertyCard;
+  information: ITypesCard;
   onCardClick: () => void;
   onButtonClick?: (id: string) => void;
 }

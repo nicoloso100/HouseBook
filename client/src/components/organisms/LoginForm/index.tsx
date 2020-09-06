@@ -40,6 +40,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
+                  required
                   name="email"
                   innerRef={register}
                   placeholder="Ingrese su email"
@@ -55,6 +56,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
+                  required
                   name="password"
                   innerRef={register}
                   placeholder="Ingrese su contraseña"
