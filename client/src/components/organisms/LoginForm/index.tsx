@@ -12,7 +12,7 @@ import {
   InputGroupText,
   Input,
 } from "reactstrap";
-import { LoginFormTitle } from "./styles";
+import { LoginFormTitle, RegisterLabel } from "./styles";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 interface LoginFormProps {
@@ -42,7 +42,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 <Input
                   name="email"
                   innerRef={register}
-                  placeholder="Email"
+                  placeholder="Ingrese su email"
                   type="email"
                 />
               </InputGroup>
@@ -57,19 +57,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLogin }) => {
                 <Input
                   name="password"
                   innerRef={register}
-                  placeholder="Password"
+                  placeholder="Ingrese su contraseña"
                   type="password"
                   autoComplete="off"
                 />
               </InputGroup>
             </FormGroup>
-            <div className="custom-control custom-control-alternative custom-checkbox">
-              <input
-                className="custom-control-input"
-                id=" customCheckLogin"
-                type="checkbox"
-              />
-            </div>
+            <RegisterLabel href="#/signin" className="text-default btn-link">
+              ¿Aún no estás registrado? Clic para crear una cuenta
+            </RegisterLabel>
             <div className="text-center">
               <Button className="my-4" color="primary" type="submit">
                 Sign in

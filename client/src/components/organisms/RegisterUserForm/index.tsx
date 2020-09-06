@@ -14,15 +14,22 @@ import {
 } from "reactstrap";
 import { LoginFormTitle } from "./styles";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 
 interface registerUserFormProps {
-  onRegisterUser: (values: registerUserValues) => void;
+  onRegisterUser: (values: registerUserValues) => Promise<void>;
 }
 
 const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
   const { register, handleSubmit } = useForm<registerUserValues>();
 
-  const onSubmit: SubmitHandler<registerUserValues> = (data) => onRegisterUser(data);
+  let history = useHistory();
+
+  const onSubmit: SubmitHandler<registerUserValues> = (data, e) =>
+    onRegisterUser(data).then(() => {
+      e?.target.reset();
+      history.push("/login");
+    });
 
   return (
     <Col lg="5">
@@ -30,7 +37,7 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
         <CardHeader className="bg-white ">
           <LoginFormTitle className="h5">Registrarse</LoginFormTitle>
         </CardHeader>
-        <CardBody className="px-lg-5 py-lg-5">
+        <CardBody className="px-lg-5 py-lg-4">
           <Form role="form" onSubmit={handleSubmit(onSubmit)}>
             <FormGroup className="mb-3">
               <InputGroup className="input-group-alternative">
@@ -40,9 +47,9 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
-                  name="username"
+                  name="name"
                   innerRef={register}
-                  placeholder="username"
+                  placeholder="Ingrese su nombre completo"
                   type="text"
                 />
               </InputGroup>
@@ -57,7 +64,7 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
                 <Input
                   name="email"
                   innerRef={register}
-                  placeholder="Email"
+                  placeholder="Ingrese su email"
                   type="email"
                 />
               </InputGroup>
@@ -72,7 +79,7 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
                 <Input
                   name="password"
                   innerRef={register}
-                  placeholder="Password"
+                  placeholder="Ingrese su contraseña"
                   type="password"
                   autoComplete="off"
                 />
@@ -88,21 +95,14 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
                 <Input
                   name="repitPassword"
                   innerRef={register}
-                  placeholder="Repit password"
+                  placeholder="Repita la contraseña ingresada"
                   type="password"
                   autoComplete="off"
                 />
               </InputGroup>
             </FormGroup>
-            <div className="custom-control custom-control-alternative custom-checkbox">
-              <input
-                className="custom-control-input"
-                id=" customCheckLogin"
-                type="checkbox"
-              />
-            </div>
             <div className="text-center">
-              <Button className="my-4" color="primary" type="submit">
+              <Button color="primary" type="submit">
                 Sign up
               </Button>
             </div>

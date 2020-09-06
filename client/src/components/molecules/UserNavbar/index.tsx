@@ -16,17 +16,38 @@ import {
   UserNavbarCountdown,
   UserNavbarCountdownCont,
 } from "./styles";
+import { USER_STORAGE } from "constants/userConstants";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUser } from "actions/Redux/userAction";
+import { RootState } from "states";
 
 const UserNavbar: React.FC = () => {
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.userReducer);
+
+  const onLogout = (e: any) => {
+    localStorage.removeItem(USER_STORAGE);
+    dispatch(resetUser());
+    e.preventDefault();
+  };
+
+  const getName = React.useMemo(() => {
+    const name = user?.name.split(" ");
+    if (name) {
+      return `${name[0]} ${name[1]}`;
+    }
+    return "Bienvenido devuelta";
+  }, [user]);
+
   return (
     <div>
       <div className="bg-gradient-warning">
         <UserNavbarHeaderCont>
           <Link
             className="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block"
-            to="/user/index"
+            to="/home"
           >
-            DASHBOARD
+            REGRESAR
           </Link>
           <Nav className="align-items-center d-none d-md-flex" navbar>
             <UncontrolledDropdown nav>
@@ -37,7 +58,7 @@ const UserNavbar: React.FC = () => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <UserNavbarTitle className="mb-0 text-sm font-weight-bold">
-                      Nicolás Angarita
+                      {getName}
                     </UserNavbarTitle>
                   </Media>
                 </Media>
@@ -46,16 +67,16 @@ const UserNavbar: React.FC = () => {
                 <DropdownItem className="noti-title" header tag="div">
                   <h6 className="text-overflow m-0">Hola!</h6>
                 </DropdownItem>
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <DropdownItem onClick={onLogout}>
                   <i className="ni ni-user-run" />
-                  <span>Logout</span>
+                  <span>Cerrar sesión</span>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
         </UserNavbarHeaderCont>
         <UserNavbarTitleCont>
-          <UserNavbarTitle>Hola, Nicolás Angarita</UserNavbarTitle>
+          <UserNavbarTitle>Hola, {getName}</UserNavbarTitle>
           <UserNavbarCountdownCont>
             <UserNavbarCountdown>
               Te quedan 13 días restantes para terminar el periodo de prueba

@@ -1,4 +1,5 @@
 declare interface IPropertyCard {
+  _id: string;
   type: string;
   property: string;
   neighborhood: string;

@@ -1,6 +1,6 @@
 declare interface IUser {
   _id: string;
-  username: string;
+  name: string;
   email: string;
   password: string;
   encryptPassword(password: string): Promise<string>;

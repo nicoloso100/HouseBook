@@ -12,13 +12,13 @@ export const errorHandlerMiddleware = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(err)
   if (err instanceof HandledError) {
     const newError: IError = {
       error: err.message,
     };
     res.status(400).json(newError);
-  } if (err instanceof AuthError) {
+  }
+  if (err instanceof AuthError) {
     const newError: IError = {
       error: err.message,
     };

@@ -6,11 +6,11 @@ import MainContentContext, {
   defaultMainContentContext,
 } from "states/context/mainContentContext";
 
-const MyPosts: React.FC = () => {
+const EditPosts: React.FC = () => {
   return (
     <FrameContent>
       <MainContentContext.Provider
-        value={{ ...defaultMainContentContext, isShow: true }}
+        value={{ ...defaultMainContentContext, isEdit: true }}
       >
         <MainContent isEdit defaultFilter={defaultFilters} />
       </MainContentContext.Provider>
@@ -18,4 +18,4 @@ const MyPosts: React.FC = () => {
   );
 };
 
-export default MyPosts;
+export default EditPosts;

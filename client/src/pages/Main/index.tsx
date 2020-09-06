@@ -5,6 +5,9 @@ import HomeTitle from "components/organisms/HomeTitle";
 import MainContent from "components/organisms/MainContent";
 import { useLocation } from "react-router-dom";
 import { defaultFilters } from "constants/filterConstants";
+import MainContentContext, {
+  defaultMainContentContext,
+} from "states/context/mainContentContext";
 
 const Main: React.FC = () => {
   let location = useLocation();
@@ -24,7 +27,11 @@ const Main: React.FC = () => {
       <Header />
       <HomeTitle collapsed />
       <FrameContent>
-        <MainContent defaultFilter={getDefaultFilter} />
+        <MainContentContext.Provider
+          value={{ ...defaultMainContentContext, isContact: true }}
+        >
+          <MainContent defaultFilter={getDefaultFilter} />
+        </MainContentContext.Provider>
       </FrameContent>
     </React.Fragment>
   );

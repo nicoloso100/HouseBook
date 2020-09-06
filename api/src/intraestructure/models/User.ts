@@ -4,11 +4,9 @@ import bcrypt from "bcryptjs";
 export type IUserModel = IUser & Document;
 
 const userSchema = new Schema({
-  username: {
+  name: {
     type: String,
     required: true,
-    min: 4,
-    lowercase: true,
   },
   email: {
     type: String,
@@ -26,7 +24,8 @@ userSchema.methods.encryptPassword = async (
   password: string
 ): Promise<string> => {
   const salt = await bcrypt.genSalt(10);
-  return bcrypt.hash(password, salt);
+  const result = bcrypt.hash(password, salt);
+  return result;
 };
 
 userSchema.methods.validatePassword = async function (
@@ -35,4 +34,4 @@ userSchema.methods.validatePassword = async function (
   return await bcrypt.compare(password, this.password);
 };
 
-export default model<IUserModel>("User", userSchema);
+export default model<IUserModel>("user", userSchema);
