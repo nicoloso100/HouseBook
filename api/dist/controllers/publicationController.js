@@ -51,6 +51,31 @@ class PublicationController {
             }
         });
     }
+    getPublicationsByUser(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user_id = req.body.user_id;
+                const publications = yield publicationRepository_1.default.getPublicationByUser(user_id);
+                res.json(publications);
+            }
+            catch (_a) {
+                next(new customError_1.HandledError("Error al consultar publicaciones del usuario."));
+            }
+        });
+    }
+    getPublicationsByFilters(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const type_of_housing = req.body.type_of_housing;
+                const property_type_id = req.body.property_type_id;
+                const publications = yield publicationRepository_1.default.getPublicationByFilters(type_of_housing, property_type_id);
+                res.json(publications);
+            }
+            catch (_a) {
+                next(new customError_1.HandledError("Error al consultar publicaciones del usuario."));
+            }
+        });
+    }
     getPublicationsByType(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
