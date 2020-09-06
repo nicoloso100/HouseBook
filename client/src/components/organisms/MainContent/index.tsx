@@ -13,8 +13,10 @@ import PropertyCard from "components/molecules/PropertyCard";
 import { defaultContact } from "constants/mainConstants";
 import MyModal from "components/atoms/MyModal";
 import MainContactCard from "components/molecules/MainContactCard";
+import MainContentContext from "states/context/mainContentContext";
 
 const information: IPropertyCard = {
+  _id: "asdasfascascascs",
   type: "Arriendo",
   property: "apartamento",
   neighborhood: "El cortijo",
@@ -30,10 +32,16 @@ const information: IPropertyCard = {
 interface MainContentProps {
   defaultFilter: IFilters;
   isEdit?: boolean;
+  onAction?: (id: string) => void;
 }
 
-const MainContent: React.FC<MainContentProps> = ({ defaultFilter, isEdit }) => {
+const MainContent: React.FC<MainContentProps> = ({
+  defaultFilter,
+  isEdit,
+  onAction,
+}) => {
   const [contact, setContact] = React.useState<IContact>(defaultContact);
+  const context = React.useContext(MainContentContext);
 
   const onFilter = (filters: IFilters) => {
     console.log(filters);
@@ -43,12 +51,14 @@ const MainContent: React.FC<MainContentProps> = ({ defaultFilter, isEdit }) => {
     console.log("card click");
   };
 
-  const onButtonClick = () => {
-    setContact({ ...defaultContact, open: true });
-  };
-
   const onContactClose = () => {
     setContact(defaultContact);
+  };
+
+  const onButtonClick = (id: string) => {
+    if (context.isContact) setContact({ ...defaultContact, open: true });
+    else if (onAction && context.isEdit) onAction(id);
+    else if (onAction && context.isRemove) onAction(id);
   };
 
   return (
@@ -72,47 +82,7 @@ const MainContent: React.FC<MainContentProps> = ({ defaultFilter, isEdit }) => {
           <MainFilterListCont>
             <PropertyCard
               onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
-              information={information}
-            />
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
-              information={information}
-            />
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
-              information={information}
-            />
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
-              information={information}
-            />
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
-              information={information}
-            />
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
-              information={information}
-            />
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
-              information={information}
-            />
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
-              information={information}
-            />
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={onButtonClick}
+              onButtonClick={!context.isShow ? onButtonClick : undefined}
               information={information}
             />
           </MainFilterListCont>

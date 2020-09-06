@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const SidebarLogoCont = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const SidebarLogoTitle = styled.span`
