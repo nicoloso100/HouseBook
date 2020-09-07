@@ -5,13 +5,13 @@ declare interface ITypes {
 }
 
 declare interface IProperties {
-  casas: ITypes;
-  apartamentos: ITypes;
-  oficinas: ITypes;
-  bodegas: ITypes;
-  locales: ITypes;
-  fincas: ITypes;
-  otros: ITypes;
+  casa: ITypes;
+  apartamento: ITypes;
+  oficina: ITypes;
+  bodega: ITypes;
+  local: ITypes;
+  finca: ITypes;
+  otro: ITypes;
 }
 
 declare interface ISaleType {

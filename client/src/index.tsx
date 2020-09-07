@@ -20,7 +20,7 @@ import "assets/icons/font-awesome/css/font-awesome.min.css";
 import "assets/styles/argon-dashboard-react.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-const redirectMainPath = () => <Redirect to="/user/create" />;
+const redirectMainPath = () => <Redirect to="/home" />;
 
 const store = createStore(rootReducer);
 

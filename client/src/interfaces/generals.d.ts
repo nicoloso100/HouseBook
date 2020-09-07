@@ -1,3 +1,7 @@
+declare interface BigObject<T> {
+  [index: string]: T;
+}
+
 declare interface IAPIResult<T> {
   ok: boolean;
   result: T;

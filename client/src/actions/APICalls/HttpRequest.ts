@@ -42,8 +42,7 @@ export class HttpRequest {
         };
       }
     } catch (error) {
-      const errorMessage = JSON.stringify(error);
-      ErrorAlert.show(errorMessage);
+      ErrorAlert.show(error.message);
       throw new Error(error);
     } finally {
       document.body.removeChild(div);

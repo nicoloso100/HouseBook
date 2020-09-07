@@ -11,7 +11,6 @@ const Home: React.FC = () => {
   let history = useHistory();
 
   const onFilter = (filters: IFilters) => {
-    console.log(filters);
     history.push({ pathname: "/main", state: { filters } });
   };
 

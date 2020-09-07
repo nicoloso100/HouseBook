@@ -8,6 +8,7 @@ class PublicationRepository {
       publication.price = data.price;
       publication.dimensions = data.dimensions;
       publication.bathrooms = data.bathrooms;
+      publication.rooms = data.rooms;
       publication.parkings = data.parkings;
       publication.neighborhood = data.neighborhood;
       publication.ubication = data.ubication;
@@ -40,41 +41,25 @@ class PublicationRepository {
   async getPublicationByUser(user_id: any) {
     try {
       const publications = await PublicationModel.find({ user_id: user_id });
-      if (publications.length > 0) {
-        return publications;
-      } else {
-        return "No se encuentra la publicación";
-      }
+      return publications;
     } catch (error) {
       return error;
     }
   }
-  async getPublicationByFilters(
-    type_of_housing: object,
-    property_type_id: object
-  ) {
-    try {
-      let query: any = {};
-      if (
-        Object.keys(type_of_housing).length > 0 &&
-        Object.keys(property_type_id).length > 0
-      ) {
-        query = { type_of_housing, property_type_id };
-      } else if (Object.keys(type_of_housing).length > 0) {
-        query = { type_of_housing: type_of_housing };
-      } else if (Object.keys(property_type_id).length > 0) {
-        query = { property_type_id: property_type_id };
-      }
+  async getPublicationByFilters(type_of_housing: object, type_of_sale: object) {
+    let query: any = {};
+    if (
+      Object.keys(type_of_housing).length > 0 &&
+      Object.keys(type_of_sale).length > 0
+    ) {
+      query = { type_of_housing, type_of_sale };
+    } else if (Object.keys(type_of_housing).length > 0) {
       query = { type_of_housing: type_of_housing };
-      const publications = await PublicationModel.find(query);
-      if (publications.length > 0) {
-        return publications;
-      } else {
-        return "No se encuentra la publicación";
-      }
-    } catch (error) {
-      return error;
+    } else if (Object.keys(type_of_sale).length > 0) {
+      query = { type_of_sale: type_of_sale };
     }
+    const publications = await PublicationModel.find(query);
+    return publications;
   }
 
   async deletePublicationById(_id: number) {

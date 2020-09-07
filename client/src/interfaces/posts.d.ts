@@ -1,4 +1,5 @@
 declare interface IPost {
+  _id: string;
   user_id: string;
   title: string;
   price: number;

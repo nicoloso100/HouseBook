@@ -11,3 +11,8 @@ declare interface IFilters {
   filter2: IFilter2;
   filter3: IFilter3;
 }
+
+declare interface ISendFilters {
+  type_of_housing: string[];
+  type_of_sale: string[];
+}

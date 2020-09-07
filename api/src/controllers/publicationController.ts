@@ -41,7 +41,7 @@ class PublicationController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const user_id: any = req.body;
+      const user_id: any = req.params.id;
       const publications = await publicationRepository.getPublicationByUser(
         user_id
       );
@@ -57,10 +57,10 @@ class PublicationController {
   ): Promise<any> {
     try {
       const type_of_housing: object = req.body.type_of_housing;
-      const property_type_id: object = req.body.property_type_id;
+      const type_of_sale: object = req.body.type_of_sale;
       const publications = await publicationRepository.getPublicationByFilters(
         type_of_housing,
-        property_type_id
+        type_of_sale
       );
       res.json(publications);
     } catch {

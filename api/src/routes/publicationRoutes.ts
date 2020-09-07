@@ -18,8 +18,8 @@ class PublicationRoutes {
       "/createPublication",
       publicationController.createPublication
     );
-    this.router.post(
-      "/getPublicationsByUser",
+    this.router.get(
+      "/getPublicationsByUser/:id",
       publicationController.getPublicationsByUser
     );
     this.router.post(

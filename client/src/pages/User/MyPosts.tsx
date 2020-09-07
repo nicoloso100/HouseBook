@@ -11,11 +11,12 @@ import { useSelector } from "react-redux";
 
 const MyPosts: React.FC = () => {
   const user = useSelector((state: RootState) => state.userReducer);
+  const [posts, setPosts] = React.useState<IPost[]>([]);
 
   React.useEffect(() => {
     if (user) {
       GetPosts(user._id).then((posts: IPost[]) => {
-        console.log(posts);
+        setPosts(posts);
       });
     }
   }, [user]);
@@ -25,7 +26,7 @@ const MyPosts: React.FC = () => {
       <MainContentContext.Provider
         value={{ ...defaultMainContentContext, isShow: true }}
       >
-        <MainContent isEdit defaultFilter={defaultFilters} />
+        <MainContent isEdit defaultFilter={defaultFilters} posts={posts} />
       </MainContentContext.Provider>
     </FrameContent>
   );

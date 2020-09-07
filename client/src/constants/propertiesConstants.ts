@@ -12,39 +12,39 @@ export const SALE_TYPE: ISaleType = {
 };
 
 export const PROPERTIES: IProperties = {
-  apartamentos: {
-    label: "Apartamentos",
-    value: "apartamentos",
+  apartamento: {
+    label: "Apartamento",
+    value: "apartamento",
     selected: true,
   },
-  bodegas: {
-    label: "Bodegas",
-    value: "bodegas",
+  bodega: {
+    label: "Bodega",
+    value: "bodega",
     selected: false,
   },
-  casas: {
-    label: "Casas",
-    value: "casas",
+  casa: {
+    label: "Casa",
+    value: "casa",
     selected: false,
   },
-  fincas: {
-    label: "Fincas",
-    value: "fincas",
+  finca: {
+    label: "Finca",
+    value: "finca",
     selected: false,
   },
-  locales: {
-    label: "Locales",
-    value: "locales",
+  local: {
+    label: "Local",
+    value: "local",
     selected: false,
   },
-  oficinas: {
-    label: "Oficinas",
-    value: "oficinas",
+  oficina: {
+    label: "Oficina",
+    value: "oficina",
     selected: false,
   },
-  otros: {
-    label: "Otros",
-    value: "otros",
+  otro: {
+    label: "Otro",
+    value: "otro",
     selected: false,
   },
 };

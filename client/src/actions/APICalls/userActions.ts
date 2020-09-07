@@ -5,10 +5,10 @@ export const GetPosts = (user_id: string): Promise<IPost[]> => {
   return new Promise(async (resolve, reject) => {
     try {
       console.log(user_id);
-      const request = await new HttpRequest().Post<IPost[]>(
-        userURLs.getPosts,
-        user_id
+      const request = await new HttpRequest().Get<IPost[]>(
+        `${userURLs.getPosts}/${user_id}`
       );
+      console.log(request);
       resolve(request.ok ? request.result : []);
     } catch {
       reject();
