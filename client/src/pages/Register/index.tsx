@@ -1,29 +1,28 @@
 import * as React from "react";
 import Header from "components/molecules/Header";
-import { RightContainer, LeftContainer, LoginContainer } from "./styles";
+import { RightContainer, LeftContainer, SignInContainer } from "./styles";
 import LoginLogoCont from "components/molecules/LoginLogoCont";
-import RegisterUserForm from "components/organisms/RegisterUserForm";
 import { SingUp } from "actions/APICalls/authActions";
+import RegisterForm from "components/organisms/RegisterUserForm";
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const onRegisterUser = (values: registerUserValues) => {
-    SingUp(values).then(() => {
-    });
+    return SingUp(values);
   };
 
   return (
     <React.Fragment>
       <Header />
-      <LoginContainer>
+      <SignInContainer>
         <LeftContainer>
           <LoginLogoCont />
         </LeftContainer>
         <RightContainer>
-          <RegisterUserForm onRegisterUser={onRegisterUser} />
+          <RegisterForm onRegisterUser={onRegisterUser} />
         </RightContainer>
-      </LoginContainer>
+      </SignInContainer>
     </React.Fragment>
   );
 };
 
-export default Login;
+export default Register;

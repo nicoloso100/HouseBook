@@ -5,12 +5,14 @@ interface MySearchBarProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   inputProps: any;
+  placeholder?: string;
 }
 
 const MySearchBar: React.FC<MySearchBarProps> = ({
   value,
   onChange,
   inputProps,
+  placeholder,
 }) => {
   return (
     <InputGroup className="input-group-alternative">
@@ -22,10 +24,11 @@ const MySearchBar: React.FC<MySearchBarProps> = ({
       <Input
         {...inputProps}
         className="form-control-alternative"
-        placeholder="Escriba para filtrar"
+        placeholder={placeholder ?? "Escriba para filtrar"}
         type="text"
         value={value}
         onChange={onChange}
+        autoComplete="no"
       />
     </InputGroup>
   );

@@ -30,7 +30,7 @@ const HomeInformation: React.FC<HomeInformationProps> = () => {
             theme="primary"
             title="Plan básico"
             text="Si te suscribes al plan básico podrás crear las publicaciones que desees por 4 meses, el costo de éste plan es $"
-            tags={["4 mes", "publicaciones"]}
+            tags={["4 meses", "publicaciones"]}
             buttonText="COMPRAR"
             buttonAction={() => {}}
           />

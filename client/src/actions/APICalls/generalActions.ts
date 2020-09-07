@@ -13,3 +13,19 @@ export const GetServices = async (): Promise<ICity[]> => {
     }
   });
 };
+
+export const GetFilteredPosts = async (
+  filters: ISendFilters
+): Promise<IPost[]> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const request = await new HttpRequest().Post<IPost[]>(
+        generalURLs.getFilteredPosts,
+        filters
+      );
+      resolve(request.result);
+    } catch {
+      reject();
+    }
+  });
+};

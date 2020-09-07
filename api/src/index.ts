@@ -7,17 +7,20 @@ import GeneralRoutes from "./routes/generalRoutes";
 import { StartDatabase } from "./intraestructure/database/config";
 import cors from "cors";
 import AuthRoutes from "./routes/authRoutes";
+import PublicationRoutes from "./routes/publicationRoutes";
 
 class Server {
   private app: Application;
   private port = 4000;
   private generalRoutes: GeneralRoutes;
   private authRoutes: AuthRoutes;
+  private publicationRoutes: PublicationRoutes;
 
   constructor() {
     this.app = express();
     this.generalRoutes = new GeneralRoutes();
     this.authRoutes = new AuthRoutes();
+    this.publicationRoutes = new PublicationRoutes();
     this.config();
   }
 
@@ -37,6 +40,7 @@ class Server {
   routes(): void {
     this.app.use("/api/auth", this.authRoutes.router);
     this.app.use("/api/general", this.generalRoutes.router);
+    this.app.use("/api/publication", this.publicationRoutes.router);
   }
 
   pages(): void {

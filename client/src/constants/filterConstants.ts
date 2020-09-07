@@ -1,17 +1,8 @@
+import { PROPERTIES, SALE_TYPE } from "./propertiesConstants";
+
 export const defaultFilters: IFilters = {
-  filter1: {
-    arriendo: true,
-    venta: false,
-  },
-  filter2: {
-    apartamentos: true,
-    bodegas: false,
-    casas: false,
-    fincas: false,
-    locales: false,
-    oficinas: false,
-    otros: false,
-  },
+  filter1: SALE_TYPE,
+  filter2: PROPERTIES,
   filter3: {
     ciudad: "",
   },

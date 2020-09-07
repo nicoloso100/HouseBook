@@ -5,13 +5,14 @@ interface MyButtonProps {
   text: string;
   onClick: (event: React.MouseEvent<any, MouseEvent>) => void;
   small?: boolean;
+  color?: string;
 }
 
-const MyButton: React.FC<MyButtonProps> = ({ text, onClick, small }) => {
+const MyButton: React.FC<MyButtonProps> = ({ text, onClick, small, color }) => {
   return (
     <Button
       onClick={(event) => onClick(event)}
-      color="primary"
+      color={color ?? "primary"}
       type="button"
       size={small ? "sm" : "md"}
     >

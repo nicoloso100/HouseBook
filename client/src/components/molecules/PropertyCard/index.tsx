@@ -16,11 +16,12 @@ import {
 import { formatMoney } from "utils";
 import MyButton from "components/atoms/MyButton";
 import PropertyCardIcon from "components/atoms/PropertyCardIcon";
+import MainContentContext from "states/context/mainContentContext";
 
 interface PropertyCardProps {
-  information: IPropertyCard;
+  information: ITypesCard;
   onCardClick: () => void;
-  onButtonClick: () => void;
+  onButtonClick?: (id: string) => void;
 }
 
 const PropertyCard: React.FC<PropertyCardProps> = ({
@@ -28,10 +29,26 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   onCardClick,
   onButtonClick,
 }) => {
+  const context = React.useContext(MainContentContext);
+
   const setOnButtonClick = (event: React.MouseEvent<any, MouseEvent>) => {
     event.stopPropagation();
-    onButtonClick();
+    onButtonClick && onButtonClick(information._id);
   };
+
+  const getButtonText = React.useMemo(() => {
+    if (context.isContact) return "contacto";
+    else if (context.isEdit) return "modificar";
+    else if (context.isRemove) return "eliminar";
+    return "";
+  }, [context]);
+
+  const getButtonColor = React.useMemo(() => {
+    if (context.isContact) return "primary";
+    else if (context.isEdit) return "success";
+    else if (context.isRemove) return "danger";
+    return "";
+  }, [context]);
 
   return (
     <PropertyCardSpace onClick={onCardClick}>
@@ -70,7 +87,14 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
                 icon="fa fa-square"
                 value={`${information.area} m²`}
               />
-              <MyButton small text="contacto" onClick={setOnButtonClick} />
+              {onButtonClick && (
+                <MyButton
+                  small
+                  color={getButtonColor}
+                  text={getButtonText}
+                  onClick={setOnButtonClick}
+                />
+              )}
             </PropertyBodyRightCont>
           </PropertyBodyCont>
         </PropertyBody>

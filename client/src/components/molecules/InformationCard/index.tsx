@@ -3,7 +3,7 @@ import { Card, CardBody, Badge, Button } from "reactstrap";
 import { InformationCardContainer } from "./styles";
 
 interface InformationCardProps {
-  theme: "primary" | "success" | "warning";
+  theme: "primary" | "success" | "warning" | any;
   title: string;
   text: string;
   tags: string[];

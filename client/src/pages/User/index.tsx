@@ -1,12 +1,26 @@
 import * as React from "react";
 import UserSidebar from "components/molecules/UserSidebar/Sidebar";
 import UserNavbar from "components/molecules/UserNavbar";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import MyPosts from "./MyPosts";
+import { useSelector } from "react-redux";
+import { RootState } from "states";
+import EditPosts from "./EditPosts";
+import RemovePosts from "./RemovePosts";
+import CreatePosts from "./CreatePost";
 
 const redirectMainPath = () => <Redirect to="/user/index" />;
 
 const User: React.FC = () => {
+  const history = useHistory();
+  const user = useSelector((state: RootState) => state.userReducer);
+
+  React.useEffect(() => {
+    if (user === null) {
+      history.push("/home");
+    }
+  }, [user, history]);
+
   return (
     <>
       <UserSidebar />
@@ -18,13 +32,13 @@ const User: React.FC = () => {
             <MyPosts />
           </Route>
           <Route path="/user/create">
-            <h3>Please select a topic. 1</h3>
+            <CreatePosts />
           </Route>
           <Route path="/user/edit">
-            <h3>Please select a topic 2.</h3>
+            <EditPosts />
           </Route>
           <Route path="/user/delete">
-            <h3>Please select a topic. 3</h3>
+            <RemovePosts />
           </Route>
         </Switch>
       </div>

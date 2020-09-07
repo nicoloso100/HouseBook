@@ -1,23 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import { Switch, Route, Redirect, HashRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "pages/Login";
 import Main from "pages/Main";
-import RegisterUser from "pages/RegisterUser";
+import { Provider, useDispatch } from "react-redux";
+import User from "pages/User";
+import Register from "pages/Register";
+import { createStore } from "redux";
+import rootReducer from "states";
+import { USER_STORAGE } from "constants/userConstants";
+import { setUser } from "actions/Redux/userAction";
+import { ToastProvider } from "react-toast-notifications";
 
 import "./assets/styles/index.css";
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
 import "assets/styles/argon-dashboard-react.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import User from "pages/User";
 
 const redirectMainPath = () => <Redirect to="/home" />;
 
-ReactDOM.render(
-  <React.StrictMode>
+const store = createStore(rootReducer);
+
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const session = localStorage.getItem(USER_STORAGE);
+    if (session !== null) {
+      const user: IUserInformation = JSON.parse(session);
+      dispatch(setUser(user));
+    }
+  }, [dispatch]);
+
+  return (
     <HashRouter>
       <Switch>
         <Route exact path="/" render={redirectMainPath} />
@@ -30,15 +48,25 @@ ReactDOM.render(
         <Route exact path="/login">
           <Login />
         </Route>
-        <Route exact path="/RegisterUser">
-          <RegisterUser />
+        <Route exact path="/signin">
+          <Register />
         </Route>
         <Route path="/user">
           <User />
         </Route>
       </Switch>
     </HashRouter>
-  </React.StrictMode>,
+  );
+};
+
+ReactDOM.render(
+  <ToastProvider autoDismiss autoDismissTimeout={5000}>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
+  </ToastProvider>,
   document.getElementById("root")
 );
 

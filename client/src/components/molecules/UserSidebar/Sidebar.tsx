@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavLink as NavLinkRRD } from "react-router-dom";
+import { NavLink as NavLinkRRD, useHistory } from "react-router-dom";
 import UserImage from "assets/images/icons/user.png";
 import {
   Collapse,
@@ -16,8 +16,13 @@ import {
 } from "reactstrap";
 import { SidebarLogoCont, SidebarLogoTitle } from "./styles";
 import Logo from "components/atoms/Logo/Logo";
+import { USER_STORAGE } from "constants/userConstants";
+import { useDispatch } from "react-redux";
+import { resetUser } from "actions/Redux/userAction";
 
 const UserSidebar: React.FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [collapseOpen, setCollapseOpen] = React.useState<boolean>(false);
 
   const toggleCollapse = () => {
@@ -26,6 +31,16 @@ const UserSidebar: React.FC = () => {
 
   const closeCollapse = () => {
     setCollapseOpen(false);
+  };
+
+  const onLogout = (e: any) => {
+    localStorage.removeItem(USER_STORAGE);
+    dispatch(resetUser());
+    e.preventDefault();
+  };
+
+  const onReturnHome = () => {
+    history.push("/home");
   };
 
   return (
@@ -42,7 +57,7 @@ const UserSidebar: React.FC = () => {
         >
           <span className="navbar-toggler-icon" />
         </button>
-        <SidebarLogoCont>
+        <SidebarLogoCont onClick={onReturnHome}>
           <Logo />
           <SidebarLogoTitle>House Book</SidebarLogoTitle>
         </SidebarLogoCont>
@@ -59,9 +74,9 @@ const UserSidebar: React.FC = () => {
               <DropdownItem className="noti-title" header tag="div">
                 <h6 className="text-overflow m-0">Hola!</h6>
               </DropdownItem>
-              <DropdownItem to="/admin/user-profile">
+              <DropdownItem onClick={onLogout}>
                 <i className="ni ni-user-run" />
-                <span>Logout</span>
+                <span>Cerrar sesión</span>
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
