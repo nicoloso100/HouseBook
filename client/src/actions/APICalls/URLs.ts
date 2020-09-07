@@ -12,5 +12,6 @@ export const generalURLs = {
 };
 
 export const userURLs = {
+  getPosts: `${baseURL}publication/getPublicationsByUser`,
   createPost: `${baseURL}publication/createPublication`,
 };

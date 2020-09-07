@@ -5,8 +5,21 @@ import { defaultFilters } from "constants/filterConstants";
 import MainContentContext, {
   defaultMainContentContext,
 } from "states/context/mainContentContext";
+import { GetPosts } from "actions/APICalls/userActions";
+import { RootState } from "states";
+import { useSelector } from "react-redux";
 
 const MyPosts: React.FC = () => {
+  const user = useSelector((state: RootState) => state.userReducer);
+
+  React.useEffect(() => {
+    if (user) {
+      GetPosts(user._id).then((posts: IPost[]) => {
+        console.log(posts);
+      });
+    }
+  }, [user]);
+
   return (
     <FrameContent>
       <MainContentContext.Provider

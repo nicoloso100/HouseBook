@@ -10,13 +10,26 @@ class PublicationRoutes {
   }
 
   setRoutes(): void {
-    this.router.get("/getPublications", publicationController.getPublications);
-    this.router.get("/getPublications/:id", publicationController.getPublicationsById);
-    this.router.post("/createPublication", publicationController.createPublication);
-    this.router.post("/getPublicationsByType", publicationController.getPublicationsByType);
-    this.router.post("/getPublicationsByUser", publicationController.getPublicationsByUser);
-    this.router.post("/getPublicationsByFilters", publicationController.getPublicationsByFilters);
-    this.router.get("/deletePublication/:id", publicationController.deletePublicationById);
+    this.router.get(
+      "/getPublications/:id",
+      publicationController.getPublicationsById
+    );
+    this.router.post(
+      "/createPublication",
+      publicationController.createPublication
+    );
+    this.router.post(
+      "/getPublicationsByUser",
+      publicationController.getPublicationsByUser
+    );
+    this.router.post(
+      "/getPublicationsByFilters",
+      publicationController.getPublicationsByFilters
+    );
+    this.router.get(
+      "/deletePublication/:id",
+      publicationController.deletePublicationById
+    );
   }
 }
 

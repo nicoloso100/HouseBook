@@ -10,7 +10,6 @@ const EditPosts: React.FC = () => {
 
   const onCreatePost = (post: IPost) => {
     if (user) {
-      console.log(post);
       post.user_id = user._id;
       return CreatePost(post);
     }

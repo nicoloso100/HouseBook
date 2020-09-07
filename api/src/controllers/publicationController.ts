@@ -19,20 +19,7 @@ class PublicationController {
       next(new HandledError("No se ha podido crear la publicación."));
     }
   }
-  public async getPublications(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
-    try {
-      const publications = await publicationRepository.getPublications();
-      res.json(publications);
-    } catch {
-      next(
-        new HandledError("No se ha podido obtener la lista de publicaciones.")
-      );
-    }
-  }
+
   public async getPublicationsById(
     req: Request,
     res: Response,
@@ -54,8 +41,10 @@ class PublicationController {
     next: NextFunction
   ): Promise<any> {
     try {
-      const user_id: any = req.body.user_id;
-      const publications = await publicationRepository.getPublicationByUser(user_id);
+      const user_id: any = req.body;
+      const publications = await publicationRepository.getPublicationByUser(
+        user_id
+      );
       res.json(publications);
     } catch {
       next(new HandledError("Error al consultar publicaciones del usuario."));
@@ -69,33 +58,16 @@ class PublicationController {
     try {
       const type_of_housing: object = req.body.type_of_housing;
       const property_type_id: object = req.body.property_type_id;
-      const publications = await publicationRepository.getPublicationByFilters(type_of_housing, property_type_id);
+      const publications = await publicationRepository.getPublicationByFilters(
+        type_of_housing,
+        property_type_id
+      );
       res.json(publications);
     } catch {
       next(new HandledError("Error al consultar publicaciones del usuario."));
     }
   }
-  public async getPublicationsByType(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<any> {
-    try {
-      const type: number = req.body.type;
-      const search: string = req.body.search;
-      const publications = await publicationRepository.getPublicationsByType(
-        type,
-        search
-      );
-      res.json(publications);
-    } catch {
-      next(
-        new HandledError(
-          "No se ha podido obtener las publicaciones por el tipo de busqueda."
-        )
-      );
-    }
-  }
+
   public async deletePublicationById(
     req: Request,
     res: Response,

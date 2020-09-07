@@ -17,17 +17,10 @@ class PublicationRepository {
       publication.type_of_housing = data.type_of_housing;
       publication.type_of_sale = data.type_of_sale;
       publication.description = data.description;
+      publication.city = data.city;
       publication.created_at = new Date();
       publication.save();
       return publication._id;
-    } catch (error) {
-      return error;
-    }
-  }
-  async getPublications() {
-    try {
-      const publications = await PublicationModel.find({});
-      return publications;
     } catch (error) {
       return error;
     }
@@ -83,22 +76,7 @@ class PublicationRepository {
       return error;
     }
   }
-  async getPublicationsByType(type: number, search: string) {
-    try {
-      let publications;
-      switch (type) {
-        case 1:
-          publications = await PublicationModel.find({ title: search });
-          break;
-        case 2:
-          publications = await PublicationModel.find({ dimensions: search });
-          break;
-      }
-      return publications;
-    } catch (error) {
-      return error;
-    }
-  }
+
   async deletePublicationById(_id: number) {
     try {
       await PublicationModel.deleteOne({ _id: _id });
