@@ -9,20 +9,30 @@ interface Filter1Props {
 }
 
 const Filter1: React.FC<Filter1Props> = ({ filter1, setFilter1 }) => {
-  const setVenta = (value: boolean) => setFilter1({ ...filter1, venta: value });
+  const salesTypes = filter1 as any;
 
-  const setArriendo = (value: boolean) =>
-    setFilter1({ ...filter1, arriendo: value });
+  const setSaleType = (value: boolean, key: string) => {
+    setFilter1({
+      ...salesTypes,
+      [key]: { ...salesTypes[key], selected: value },
+    });
+  };
 
   return (
     <FilterCont customFlex={1}>
       <MySectionTitle text="¿QUÉ DESEA BUSCAR?" />
-      <MyCheckbox label="Venta" checked={filter1.venta} onChange={setVenta} />
-      <MyCheckbox
-        label="Arriendo"
-        checked={filter1.arriendo}
-        onChange={setArriendo}
-      />
+      {Object.keys(salesTypes).map((key) => {
+        return (
+          <MyCheckbox
+            key={key}
+            label={salesTypes[key].label}
+            checked={salesTypes[key].selected ?? false}
+            onChange={(value: boolean) =>
+              setSaleType(value, salesTypes[key].value)
+            }
+          />
+        );
+      })}
     </FilterCont>
   );
 };

@@ -5,14 +5,28 @@ import { defaultFilters } from "constants/filterConstants";
 import MainContentContext, {
   defaultMainContentContext,
 } from "states/context/mainContentContext";
+import { useSelector } from "react-redux";
+import { RootState } from "states";
+import { GetPosts } from "actions/APICalls/userActions";
 
 const EditPosts: React.FC = () => {
+  const user = useSelector((state: RootState) => state.userReducer);
+  const [posts, setPosts] = React.useState<IPost[]>([]);
+
+  React.useEffect(() => {
+    if (user) {
+      GetPosts(user._id).then((posts: IPost[]) => {
+        setPosts(posts);
+      });
+    }
+  }, [user]);
+
   return (
     <FrameContent>
       <MainContentContext.Provider
         value={{ ...defaultMainContentContext, isEdit: true }}
       >
-        <MainContent isEdit defaultFilter={defaultFilters} />
+        <MainContent isEdit defaultFilter={defaultFilters} posts={posts} />
       </MainContentContext.Provider>
     </FrameContent>
   );

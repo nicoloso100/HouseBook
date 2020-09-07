@@ -47,6 +47,7 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
+                  required
                   name="name"
                   innerRef={register}
                   placeholder="Ingrese su nombre completo"
@@ -62,6 +63,7 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
+                  required
                   name="email"
                   innerRef={register}
                   placeholder="Ingrese su email"
@@ -77,6 +79,7 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
+                  required
                   name="password"
                   innerRef={register}
                   placeholder="Ingrese su contraseña"
@@ -93,6 +96,7 @@ const RegisterForm: React.FC<registerUserFormProps> = ({ onRegisterUser }) => {
                   </InputGroupText>
                 </InputGroupAddon>
                 <Input
+                  required
                   name="repitPassword"
                   innerRef={register}
                   placeholder="Repita la contraseña ingresada"

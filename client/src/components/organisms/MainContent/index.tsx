@@ -6,6 +6,9 @@ import {
   MainLineSeparator,
   MainFilterListCont,
   MainFilterListPagination,
+  FilterContainer,
+  FilterResponsiveContainer,
+  ToggleFilterResponsiveCont,
 } from "./styles";
 import HomeCompleteFilters from "components/molecules/HomeCompleteFilters";
 import ListPagination from "components/molecules/ListPagination";
@@ -14,38 +17,26 @@ import { defaultContact } from "constants/mainConstants";
 import MyModal from "components/atoms/MyModal";
 import MainContactCard from "components/molecules/MainContactCard";
 import MainContentContext from "states/context/mainContentContext";
-
-const information: IPropertyCard = {
-  _id: "asdasfascascascs",
-  type: "Arriendo",
-  property: "apartamento",
-  neighborhood: "El cortijo",
-  bathrooms: 1,
-  bedrooms: 3,
-  garages: 1,
-  area: 140,
-  price: 120000000,
-  image:
-    "https://image.shutterstock.com/image-photo/contemporary-residential-building-exterior-daylight-260nw-1658896948.jpg",
-};
+import { Collapse } from "reactstrap";
 
 interface MainContentProps {
   defaultFilter: IFilters;
   isEdit?: boolean;
   onAction?: (id: string) => void;
+  posts: IPost[];
+  onFilter?: (filters: IFilters) => void;
 }
 
 const MainContent: React.FC<MainContentProps> = ({
   defaultFilter,
   isEdit,
   onAction,
+  posts,
+  onFilter,
 }) => {
-  const [contact, setContact] = React.useState<IContact>(defaultContact);
   const context = React.useContext(MainContentContext);
-
-  const onFilter = (filters: IFilters) => {
-    console.log(filters);
-  };
+  const [contact, setContact] = React.useState<IContact>(defaultContact);
+  const [collapse, setCollapse] = React.useState<boolean>(false);
 
   const onCardClick = () => {
     console.log("card click");
@@ -61,30 +52,76 @@ const MainContent: React.FC<MainContentProps> = ({
     else if (onAction && context.isRemove) onAction(id);
   };
 
+  const getInformationCard = (post: IPost): ITypesCard => {
+    const card: ITypesCard = {
+      _id: post._id,
+      area: post.dimensions,
+      bathrooms: post.bathrooms,
+      bedrooms: post.rooms,
+      garages: post.parkings,
+      neighborhood: post.neighborhood,
+      price: post.price,
+      property: post.type_of_housing,
+      type: post.type_of_sale,
+      image:
+        "https://image.shutterstock.com/image-photo/contemporary-residential-building-exterior-daylight-260nw-1658896948.jpg",
+    };
+    return card;
+  };
+
   return (
     <React.Fragment>
       <MyModal title="Contacto:" open={contact.open} onClose={onContactClose}>
         <MainContactCard />
       </MyModal>
       <MainContentCont>
-        {!isEdit && (
+        {!isEdit && onFilter && (
           <React.Fragment>
-            <MainFilterPanel>
-              <HomeCompleteFilters
-                defaultFilter={defaultFilter}
-                onFilter={onFilter}
-              />
-            </MainFilterPanel>
-            <MainLineSeparator />
+            <FilterContainer>
+              <MainFilterPanel>
+                <HomeCompleteFilters
+                  defaultFilter={defaultFilter}
+                  onFilter={onFilter}
+                />
+              </MainFilterPanel>
+              <MainLineSeparator />
+            </FilterContainer>
+            <FilterResponsiveContainer>
+              <MainFilterPanel>
+                <ToggleFilterResponsiveCont>
+                  <label className="custom-toggle">
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setCollapse(e.target.checked)}
+                    />
+                    <span className="custom-toggle-slider rounded-circle" />
+                  </label>
+                  <span>
+                    {!collapse ? "Mostrar filtros" : "Ocultar filtros"}
+                  </span>
+                </ToggleFilterResponsiveCont>
+                <Collapse isOpen={collapse}>
+                  <HomeCompleteFilters
+                    defaultFilter={defaultFilter}
+                    onFilter={onFilter}
+                  />
+                </Collapse>
+              </MainFilterPanel>
+            </FilterResponsiveContainer>
           </React.Fragment>
         )}
         <MainFilterList>
           <MainFilterListCont>
-            <PropertyCard
-              onCardClick={onCardClick}
-              onButtonClick={!context.isShow ? onButtonClick : undefined}
-              information={information}
-            />
+            {posts.map((post) => {
+              return (
+                <PropertyCard
+                  key={post._id}
+                  onCardClick={onCardClick}
+                  onButtonClick={!context.isShow ? onButtonClick : undefined}
+                  information={getInformationCard(post)}
+                />
+              );
+            })}
           </MainFilterListCont>
           <MainFilterListPagination>
             <ListPagination />

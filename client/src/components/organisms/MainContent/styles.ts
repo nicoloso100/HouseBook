@@ -16,6 +16,9 @@ export const MainFilterPanel = styled.div`
   display: flex;
   min-width: 350px;
   max-width: 480px;
+  @media ${device.mobile} {
+    flex-direction: column;
+  }
 `;
 
 export const MainFilterList = styled.div`
@@ -47,4 +50,23 @@ export const MainFilterListPagination = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding-right: 15px;
+`;
+
+export const FilterContainer = styled.div`
+  display: flex;
+  @media ${device.mobile} {
+    display: none;
+  }
+`;
+export const FilterResponsiveContainer = styled.div`
+  display: none;
+  @media ${device.mobile} {
+    display: block;
+  }
+`;
+
+export const ToggleFilterResponsiveCont = styled.div`
+  width: 160px;
+  display: flex;
+  justify-content: space-between;
 `;
