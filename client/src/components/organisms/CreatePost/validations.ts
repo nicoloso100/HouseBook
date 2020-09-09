@@ -3,7 +3,7 @@ export const validateCreatePost = (data: ICreatePost): IFormValidation => {
     valid: true,
     message: "",
   };
-
+  console.log(data);
   if (
     data.images === undefined ||
     data.images === null ||
