@@ -24,6 +24,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
   const history = useHistory();
 
   const onDrop = (pictures: File[]) => {
+    console.log(pictures);
     setValue("images", pictures);
   };
 
