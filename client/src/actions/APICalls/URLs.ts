@@ -10,9 +10,12 @@ export const authURLs = {
 export const generalURLs = {
   getCities: `${baseURL}general/getCities`,
   getFilteredPosts: `${baseURL}publication/getPublicationsByFilters`,
+  uploadImages: `${baseURL}general/uploadImages`,
+  downloadImage: `${baseURL}general/image`,
 };
 
 export const userURLs = {
   getPosts: `${baseURL}publication/getPublicationsByUser`,
   createPost: `${baseURL}publication/createPublication`,
+  deletePost: `${baseURL}publication/deletePublication`,
 };

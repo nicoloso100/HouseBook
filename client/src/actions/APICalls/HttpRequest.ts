@@ -3,6 +3,7 @@ import ErrorAlert from "utils/errorAlert";
 enum RequestMethod {
   GET = "GET",
   POST = "POST",
+  DELETE = "DELETE",
 }
 
 interface IHeaders {
@@ -15,7 +16,6 @@ const defaultHeader: IHeaders = {
   method: RequestMethod.GET,
   body: null,
   headers: {
-    Authorization: null,
     "Content-Type": "application/json",
   },
 };
@@ -28,8 +28,6 @@ export class HttpRequest {
     try {
       let headers = {
         ...defaultHeader,
-        method: RequestMethod.GET,
-        headers: { ...defaultHeader.headers },
       };
       const response = await fetch(request, headers);
       const body = await response.json();
@@ -56,7 +54,58 @@ export class HttpRequest {
         ...defaultHeader,
         method: RequestMethod.POST,
         body: JSON.stringify(object),
-        headers: { ...defaultHeader.headers },
+      };
+      const response = await fetch(request, headers);
+      const body = await response.json();
+      if (!response.ok) {
+        throw new Error(body.error);
+      }
+      return {
+        ok: response.ok,
+        result: body,
+      };
+    } catch (error) {
+      ErrorAlert.show(error.message);
+      throw new Error(error);
+    } finally {
+      document.body.removeChild(div);
+    }
+  }
+
+  async Delete<T>(request: string): Promise<IAPIResult<T>> {
+    this.loaderSpinner(div);
+    try {
+      let headers = {
+        ...defaultHeader,
+        method: RequestMethod.DELETE,
+      };
+      const response = await fetch(request, headers);
+      const body = await response.json();
+      if (!response.ok) {
+        throw new Error(body.error);
+      } else {
+        return {
+          ok: response.ok,
+          result: body,
+        };
+      }
+    } catch (error) {
+      ErrorAlert.show(error.message);
+      throw new Error(error);
+    } finally {
+      document.body.removeChild(div);
+    }
+  }
+
+  async Upload<T>(request: string, data: FormData): Promise<IAPIResult<T>> {
+    this.loaderSpinner(div);
+    try {
+      let headers = {
+        method: RequestMethod.POST,
+        body: data,
+        headers: {
+          "Contetnt-Type": "multipart/form-data",
+        },
       };
       const response = await fetch(request, headers);
       const body = await response.json();

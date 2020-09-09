@@ -19,6 +19,8 @@ class PublicationRepository {
       publication.type_of_sale = data.type_of_sale;
       publication.description = data.description;
       publication.city = data.city;
+      publication.images = data.images;
+      publication.thumbnail = data.thumbnail;
       publication.created_at = new Date();
       publication.save();
       return publication._id;
@@ -26,14 +28,10 @@ class PublicationRepository {
       return error;
     }
   }
-  async getPublicationById(_id: any) {
+  async getPublicationById(_id: any): Promise<IPublicationModel | null> {
     try {
-      const publications = await PublicationModel.find({ _id: _id });
-      if (publications.length > 0) {
-        return publications;
-      } else {
-        return "No se encuentra la publicación";
-      }
+      const publication = await PublicationModel.findOne({ _id: _id });
+      return publication;
     } catch (error) {
       return error;
     }
