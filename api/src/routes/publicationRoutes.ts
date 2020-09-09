@@ -26,7 +26,7 @@ class PublicationRoutes {
       "/getPublicationsByFilters",
       publicationController.getPublicationsByFilters
     );
-    this.router.get(
+    this.router.delete(
       "/deletePublication/:id",
       publicationController.deletePublicationById
     );

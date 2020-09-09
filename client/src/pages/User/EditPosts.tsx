@@ -11,11 +11,11 @@ import { GetPosts } from "actions/APICalls/userActions";
 
 const EditPosts: React.FC = () => {
   const user = useSelector((state: RootState) => state.userReducer);
-  const [posts, setPosts] = React.useState<IPost[]>([]);
+  const [posts, setPosts] = React.useState<ISummaryPost[]>([]);
 
   React.useEffect(() => {
     if (user) {
-      GetPosts(user._id).then((posts: IPost[]) => {
+      GetPosts(user._id).then((posts: ISummaryPost[]) => {
         setPosts(posts);
       });
     }

@@ -16,14 +16,28 @@ export const GetServices = async (): Promise<ICity[]> => {
 
 export const GetFilteredPosts = async (
   filters: ISendFilters
-): Promise<IPost[]> => {
+): Promise<ISummaryPost[]> => {
   return new Promise(async (resolve, reject) => {
     try {
-      const request = await new HttpRequest().Post<IPost[]>(
+      const request = await new HttpRequest().Post<ISummaryPost[]>(
         generalURLs.getFilteredPosts,
         filters
       );
       resolve(request.result);
+    } catch {
+      reject();
+    }
+  });
+};
+
+export const UploadImages = async (images: FormData): Promise<string[]> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const resultImages = await new HttpRequest().Upload<string[]>(
+        generalURLs.uploadImages,
+        images
+      );
+      resolve(resultImages.result);
     } catch {
       reject();
     }

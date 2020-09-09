@@ -3,6 +3,8 @@ import { Seeder } from "mongo-seeding";
 import { SeedCities } from "./seeds/cities.seeder";
 import { mongoConfig } from "./contants";
 
+export var gridFsBucket: any = null;
+
 export const StartDatabase = () => {
   mongoose
     .connect(mongoConfig.database, {
@@ -21,6 +23,10 @@ export const StartDatabase = () => {
             }
           }
         });
+      gridFsBucket = new mongoose.mongo.GridFSBucket(mon.connection.db, {
+        bucketName: "Images",
+      });
+
       console.log("Se ha conectado satisfactoriamente con la base de datos.");
     })
     .catch((e) =>

@@ -19,8 +19,9 @@ const publicationSchema = new Schema({
   description: String,
   type_of_housing: String,
   type_of_sale: String,
-  images: String,
   created_at: Date,
+  thumbnail: String,
+  images: [String],
 });
 
 const PublicationModel = model<IPublicationModel>(

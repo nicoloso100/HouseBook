@@ -15,6 +15,7 @@ declare interface IPublication {
   description: string;
   type_of_housing: string;
   type_of_sale: string;
-  images: object;
+  images: string[];
+  thumbnail: string;
   created_at: Date;
 }
