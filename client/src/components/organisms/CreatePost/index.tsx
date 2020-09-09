@@ -10,6 +10,7 @@ import { useToasts } from "react-toast-notifications";
 import { useHistory } from "react-router-dom";
 import ImageUploader from "react-images-upload";
 import { validateCreatePost } from "./validations";
+import { defaultCreatePostForm } from "constants/userConstants";
 
 interface CreatePostFormProps {
   onCreatePost: (post: ICreatePost) => Promise<void> | undefined;
@@ -18,7 +19,9 @@ interface CreatePostFormProps {
 const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
   const salesTypes = SALE_TYPE as any;
   const propertiesList = PROPERTIES as any;
-  const { register, handleSubmit, setValue } = useForm<ICreatePost>();
+  const { register, handleSubmit, setValue } = useForm<ICreatePost>({
+    defaultValues: defaultCreatePostForm,
+  });
 
   const { addToast } = useToasts();
   const history = useHistory();
