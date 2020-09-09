@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "utils/responsiveTemplate";
 
 export const SignInContainer = styled.div`
   display: flex;
@@ -18,4 +19,7 @@ export const LeftContainer = styled.div`
   max-width: 50vh;
   flex: 1;
   height: 100vh;
+  @media ${device.mobile} {
+    display: none;
+  }
 `;

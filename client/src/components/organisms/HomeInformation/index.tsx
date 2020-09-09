@@ -7,10 +7,17 @@ import {
   HomeInfoRightSide,
   HomeInfoRightSideTitle,
 } from "./style";
+import { useHistory } from "react-router-dom";
 
 interface HomeInformationProps {}
 
 const HomeInformation: React.FC<HomeInformationProps> = () => {
+  const history = useHistory();
+
+  const navigate = () => {
+    history.push("/user");
+  };
+
   return (
     <HomeInformationContainer>
       <HomeInfoLeftSide>
@@ -24,7 +31,7 @@ const HomeInformation: React.FC<HomeInformationProps> = () => {
             text="Mediante las pruebas gratis tendrás acceso a crear las publicaciones que desees por un mes."
             tags={["1 mes", "publicaciones"]}
             buttonText="COMENZAR"
-            buttonAction={() => {}}
+            buttonAction={navigate}
           />
           <InformationCard
             theme="primary"
@@ -32,7 +39,7 @@ const HomeInformation: React.FC<HomeInformationProps> = () => {
             text="Si te suscribes al plan básico podrás crear las publicaciones que desees por 4 meses, el costo de éste plan es $"
             tags={["4 meses", "publicaciones"]}
             buttonText="COMPRAR"
-            buttonAction={() => {}}
+            buttonAction={navigate}
           />
           <InformationCard
             theme="success"
@@ -40,7 +47,7 @@ const HomeInformation: React.FC<HomeInformationProps> = () => {
             text="Si te suscribes al plan premium podrás crear las publicaciones que desees por 12 meses, el costo de éste plan es $"
             tags={["12 meses", "premium"]}
             buttonText="COMPRAR"
-            buttonAction={() => {}}
+            buttonAction={navigate}
           />
         </HomeInfoLeftSideCardsCont>
       </HomeInfoLeftSide>

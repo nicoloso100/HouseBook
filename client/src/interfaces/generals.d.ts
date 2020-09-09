@@ -14,3 +14,8 @@ declare interface ICity {
   codigoDaneMunicipio: number;
   municipio: string;
 }
+
+declare interface IFormValidation {
+  valid: boolean;
+  message: string;
+}

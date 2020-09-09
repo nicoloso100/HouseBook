@@ -21,6 +21,7 @@ interface MyAutosuggestProps {
   APIURL: string;
   onSelect: (text: string) => void;
   placeholder?: string;
+  required?: boolean;
 }
 
 const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
@@ -28,6 +29,7 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
   APIURL,
   onSelect,
   placeholder,
+  required,
 }) => {
   const [value, setValue] = React.useState<any>("");
   const [suggestions, setSuggestions] = React.useState<any[]>([]);
@@ -72,6 +74,7 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
     onChange: onChange,
     onBlur: onBlur,
     placeholder: placeholder,
+    required: required,
   };
 
   return (

@@ -11,7 +11,7 @@ import MainContentContext, {
 import { GetFilteredPosts } from "actions/APICalls/generalActions";
 
 const Main: React.FC = () => {
-  const [posts, setPosts] = React.useState<IPost[]>([]);
+  const [posts, setPosts] = React.useState<ISummaryPost[]>([]);
   let location = useLocation();
 
   const getDefaultFilter = React.useMemo(() => {

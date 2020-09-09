@@ -18,12 +18,13 @@ import MyModal from "components/atoms/MyModal";
 import MainContactCard from "components/molecules/MainContactCard";
 import MainContentContext from "states/context/mainContentContext";
 import { Collapse } from "reactstrap";
+import NoDataComponent from "components/molecules/NoDataComponent";
 
 interface MainContentProps {
   defaultFilter: IFilters;
   isEdit?: boolean;
   onAction?: (id: string) => void;
-  posts: IPost[];
+  posts: ISummaryPost[];
   onFilter?: (filters: IFilters) => void;
 }
 
@@ -50,23 +51,6 @@ const MainContent: React.FC<MainContentProps> = ({
     if (context.isContact) setContact({ ...defaultContact, open: true });
     else if (onAction && context.isEdit) onAction(id);
     else if (onAction && context.isRemove) onAction(id);
-  };
-
-  const getInformationCard = (post: IPost): ITypesCard => {
-    const card: ITypesCard = {
-      _id: post._id,
-      area: post.dimensions,
-      bathrooms: post.bathrooms,
-      bedrooms: post.rooms,
-      garages: post.parkings,
-      neighborhood: post.neighborhood,
-      price: post.price,
-      property: post.type_of_housing,
-      type: post.type_of_sale,
-      image:
-        "https://image.shutterstock.com/image-photo/contemporary-residential-building-exterior-daylight-260nw-1658896948.jpg",
-    };
-    return card;
   };
 
   return (
@@ -111,18 +95,22 @@ const MainContent: React.FC<MainContentProps> = ({
           </React.Fragment>
         )}
         <MainFilterList>
-          <MainFilterListCont>
-            {posts.map((post) => {
-              return (
-                <PropertyCard
-                  key={post._id}
-                  onCardClick={onCardClick}
-                  onButtonClick={!context.isShow ? onButtonClick : undefined}
-                  information={getInformationCard(post)}
-                />
-              );
-            })}
-          </MainFilterListCont>
+          {posts.length > 0 ? (
+            <MainFilterListCont>
+              {posts.map((post) => {
+                return (
+                  <PropertyCard
+                    key={post._id}
+                    onCardClick={onCardClick}
+                    onButtonClick={!context.isShow ? onButtonClick : undefined}
+                    information={post}
+                  />
+                );
+              })}
+            </MainFilterListCont>
+          ) : (
+            <NoDataComponent />
+          )}
           <MainFilterListPagination>
             <ListPagination />
           </MainFilterListPagination>

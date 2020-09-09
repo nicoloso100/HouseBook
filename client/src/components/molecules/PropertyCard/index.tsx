@@ -17,9 +17,10 @@ import { formatMoney } from "utils";
 import MyButton from "components/atoms/MyButton";
 import PropertyCardIcon from "components/atoms/PropertyCardIcon";
 import MainContentContext from "states/context/mainContentContext";
+import { generalURLs } from "actions/APICalls/URLs";
 
 interface PropertyCardProps {
-  information: ITypesCard;
+  information: ISummaryPost;
   onCardClick: () => void;
   onButtonClick?: (id: string) => void;
 }
@@ -53,9 +54,11 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   return (
     <PropertyCardSpace onClick={onCardClick}>
       <PropertyCardCont>
-        <PropertyImage url={information.image} />
+        <PropertyImage
+          url={`${generalURLs.downloadImage}/${information.thumbnail}`}
+        />
         <PropertyBody>
-          <PropertyCardTitle>{`${information.type} de ${information.property}, ${information.neighborhood}`}</PropertyCardTitle>
+          <PropertyCardTitle>{`${information.type_of_sale} de ${information.type_of_housing}, ${information.neighborhood}`}</PropertyCardTitle>
           <PropertyBodyCont>
             <PropertyBodyLeftCont>
               <PropertyBodyIcons>
@@ -67,12 +70,12 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
                 <PropertyCardIcon
                   withSeparator
                   icon="fa fa-bed"
-                  value={information.bedrooms}
+                  value={information.rooms}
                 />
                 <PropertyCardIcon
                   withSeparator
                   icon="fa fa-car"
-                  value={information.garages}
+                  value={information.parkings}
                 />
               </PropertyBodyIcons>
               <PropertyBodyPrice>
@@ -85,7 +88,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
             <PropertyBodyRightCont>
               <PropertyCardIcon
                 icon="fa fa-square"
-                value={`${information.area} m²`}
+                value={`${information.dimensions} m²`}
               />
               {onButtonClick && (
                 <MyButton

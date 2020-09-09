@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction, json } from "express";
 import { HandledError } from "../utils/errorHandler/customError";
 import publicationRepository from "../intraestructure/repositories/publicationRepository";
+import { deleteImages } from "../utils/files/deleteImages";
 
 class PublicationController {
   public async createPublication(
@@ -75,8 +76,19 @@ class PublicationController {
   ): Promise<any> {
     try {
       const id: any = req.params.id;
-      await publicationRepository.deletePublicationById(id);
-      res.json("Publicación eliminada exitosamente");
+      const post = await publicationRepository.getPublicationById(id);
+      if (post !== null) {
+        const images = post.images;
+        const delImages = await deleteImages(images);
+        if (delImages) {
+          await publicationRepository.deletePublicationById(id);
+          res.json("Publicación eliminada exitosamente");
+        } else {
+          throw Error;
+        }
+      } else {
+        throw Error;
+      }
     } catch {
       next(new HandledError("No se ha podido eliminar la publicación."));
     }
