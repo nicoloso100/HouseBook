@@ -20,6 +20,7 @@ declare interface IPost extends ISummaryPost {
   stratum: number;
   antiquity: number;
   description: string;
+  images: string[];
 }
 
 declare interface ICreatePost extends IPost {

@@ -21,7 +21,7 @@ class PublicationController {
     }
   }
 
-  public async getPublicationsById(
+  public async getPublicationById(
     req: Request,
     res: Response,
     next: NextFunction
@@ -36,6 +36,7 @@ class PublicationController {
       );
     }
   }
+
   public async getPublicationsByUser(
     req: Request,
     res: Response,

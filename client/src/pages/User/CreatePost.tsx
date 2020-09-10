@@ -1,5 +1,4 @@
 import * as React from "react";
-import { FrameContent } from "assets/styles/styledComponents";
 import CreatePostForm from "components/organisms/CreatePost";
 import { CreatePost } from "actions/APICalls/userActions";
 import { useSelector } from "react-redux";
@@ -27,11 +26,7 @@ const EditPosts: React.FC = () => {
     }
   };
 
-  return (
-    <FrameContent>
-      <CreatePostForm onCreatePost={onCreatePost} />
-    </FrameContent>
-  );
+  return <CreatePostForm onCreatePost={onCreatePost} />;
 };
 
 export default EditPosts;

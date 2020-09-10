@@ -8,7 +8,8 @@ import { defaultFilters } from "constants/filterConstants";
 import MainContentContext, {
   defaultMainContentContext,
 } from "states/context/mainContentContext";
-import { GetFilteredPosts } from "actions/APICalls/generalActions";
+import { GetFilteredPosts } from "actions/APICalls/postsActions";
+import Footer from "components/molecules/Footer";
 
 const Main: React.FC = () => {
   const [posts, setPosts] = React.useState<ISummaryPost[]>([]);
@@ -65,6 +66,7 @@ const Main: React.FC = () => {
           />
         </MainContentContext.Provider>
       </FrameContent>
+      <Footer />
     </React.Fragment>
   );
 };

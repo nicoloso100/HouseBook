@@ -11,8 +11,8 @@ class PublicationRoutes {
 
   setRoutes(): void {
     this.router.get(
-      "/getPublications/:id",
-      publicationController.getPublicationsById
+      "/getPublication/:id",
+      publicationController.getPublicationById
     );
     this.router.post(
       "/createPublication",
