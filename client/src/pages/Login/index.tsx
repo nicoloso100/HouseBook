@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "actions/Redux/userAction";
 import { useHistory } from "react-router-dom";
 import { USER_STORAGE } from "constants/userConstants";
+import Footer from "components/molecules/Footer";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const Login: React.FC = () => {
           <LoginForm onLogin={onLogin} />
         </RightContainer>
       </LoginContainer>
+      <Footer />
     </React.Fragment>
   );
 };

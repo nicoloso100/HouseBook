@@ -21,7 +21,7 @@ import { generalURLs } from "actions/APICalls/URLs";
 
 interface PropertyCardProps {
   information: ISummaryPost;
-  onCardClick: () => void;
+  onCardClick: (id: string) => void;
   onButtonClick?: (id: string) => void;
 }
 
@@ -52,7 +52,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
   }, [context]);
 
   return (
-    <PropertyCardSpace onClick={onCardClick}>
+    <PropertyCardSpace onClick={() => onCardClick(information._id)}>
       <PropertyCardCont>
         <PropertyImage
           url={`${generalURLs.downloadImage}/${information.thumbnail}`}
