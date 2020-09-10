@@ -19,22 +19,24 @@ interface CreatePostFormProps {
 const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
   const salesTypes = SALE_TYPE as any;
   const propertiesList = PROPERTIES as any;
-  const { register, handleSubmit, setValue } = useForm<ICreatePost>({
-    defaultValues: defaultCreatePostForm,
-  });
+
+  const [createPost, setCreatePost] = React.useState<ICreatePost>(
+    defaultCreatePostForm
+  );
+  const { register, handleSubmit } = useForm<ICreatePost>();
 
   const { addToast } = useToasts();
   const history = useHistory();
 
   const onDrop = (pictures: File[]) => {
-    console.log(pictures);
-    setValue("images", pictures);
+    setCreatePost((x) => ({ ...x, images: pictures }));
   };
 
   const onSubmit: SubmitHandler<ICreatePost> = (data) => {
-    const validations = validateCreatePost(data);
+    const newPost = { ...createPost, ...data };
+    const validations = validateCreatePost(newPost);
     if (validations.valid) {
-      const result = onCreatePost(data);
+      const result = onCreatePost(newPost);
       if (result) {
         result.then(() => {
           addToast("La publicación se ha creado exitosamente.", {
@@ -123,7 +125,12 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
                 customInput={Input}
                 thousandSeparator={true}
                 prefix={"$ "}
-                onValueChange={(value) => setValue("price", value.floatValue)}
+                onValueChange={(value) =>
+                  setCreatePost((x) => ({
+                    ...x,
+                    price: value.floatValue as number,
+                  }))
+                }
                 autoComplete="off"
               />
             </FormGroup>
@@ -138,7 +145,10 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
                 thousandSeparator={true}
                 suffix={" m²"}
                 onValueChange={(value) =>
-                  setValue("dimensions", value.floatValue)
+                  setCreatePost((x) => ({
+                    ...x,
+                    dimensions: value.floatValue as number,
+                  }))
                 }
                 autoComplete="off"
               />
@@ -155,7 +165,12 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
                 customInput={Input}
                 thousandSeparator={true}
                 suffix={" Habitaciones"}
-                onValueChange={(value) => setValue("rooms", value.floatValue)}
+                onValueChange={(value) =>
+                  setCreatePost((x) => ({
+                    ...x,
+                    rooms: value.floatValue as number,
+                  }))
+                }
                 autoComplete="off"
               />
             </FormGroup>
@@ -170,7 +185,10 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
                 thousandSeparator={true}
                 suffix={" Baños"}
                 onValueChange={(value) =>
-                  setValue("bathrooms", value.floatValue)
+                  setCreatePost((x) => ({
+                    ...x,
+                    bathrooms: value.floatValue as number,
+                  }))
                 }
                 autoComplete="off"
               />
@@ -186,7 +204,10 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
                 thousandSeparator={true}
                 suffix={" Parqueaderos"}
                 onValueChange={(value) =>
-                  setValue("parkings", value.floatValue)
+                  setCreatePost((x) => ({
+                    ...x,
+                    parkings: value.floatValue as number,
+                  }))
                 }
                 autoComplete="off"
               />
@@ -200,7 +221,12 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
                 required
                 placeholder="Ciudad"
                 APIURL={generalURLs.getCities}
-                onSelect={(value: string) => setValue("city", value)}
+                onSelect={(value: string) =>
+                  setCreatePost((x) => ({
+                    ...x,
+                    city: value,
+                  }))
+                }
               />
             </FormGroup>
           </Col>
@@ -254,7 +280,12 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
                 customInput={Input}
                 thousandSeparator={true}
                 prefix={"Estrato "}
-                onValueChange={(value) => setValue("stratum", value.floatValue)}
+                onValueChange={(value) =>
+                  setCreatePost((x) => ({
+                    ...x,
+                    stratum: value.floatValue as number,
+                  }))
+                }
                 autoComplete="off"
               />
             </FormGroup>
@@ -269,7 +300,10 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
                 thousandSeparator={true}
                 suffix={" Años"}
                 onValueChange={(value) =>
-                  setValue("antiquity", value.floatValue)
+                  setCreatePost((x) => ({
+                    ...x,
+                    antiquity: value.floatValue as number,
+                  }))
                 }
                 autoComplete="off"
               />
