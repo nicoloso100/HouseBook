@@ -4,6 +4,7 @@ import { RightContainer, LeftContainer, SignInContainer } from "./styles";
 import LoginLogoCont from "components/molecules/LoginLogoCont";
 import { SingUp } from "actions/APICalls/authActions";
 import RegisterForm from "components/organisms/RegisterUserForm";
+import Footer from "components/molecules/Footer";
 
 const Register: React.FC = () => {
   const onRegisterUser = (values: registerUserValues) => {
@@ -21,6 +22,7 @@ const Register: React.FC = () => {
           <RegisterForm onRegisterUser={onRegisterUser} />
         </RightContainer>
       </SignInContainer>
+      <Footer />
     </React.Fragment>
   );
 };

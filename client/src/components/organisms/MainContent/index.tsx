@@ -39,8 +39,8 @@ const MainContent: React.FC<MainContentProps> = ({
   const [contact, setContact] = React.useState<IContact>(defaultContact);
   const [collapse, setCollapse] = React.useState<boolean>(false);
 
-  const onCardClick = () => {
-    console.log("card click");
+  const onCardClick = (id: string) => {
+    window.open(`#/post/${id}`, "_blank");
   };
 
   const onContactClose = () => {

@@ -8,6 +8,7 @@ import { RootState } from "states";
 import EditPosts from "./EditPosts";
 import RemovePosts from "./RemovePosts";
 import CreatePosts from "./CreatePost";
+import Footer from "components/molecules/Footer";
 
 const redirectMainPath = () => <Redirect to="/user/index" />;
 
@@ -41,6 +42,7 @@ const User: React.FC = () => {
             <RemovePosts />
           </Route>
         </Switch>
+        <Footer />
       </div>
     </>
   );

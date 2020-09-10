@@ -13,12 +13,14 @@ import rootReducer from "states";
 import { USER_STORAGE } from "constants/userConstants";
 import { setUser } from "actions/Redux/userAction";
 import { ToastProvider } from "react-toast-notifications";
+import ViewPost from "pages/ViewPost";
 
 import "./assets/styles/index.css";
 import "assets/icons/nucleo/css/nucleo.css";
 import "assets/icons/font-awesome/css/font-awesome.min.css";
 import "assets/styles/argon-dashboard-react.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import "pure-react-carousel/dist/react-carousel.es.css";
 
 const redirectMainPath = () => <Redirect to="/home" />;
 
@@ -44,6 +46,9 @@ const App = () => {
         </Route>
         <Route exact path="/main">
           <Main />
+        </Route>
+        <Route exact path="/post/:id">
+          <ViewPost />
         </Route>
         <Route exact path="/login">
           <Login />

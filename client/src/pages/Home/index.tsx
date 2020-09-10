@@ -23,8 +23,8 @@ const Home: React.FC = () => {
       </FrameContent>
       <FrameContent>
         <HomeInformation />
-        <Footer />
       </FrameContent>
+      <Footer />
     </React.Fragment>
   );
 };
