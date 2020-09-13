@@ -17,5 +17,9 @@ declare interface IPublication {
   type_of_sale: string;
   images: string[];
   thumbnail: string;
+  web_site: string;
+  whatsapp: string;
+  email: string;
+  phone: string;
   created_at: Date;
 }

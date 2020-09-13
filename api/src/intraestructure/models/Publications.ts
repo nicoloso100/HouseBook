@@ -21,6 +21,10 @@ const publicationSchema = new Schema({
   type_of_sale: String,
   created_at: Date,
   thumbnail: String,
+  web_site: String,
+  whatsapp: String,
+  email: String,
+  phone: String,
   images: [String],
 });
 

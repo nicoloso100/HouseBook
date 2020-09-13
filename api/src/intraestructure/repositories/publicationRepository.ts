@@ -21,6 +21,10 @@ class PublicationRepository {
       publication.city = data.city;
       publication.images = data.images;
       publication.thumbnail = data.thumbnail;
+      publication.web_site = data.web_site;
+      publication.whatsapp = data.whatsapp;
+      publication.email = data.email;
+      publication.phone = data.phone;
       publication.created_at = new Date();
       publication.save();
       return publication._id;
@@ -64,6 +68,38 @@ class PublicationRepository {
     try {
       await PublicationModel.deleteOne({ _id: _id });
       return;
+    } catch (error) {
+      return error;
+    }
+  }
+  async updatePublication(data: IPublication, _id: any){
+    try {
+      const publication: any  = await PublicationModel.find({ _id: _id});
+      if (publication.length == 0){
+        return false;
+      }
+      publication.title = data.title;
+      publication.price = data.price;
+      publication.dimensions = data.dimensions;
+      publication.bathrooms = data.bathrooms;
+      publication.rooms = data.rooms;
+      publication.parkings = data.parkings;
+      publication.neighborhood = data.neighborhood;
+      publication.ubication = data.ubication;
+      publication.nearby_sites = data.nearby_sites;
+      publication.stratum = data.stratum;
+      publication.antiquity = data.antiquity;
+      publication.type_of_housing = data.type_of_housing;
+      publication.type_of_sale = data.type_of_sale;
+      publication.description = data.description;
+      publication.city = data.city;
+      publication.thumbnail = data.thumbnail;
+      publication.web_site = data.web_site;
+      publication.whatsapp = data.whatsapp;
+      publication.email = data.email;
+      publication.phone = data.phone;
+      publication.save();
+      return publication._id;
     } catch (error) {
       return error;
     }
