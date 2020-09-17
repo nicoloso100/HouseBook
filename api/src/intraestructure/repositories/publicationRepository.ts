@@ -1,3 +1,4 @@
+import { HandledError } from "../../utils/errorHandler/customError";
 import PublicationModel, { IPublicationModel } from "../models/Publications";
 class PublicationRepository {
   async createPublication(data: IPublication): Promise<IPublication> {
@@ -21,6 +22,10 @@ class PublicationRepository {
       publication.city = data.city;
       publication.images = data.images;
       publication.thumbnail = data.thumbnail;
+      publication.web_site = data.web_site;
+      publication.whatsapp = data.whatsapp;
+      publication.email = data.email;
+      publication.phone = data.phone;
       publication.created_at = new Date();
       publication.save();
       return publication._id;
@@ -66,6 +71,38 @@ class PublicationRepository {
       return;
     } catch (error) {
       return error;
+    }
+  }
+  async updatePublication(data: IPublication, _id: any) {
+    try {
+      const publication = await PublicationModel.findOne({ _id: _id });
+      if (publication == null) {
+        throw new HandledError("No se ha encontrado el id de la publicación");
+      }
+      publication.title = data.title;
+      publication.price = data.price;
+      publication.dimensions = data.dimensions;
+      publication.bathrooms = data.bathrooms;
+      publication.rooms = data.rooms;
+      publication.parkings = data.parkings;
+      publication.neighborhood = data.neighborhood;
+      publication.ubication = data.ubication;
+      publication.nearby_sites = data.nearby_sites;
+      publication.stratum = data.stratum;
+      publication.antiquity = data.antiquity;
+      publication.type_of_housing = data.type_of_housing;
+      publication.type_of_sale = data.type_of_sale;
+      publication.description = data.description;
+      publication.city = data.city;
+      publication.thumbnail = data.thumbnail;
+      publication.web_site = data.web_site;
+      publication.whatsapp = data.whatsapp;
+      publication.email = data.email;
+      publication.phone = data.phone;
+      publication.save();
+      return publication._id;
+    } catch (error) {
+      throw new HandledError(error.message);
     }
   }
 }

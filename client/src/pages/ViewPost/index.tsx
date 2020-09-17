@@ -9,7 +9,7 @@ import HomeTitle from "components/organisms/HomeTitle";
 import Footer from "components/molecules/Footer";
 
 const ViewPost: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<IOpenPost>();
   const history = useHistory();
 
   const [post, setPost] = React.useState<IPost | null>(null);

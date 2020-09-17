@@ -24,6 +24,7 @@ const Filter3: React.FC<Filter3Props> = ({ filter3, setFilter3, onSearch }) => {
       <MySectionTitle text="¿EN QUÉ CIUDAD BUSCA SU INMUEBLE?" />
       <FilterSearchContainer>
         <MyAutosuggest
+          withoutMargin
           defaultValue={filter3.ciudad}
           APIURL={generalURLs.getCities}
           onSelect={setCiudad}

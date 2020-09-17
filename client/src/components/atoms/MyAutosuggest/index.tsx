@@ -9,10 +9,11 @@ const renderSuggestion = (suggestion: any) => (
 
 const customInput = (inputProps: any) => (
   <MySearchBar
-    placeholder={inputProps.placeholder}
     inputProps={inputProps}
+    placeholder={inputProps.placeholder}
     value={inputProps.value}
     onChange={inputProps.onChange}
+    withoutMargin={inputProps.withoutmargin}
   />
 );
 
@@ -22,6 +23,7 @@ interface MyAutosuggestProps {
   onSelect: (text: string) => void;
   placeholder?: string;
   required?: boolean;
+  withoutMargin?: boolean;
 }
 
 const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
@@ -30,6 +32,7 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
   onSelect,
   placeholder,
   required,
+  withoutMargin,
 }) => {
   const [value, setValue] = React.useState<any>("");
   const [suggestions, setSuggestions] = React.useState<any[]>([]);
@@ -56,16 +59,19 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
     onSelect(suggestionValue);
   };
 
-  const onBlur = () => {
+  const onBlur = (callBack: Function) => {
     const exists = suggestions.find((x) => x.municipio === value);
     if (exists) {
       onSelect(value);
+      callBack(value);
     } else if (suggestions.length === 1) {
       onSelect(suggestions[0].municipio);
       setValue(suggestions[0].municipio);
+      callBack(suggestions[0].municipio);
     } else {
       onSelect("");
       setValue("");
+      callBack("");
     }
   };
 
@@ -75,6 +81,7 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
     onBlur: onBlur,
     placeholder: placeholder,
     required: required,
+    withoutmargin: withoutMargin,
   };
 
   return (
@@ -87,7 +94,7 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
       onSuggestionSelected={onSuggestionSelected}
       renderSuggestion={renderSuggestion}
       renderInputComponent={customInput}
-      inputProps={inputProps}
+      inputProps={inputProps as any}
     />
   );
 };

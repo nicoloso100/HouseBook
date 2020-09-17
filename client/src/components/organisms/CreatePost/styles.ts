@@ -7,3 +7,14 @@ export const FormContainer = styled.div`
   margin-left: auto;
   margin-right: auto;
 `;
+
+export const EditFormTitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+export const EditFormClose = styled.i`
+  cursor: pointer;
+`;

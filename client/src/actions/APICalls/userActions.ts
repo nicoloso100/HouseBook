@@ -28,7 +28,18 @@ export const CreatePost = (post: ISendPost): Promise<void> => {
 export const RemovePost = (id: string): Promise<void> => {
   return new Promise(async (resolve, reject) => {
     try {
-      await new HttpRequest().Delete(`${userURLs.deletePost}/${id}`);
+      await new HttpRequest().Delete(userURLs.deletePost, id);
+      resolve();
+    } catch {
+      reject();
+    }
+  });
+};
+
+export const editPost = (post: ISendPost, id: string): Promise<void> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      await new HttpRequest().Put(userURLs.editPost, id, post);
       resolve();
     } catch {
       reject();

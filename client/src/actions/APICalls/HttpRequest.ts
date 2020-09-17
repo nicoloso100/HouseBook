@@ -3,6 +3,7 @@ import ErrorAlert from "utils/errorAlert";
 enum RequestMethod {
   GET = "GET",
   POST = "POST",
+  PUT = "PUT",
   DELETE = "DELETE",
 }
 
@@ -72,14 +73,43 @@ export class HttpRequest {
     }
   }
 
-  async Delete<T>(request: string): Promise<IAPIResult<T>> {
+  async Put<T>(
+    request: string,
+    id: string,
+    object: any
+  ): Promise<IAPIResult<T>> {
+    this.loaderSpinner(div);
+    try {
+      let headers = {
+        ...defaultHeader,
+        method: RequestMethod.PUT,
+        body: JSON.stringify(object),
+      };
+      const response = await fetch(`${request}/${id}`, headers);
+      const body = await response.json();
+      if (!response.ok) {
+        throw new Error(body.error);
+      }
+      return {
+        ok: response.ok,
+        result: body,
+      };
+    } catch (error) {
+      ErrorAlert.show(error.message);
+      throw new Error(error);
+    } finally {
+      document.body.removeChild(div);
+    }
+  }
+
+  async Delete<T>(request: string, id: string): Promise<IAPIResult<T>> {
     this.loaderSpinner(div);
     try {
       let headers = {
         ...defaultHeader,
         method: RequestMethod.DELETE,
       };
-      const response = await fetch(request, headers);
+      const response = await fetch(`${request}/${id}`, headers);
       const body = await response.json();
       if (!response.ok) {
         throw new Error(body.error);
