@@ -101,14 +101,18 @@ class PublicationController {
   ): Promise<any> {
     try {
       const id: any = req.params.id;
-      const data: IPublication = req.body.data;
+      const data: IPublication = req.body;
       const publications = await publicationRepository.updatePublication(
         data,
         id
       );
       res.json(publications);
     } catch {
-      next(new HandledError("Error al consultar publicaciones del usuario."));
+      next(
+        new HandledError(
+          "Error modificar la publicación, por favor intentelo nuevamente."
+        )
+      );
     }
   }
 }

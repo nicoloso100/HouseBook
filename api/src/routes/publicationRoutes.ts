@@ -30,7 +30,7 @@ class PublicationRoutes {
       "/deletePublication/:id",
       publicationController.deletePublicationById
     );
-    this.router.post(
+    this.router.put(
       "/updatePublication/:id",
       publicationController.updatePublicationById
     );

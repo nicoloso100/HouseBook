@@ -64,6 +64,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             addToast("La publicación se ha modificado exitosamente.", {
               appearance: "success",
             });
+            onClose && onClose();
           }
         });
       }

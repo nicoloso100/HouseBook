@@ -100,3 +100,8 @@ body {
 .carousel__dot--selected {
   background-color: #dadada !important;
 }
+
+/* Alerts */
+.react-confirm-alert-overlay {
+  z-index: 10000 !important;
+}

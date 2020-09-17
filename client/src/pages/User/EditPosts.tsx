@@ -7,7 +7,7 @@ import MainContentContext, {
 } from "states/context/mainContentContext";
 import { useSelector } from "react-redux";
 import { RootState } from "states";
-import { GetPosts } from "actions/APICalls/userActions";
+import { editPost, GetPosts } from "actions/APICalls/userActions";
 import { Modal } from "reactstrap";
 import CreatePostContext, {
   defaultCreatePostContext,
@@ -21,23 +21,35 @@ const EditPosts: React.FC = () => {
   const [posts, setPosts] = React.useState<ISummaryPost[]>([]);
   const [openEdit, setOpenEdit] = React.useState<IOpenModal>(defaultOpenModal);
 
+  const refreshPosts = (id: string) => {
+    GetPosts(id).then((posts: ISummaryPost[]) => {
+      setPosts(posts);
+    });
+  };
+
   React.useEffect(() => {
     if (user) {
-      GetPosts(user._id).then((posts: ISummaryPost[]) => {
-        setPosts(posts);
-      });
+      refreshPosts(user._id);
     }
   }, [user]);
 
-  const onCreatePost = (post: ICreatePost) => {
+  const onEditPost = (post: ICreatePost) => {
     if (user) {
-      console.log(post);
-      return undefined;
+      const sendPost: ISendPost = {
+        ...post,
+        user_id: user._id,
+        images: [],
+      };
+      console.log(post._id);
+      return editPost(sendPost, post._id);
     }
   };
 
   const onCloseForm = () => {
     setOpenEdit(defaultOpenModal);
+    if (user) {
+      refreshPosts(user._id);
+    }
   };
 
   const onAction = (id: string) => {
@@ -61,7 +73,7 @@ const EditPosts: React.FC = () => {
           value={{ ...defaultCreatePostContext, isEdit: true }}
         >
           <CreatePostForm
-            onAction={onCreatePost}
+            onAction={onEditPost}
             onClose={onCloseForm}
             defaultValues={openEdit.value}
           />
