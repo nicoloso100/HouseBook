@@ -8,7 +8,12 @@ import {
   PostCardBody,
   PostContactCardCont,
   PostCarditem,
+  CustomBadge,
+  PostInformationDivisor,
+  PostInformationDivisorContent,
 } from "./styles";
+import MainContactCard from "components/molecules/MainContactCard";
+import { formatMoney } from "utils";
 
 interface PostInformationProps {
   information: IPost;
@@ -32,24 +37,67 @@ const PostInformation: React.FC<PostInformationProps> = ({ information }) => {
             <p>{information.description}</p>
           </PostCarditem>
           <PostCarditem>
-            <p>{information.city}</p>
+            <CustomBadge color="info">{information.type_of_sale}</CustomBadge>
+            <CustomBadge color="info">
+              {information.type_of_housing}
+            </CustomBadge>
           </PostCarditem>
-          <PostCarditem>
-            <p>{information.ubication}</p>
-          </PostCarditem>
-          <PostCarditem>
-            <p>{information.neighborhood}</p>
-          </PostCarditem>
-          <PostCarditem>
-            <p>{information.nearby_sites}</p>
-          </PostCarditem>
-          <PostCarditem>
-            <p>{information.stratum}</p>
-          </PostCarditem>
+          <PostInformationDivisor>
+            <PostInformationDivisorContent>
+              <PostCarditem>
+                <strong>Precio</strong>
+                <p>{formatMoney(information.price)}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Ciudad: </strong>
+                <p>{information.city}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Barrio: </strong>
+                <p>{information.neighborhood}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Dirección</strong>
+                <p>{information.ubication}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Ubicada cerca de</strong>
+                <p>{information.nearby_sites}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Estrato</strong>
+                <p>{information.stratum}</p>
+              </PostCarditem>
+            </PostInformationDivisorContent>
+            <PostInformationDivisorContent>
+              <PostCarditem>
+                <strong>Área</strong>
+                <p>{information.dimensions}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Número de habitaciones</strong>
+                <p>{information.rooms}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Número de baños</strong>
+                <p>{information.bathrooms}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Número de parqueaderos</strong>
+                <p>{information.parkings}</p>
+              </PostCarditem>
+              <PostCarditem>
+                <strong>Antiguedad</strong>
+                <p>{information.antiquity}</p>
+              </PostCarditem>
+            </PostInformationDivisorContent>
+          </PostInformationDivisor>
         </PostCardBody>
       </PostInformationCard>
       <PostContactCardCont>
-        <PostContactCard></PostContactCard>
+        <PostContactCard>
+          <MainContactCard email="nico.las0315@hotmail.com" />
+        </PostContactCard>
       </PostContactCardCont>
     </PostInformationCont>
   );

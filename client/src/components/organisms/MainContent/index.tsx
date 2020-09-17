@@ -56,7 +56,7 @@ const MainContent: React.FC<MainContentProps> = ({
   return (
     <React.Fragment>
       <MyModal title="Contacto:" open={contact.open} onClose={onContactClose}>
-        <MainContactCard />
+        <MainContactCard email="nico.las0315@hotmail.com" />
       </MyModal>
       <MainContentCont>
         {!isEdit && onFilter && (

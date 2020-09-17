@@ -11,6 +11,7 @@ export const EmailButtonCont = styled.div`
   display: flex;
   align-items: center;
   transition-duration: 0.2s;
+  cursor: pointer;
   :hover {
     box-shadow: 0px 0px 5px 0.5px rgba(156, 156, 156, 1);
   }

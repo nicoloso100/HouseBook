@@ -1,3 +1,4 @@
+import { HandledError } from "../../utils/errorHandler/customError";
 import PublicationModel, { IPublicationModel } from "../models/Publications";
 class PublicationRepository {
   async createPublication(data: IPublication): Promise<IPublication> {
@@ -72,11 +73,11 @@ class PublicationRepository {
       return error;
     }
   }
-  async updatePublication(data: IPublication, _id: any){
+  async updatePublication(data: IPublication, _id: any) {
     try {
-      const publication: any  = await PublicationModel.find({ _id: _id});
-      if (publication.length == 0){
-        return false;
+      const publication = await PublicationModel.findOne({ _id: _id });
+      if (publication == null) {
+        throw new HandledError("No se ha encontrado el id de la publicación");
       }
       publication.title = data.title;
       publication.price = data.price;
@@ -101,7 +102,7 @@ class PublicationRepository {
       publication.save();
       return publication._id;
     } catch (error) {
-      return error;
+      throw new HandledError(error.message);
     }
   }
 }

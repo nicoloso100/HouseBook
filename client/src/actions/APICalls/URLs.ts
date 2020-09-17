@@ -22,4 +22,5 @@ export const userURLs = {
   getPosts: `${baseURL}publication/getPublicationsByUser`,
   createPost: `${baseURL}publication/createPublication`,
   deletePost: `${baseURL}publication/deletePublication`,
+  editPost: `${baseURL}publication/updatePublication`,
 };

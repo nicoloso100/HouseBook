@@ -1,48 +1,71 @@
 import * as React from "react";
-import { Form, Row, Col, FormGroup, Input, Button } from "reactstrap";
-import { FormContainer } from "./styles";
-import NumberFormat from "react-number-format";
+import { Form, Row, Col, FormGroup, Button } from "reactstrap";
+import { EditFormClose, EditFormTitle, FormContainer } from "./styles";
 import MyAutosuggest from "components/atoms/MyAutosuggest";
 import { generalURLs } from "actions/APICalls/URLs";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { SALE_TYPE, PROPERTIES } from "constants/propertiesConstants";
 import { useToasts } from "react-toast-notifications";
 import { useHistory } from "react-router-dom";
 import ImageUploader from "react-images-upload";
 import { validateCreatePost } from "./validations";
 import { defaultCreatePostForm } from "constants/userConstants";
+import CreatePostContext from "states/context/createPostContext";
+import MyInput from "components/atoms/MyInput";
+import MySelect from "components/atoms/MySelect";
+import MyNumberInput from "components/atoms/MyNumberInput";
+import MyTextArea from "components/atoms/MyTextArea";
 
 interface CreatePostFormProps {
-  onCreatePost: (post: ICreatePost) => Promise<void> | undefined;
+  onAction: (post: ICreatePost) => Promise<void> | undefined;
+  onClose?: () => void;
+  defaultValues?: ICreatePost;
 }
 
-const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
+const CreatePostForm: React.FC<CreatePostFormProps> = ({
+  onAction,
+  onClose,
+  defaultValues,
+}) => {
+  const context = React.useContext(CreatePostContext);
+
   const salesTypes = SALE_TYPE as any;
   const propertiesList = PROPERTIES as any;
 
   const [createPost, setCreatePost] = React.useState<ICreatePost>(
     defaultCreatePostForm
   );
-  const { register, handleSubmit } = useForm<ICreatePost>();
 
   const { addToast } = useToasts();
   const history = useHistory();
+
+  React.useEffect(() => {
+    if (defaultValues) {
+      setCreatePost({ ...defaultValues });
+    }
+  }, [defaultValues]);
 
   const onDrop = (pictures: File[]) => {
     setCreatePost((x) => ({ ...x, images: pictures }));
   };
 
-  const onSubmit: SubmitHandler<ICreatePost> = (data) => {
-    const newPost = { ...createPost, ...data };
+  const onSubmit = () => {
+    const newPost = { ...createPost };
     const validations = validateCreatePost(newPost);
     if (validations.valid) {
-      const result = onCreatePost(newPost);
+      const result = onAction(newPost);
       if (result) {
         result.then(() => {
-          addToast("La publicación se ha creado exitosamente.", {
-            appearance: "success",
-          });
-          history.push("/user/index");
+          if (context.isCreate) {
+            addToast("La publicación se ha creado exitosamente.", {
+              appearance: "success",
+            });
+            history.push("/user/index");
+          } else if (context.isEdit) {
+            addToast("La publicación se ha modificado exitosamente.", {
+              appearance: "success",
+            });
+            onClose && onClose();
+          }
         });
       }
     } else {
@@ -54,103 +77,102 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
 
   return (
     <FormContainer>
-      <Form role="form" autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+      <EditFormTitle>
+        <h2>Modificar Publicación</h2>
+        {onClose && <EditFormClose onClick={onClose} className="fa fa-times" />}
+      </EditFormTitle>
+      <Form role="form" autoComplete="off" onSubmit={onSubmit}>
         <Row>
           <Col md="6">
-            <FormGroup>
-              <Input
-                required
-                type="select"
-                name="type_of_sale"
-                innerRef={register}
-                className="form-control-alternative"
-              >
-                <option value={""}>
-                  -- Selecciona el tipo de publicación --
-                </option>
-                {Object.keys(salesTypes).map((key) => {
-                  return (
-                    <option key={key} value={salesTypes[key].value}>
-                      {salesTypes[key].label}
-                    </option>
-                  );
-                })}
-              </Input>
-            </FormGroup>
+            <MySelect
+              required
+              defaultValue={
+                context.isEdit ? createPost.type_of_sale : undefined
+              }
+              onChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  type_of_sale: value,
+                }))
+              }
+              defaultOption="-- Selecciona el tipo de publicación --"
+              options={Object.keys(salesTypes).map(
+                (key) =>
+                  ({
+                    text: salesTypes[key].label,
+                    value: salesTypes[key].value,
+                  } as ISelectOption)
+              )}
+            />
           </Col>
           <Col md="6">
-            <FormGroup>
-              <Input
-                required
-                type="select"
-                name="type_of_housing"
-                innerRef={register}
-                className="form-control-alternative"
-              >
-                <option value={""}>
-                  -- Selecciona la agrupación a la que pertenece --
-                </option>
-                {Object.keys(propertiesList).map((key) => {
-                  return (
-                    <option key={key} value={propertiesList[key].value}>
-                      {propertiesList[key].label}
-                    </option>
-                  );
-                })}
-              </Input>
-            </FormGroup>
+            <MySelect
+              required
+              defaultValue={
+                context.isEdit ? createPost.type_of_housing : undefined
+              }
+              onChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  type_of_housing: value,
+                }))
+              }
+              defaultOption="-- Selecciona la agrupación a la que pertenece --"
+              options={Object.keys(propertiesList).map(
+                (key) =>
+                  ({
+                    text: propertiesList[key].label,
+                    value: propertiesList[key].value,
+                  } as ISelectOption)
+              )}
+            />
           </Col>
         </Row>
         <Row>
           <Col md="6">
-            <FormGroup>
-              <Input
-                required
-                name="title"
-                innerRef={register}
-                className="form-control-alternative"
-                placeholder="Título de la publicación"
-                type="text"
-                autoComplete="off"
-              />
-            </FormGroup>
+            <MyInput
+              required
+              defaultValue={createPost.title}
+              onChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  title: value,
+                }))
+              }
+              placeholder="Título de la publicación"
+            />
+          </Col>
+          <Col md="3">
+            <MyNumberInput
+              required
+              defaultValue={context.isEdit ? createPost.price : undefined}
+              thousandSeparator={true}
+              placeholder="Precio del inmueble"
+              prefix={"$ "}
+              onChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  price: value,
+                }))
+              }
+            />
           </Col>
           <Col md="3">
             <FormGroup>
-              <NumberFormat
+              <MyNumberInput
                 required
-                name="price"
-                className="form-control-alternative"
-                placeholder="Precio del inmueble"
-                customInput={Input}
-                thousandSeparator={true}
-                prefix={"$ "}
-                onValueChange={(value) =>
-                  setCreatePost((x) => ({
-                    ...x,
-                    price: value.floatValue as number,
-                  }))
+                defaultValue={
+                  context.isEdit ? createPost.dimensions : undefined
                 }
-                autoComplete="off"
-              />
-            </FormGroup>
-          </Col>
-          <Col md="3">
-            <FormGroup>
-              <NumberFormat
-                required
-                className="form-control-alternative"
                 placeholder="Área del inmueble"
-                customInput={Input}
                 thousandSeparator={true}
                 suffix={" m²"}
-                onValueChange={(value) =>
+                onChange={(value) =>
                   setCreatePost((x) => ({
                     ...x,
-                    dimensions: value.floatValue as number,
+                    dimensions: value,
                   }))
                 }
-                autoComplete="off"
               />
             </FormGroup>
           </Col>
@@ -158,58 +180,49 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
         <Row>
           <Col md="4">
             <FormGroup>
-              <NumberFormat
+              <MyNumberInput
                 required
-                className="form-control-alternative"
+                defaultValue={context.isEdit ? createPost.rooms : undefined}
                 placeholder="Número de habitaciones"
-                customInput={Input}
-                thousandSeparator={true}
                 suffix={" Habitaciones"}
-                onValueChange={(value) =>
+                onChange={(value) =>
                   setCreatePost((x) => ({
                     ...x,
-                    rooms: value.floatValue as number,
+                    rooms: value,
                   }))
                 }
-                autoComplete="off"
               />
             </FormGroup>
           </Col>
           <Col md="4">
             <FormGroup>
-              <NumberFormat
+              <MyNumberInput
                 required
-                className="form-control-alternative"
+                defaultValue={context.isEdit ? createPost.bathrooms : undefined}
                 placeholder="Número de baños"
-                customInput={Input}
-                thousandSeparator={true}
                 suffix={" Baños"}
-                onValueChange={(value) =>
+                onChange={(value) =>
                   setCreatePost((x) => ({
                     ...x,
-                    bathrooms: value.floatValue as number,
+                    bathrooms: value,
                   }))
                 }
-                autoComplete="off"
               />
             </FormGroup>
           </Col>
           <Col md="4">
             <FormGroup>
-              <NumberFormat
+              <MyNumberInput
                 required
-                className="form-control-alternative"
+                defaultValue={context.isEdit ? createPost.parkings : undefined}
                 placeholder="Número de parqueaderos"
-                customInput={Input}
-                thousandSeparator={true}
                 suffix={" Parqueaderos"}
-                onValueChange={(value) =>
+                onChange={(value) =>
                   setCreatePost((x) => ({
                     ...x,
-                    parkings: value.floatValue as number,
+                    parkings: value,
                   }))
                 }
-                autoComplete="off"
               />
             </FormGroup>
           </Col>
@@ -219,6 +232,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
             <FormGroup>
               <MyAutosuggest
                 required
+                defaultValue={createPost.city}
                 placeholder="Ciudad"
                 APIURL={generalURLs.getCities}
                 onSelect={(value: string) =>
@@ -232,27 +246,31 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
           </Col>
           <Col md="3">
             <FormGroup>
-              <Input
+              <MyInput
                 required
-                name="neighborhood"
-                innerRef={register}
-                className="form-control-alternative"
+                defaultValue={createPost.neighborhood}
+                onChange={(value) =>
+                  setCreatePost((x) => ({
+                    ...x,
+                    neighborhood: value,
+                  }))
+                }
                 placeholder="Barrio"
-                type="text"
-                autoComplete="off"
               />
             </FormGroup>
           </Col>
           <Col md="6">
             <FormGroup>
-              <Input
+              <MyInput
                 required
-                name="ubication"
-                innerRef={register}
-                className="form-control-alternative"
+                defaultValue={createPost.ubication}
+                onChange={(value) =>
+                  setCreatePost((x) => ({
+                    ...x,
+                    ubication: value,
+                  }))
+                }
                 placeholder="Dirección"
-                type="text"
-                autoComplete="no"
               />
             </FormGroup>
           </Col>
@@ -260,52 +278,48 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
         <Row>
           <Col md="6">
             <FormGroup>
-              <Input
+              <MyInput
                 required
-                name="nearby_sites"
-                innerRef={register}
-                className="form-control-alternative"
+                defaultValue={createPost.nearby_sites}
+                onChange={(value) =>
+                  setCreatePost((x) => ({
+                    ...x,
+                    nearby_sites: value,
+                  }))
+                }
                 placeholder="Sitios cercanos"
-                type="text"
-                autoComplete="off"
               />
             </FormGroup>
           </Col>
           <Col md="3">
             <FormGroup>
-              <NumberFormat
+              <MyNumberInput
                 required
-                className="form-control-alternative"
+                defaultValue={context.isEdit ? createPost.stratum : undefined}
                 placeholder="Estrato"
-                customInput={Input}
-                thousandSeparator={true}
                 prefix={"Estrato "}
-                onValueChange={(value) =>
+                onChange={(value) =>
                   setCreatePost((x) => ({
                     ...x,
-                    stratum: value.floatValue as number,
+                    stratum: value,
                   }))
                 }
-                autoComplete="off"
               />
             </FormGroup>
           </Col>
           <Col md="3">
             <FormGroup>
-              <NumberFormat
+              <MyNumberInput
                 required
-                className="form-control-alternative"
+                defaultValue={context.isEdit ? createPost.antiquity : undefined}
                 placeholder="Antiguedad"
-                customInput={Input}
-                thousandSeparator={true}
                 suffix={" Años"}
-                onValueChange={(value) =>
+                onChange={(value) =>
                   setCreatePost((x) => ({
                     ...x,
-                    antiquity: value.floatValue as number,
+                    antiquity: value,
                   }))
                 }
-                autoComplete="off"
               />
             </FormGroup>
           </Col>
@@ -313,36 +327,39 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ onCreatePost }) => {
         <Row>
           <Col>
             <FormGroup>
-              <Input
-                required
-                name="description"
-                innerRef={register}
-                className="form-control-alternative"
+              <MyTextArea
+                defaultValue={createPost.description}
+                onChange={(value) =>
+                  setCreatePost((x) => ({
+                    ...x,
+                    description: value,
+                  }))
+                }
                 placeholder="Descripción del inmueble"
-                rows="4"
-                type="textarea"
               />
             </FormGroup>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <ImageUploader
-                withPreview
-                buttonText="Subir imágenes"
-                onChange={onDrop}
-                imgExtension={[".jpg", ".png", ".jpeg"]}
-                maxFileSize={5242880}
-                label="Seleccione máximo 10 imágenes. La primera será la imágen principal"
-                fileSizeError="(El archivo es demasiado grande)"
-                fileTypeError="(El tipo de archivo no es soportado)"
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Button className="my-4" color="primary" type="submit">
-          Crear publicación
+        {context.isCreate && (
+          <Row>
+            <Col>
+              <FormGroup>
+                <ImageUploader
+                  withPreview
+                  buttonText="Subir imágenes"
+                  onChange={onDrop}
+                  imgExtension={[".jpg", ".png", ".jpeg"]}
+                  maxFileSize={5242880}
+                  label="Seleccione máximo 10 imágenes. La primera será la imágen principal"
+                  fileSizeError="(El archivo es demasiado grande)"
+                  fileTypeError="(El tipo de archivo no es soportado)"
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+        )}
+        <Button className="my-4" color="primary" onClick={onSubmit}>
+          {context.isCreate ? "Crear publicación" : "Modificar publicación"}
         </Button>
       </Form>
     </FormContainer>
