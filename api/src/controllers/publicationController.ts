@@ -94,6 +94,23 @@ class PublicationController {
       next(new HandledError("No se ha podido eliminar la publicación."));
     }
   }
+  public async updatePublicationById(
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<any> {
+    try {
+      const id: any = req.params.id;
+      const data: IPublication = req.body.data;
+      const publications = await publicationRepository.updatePublication(
+        data,
+        id
+      );
+      res.json(publications);
+    } catch {
+      next(new HandledError("Error al consultar publicaciones del usuario."));
+    }
+  }
 }
 
 const publicationController = new PublicationController();
