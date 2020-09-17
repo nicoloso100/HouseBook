@@ -5,6 +5,10 @@ export const formatMoney = (value: number) => {
   }).format(value);
 };
 
-export const isNullOrEmpty = (text: string) => {
+export const isNullOrEmpty = (text: string | null | undefined) => {
   return text === undefined || text === null || text === "";
+};
+
+export const isInvalidNumber = (number: number | null | undefined) => {
+  return number === undefined || number === null;
 };

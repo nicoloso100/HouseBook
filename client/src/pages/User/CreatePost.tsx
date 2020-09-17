@@ -4,6 +4,9 @@ import { CreatePost } from "actions/APICalls/userActions";
 import { useSelector } from "react-redux";
 import { RootState } from "states";
 import { UploadImages } from "actions/APICalls/generalActions";
+import CreatePostContext, {
+  defaultCreatePostContext,
+} from "states/context/createPostContext";
 
 const EditPosts: React.FC = () => {
   const user = useSelector((state: RootState) => state.userReducer);
@@ -26,7 +29,13 @@ const EditPosts: React.FC = () => {
     }
   };
 
-  return <CreatePostForm onCreatePost={onCreatePost} />;
+  return (
+    <CreatePostContext.Provider
+      value={{ ...defaultCreatePostContext, isCreate: true }}
+    >
+      <CreatePostForm onAction={onCreatePost} />
+    </CreatePostContext.Provider>
+  );
 };
 
 export default EditPosts;

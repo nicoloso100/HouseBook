@@ -1,34 +1,46 @@
 import * as React from "react";
-import nextId from "react-id-generator";
-import { Label, Input } from "reactstrap";
+import { FormGroup, Input } from "reactstrap";
+import { isNullOrEmpty } from "utils";
 
 interface MyInputProps {
-  label: string;
-  type: any;
+  defaultValue: string;
+  onChange: (value: string) => void;
+  placeholder: string;
+  required?: boolean;
 }
 
 const MyInput: React.FC<MyInputProps> = ({
-  label,
-  type,
+  defaultValue,
+  onChange,
+  placeholder,
+  required,
 }) => {
+  const [invalid, setInvalid] = React.useState<boolean>(false);
+  const [value, setValue] = React.useState<string>("");
 
-  const key = React.useMemo(() => nextId(), []);
-  var prueba;
+  React.useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
 
-  if(type == "select"){
-    prueba = <Input type={type}>
-    <option>Arriendo</option>
-    <option>Venta</option>
-    </Input>
-  }else{
-    prueba = <Input type={type}/>
-  }
+  const onBlur = () => {
+    onChange(value);
+    if (required) {
+      setInvalid(isNullOrEmpty(value));
+    }
+  };
 
   return (
-    <div>
-      <Label>{label}</Label>      
-      {prueba}
-    </div>
+    <FormGroup className={invalid ? "has-danger" : ""}>
+      <Input
+        value={value}
+        onChange={(evt) => setValue(evt.target.value)}
+        onBlur={onBlur}
+        className="form-control-alternative"
+        placeholder={placeholder}
+        type="text"
+        autoComplete="off"
+      />
+    </FormGroup>
   );
 };
 

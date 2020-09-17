@@ -21,3 +21,8 @@ export const defaultCreatePostForm: ICreatePost = {
   description: "",
   images: [],
 };
+
+export const defaultOpenModal: IOpenModal = {
+  open: false,
+  value: undefined,
+};

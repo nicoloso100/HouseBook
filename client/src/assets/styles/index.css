@@ -94,3 +94,9 @@ body {
 .pagination {
   margin: 0;
 }
+
+/* Carousel */
+
+.carousel__dot--selected {
+  background-color: #dadada !important;
+}

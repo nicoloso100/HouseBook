@@ -1,15 +1,13 @@
 import * as React from "react";
+import { Slide, ImageWithZoom, CarouselProvider } from "pure-react-carousel";
 import {
-  Slide,
-  ButtonBack,
-  ButtonNext,
-  ImageWithZoom,
-  ButtonFirst,
-  ButtonLast,
-  DotGroup,
-  CarouselProvider,
-} from "pure-react-carousel";
-import { CustomSlider } from "./styles";
+  CustomButtonBack,
+  CustomButtonFirst,
+  CustomButtonLast,
+  CustomButtonNext,
+  CustomDotGroup,
+  CustomSlider,
+} from "./styles";
 
 interface CrouselProps {
   images: string[];
@@ -34,11 +32,11 @@ const Crousel: React.FC<CrouselProps> = ({ images }) => {
           );
         })}
       </CustomSlider>
-      <ButtonFirst>First</ButtonFirst>
-      <ButtonBack>Back</ButtonBack>
-      <ButtonNext>Next</ButtonNext>
-      <ButtonLast>Last</ButtonLast>
-      <DotGroup dotNumbers />
+      <CustomButtonFirst>First</CustomButtonFirst>
+      <CustomButtonBack>Back</CustomButtonBack>
+      <CustomButtonNext>Next</CustomButtonNext>
+      <CustomButtonLast>Last</CustomButtonLast>
+      <CustomDotGroup dotNumbers />
     </CarouselProvider>
   );
 };

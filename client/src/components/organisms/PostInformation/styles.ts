@@ -1,3 +1,4 @@
+import { Badge } from "reactstrap";
 import styled from "styled-components";
 import { device } from "utils/responsiveTemplate";
 
@@ -9,6 +10,19 @@ export const PostInformationCont = styled.div`
     padding: 20px;
     flex-direction: column-reverse;
   }
+`;
+
+export const CustomBadge = styled(Badge)`
+  margin-right: 10px;
+`;
+
+export const PostInformationDivisor = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const PostInformationDivisorContent = styled.div`
+  flex: 1;
 `;
 
 export const PostInformationCard = styled.div`
@@ -35,6 +49,7 @@ export const PostContactCardCont = styled.div`
 `;
 
 export const PostContactCard = styled.div`
+  padding: 20px;
   min-height: 200px;
   min-width: 300px;
   background-color: white;

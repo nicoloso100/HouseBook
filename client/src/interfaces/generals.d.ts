@@ -19,3 +19,17 @@ declare interface IFormValidation {
   valid: boolean;
   message: string;
 }
+
+declare interface IOpenPost {
+  id: string;
+}
+
+declare interface IOpenModal {
+  open: boolean;
+  value: T | undefined;
+}
+
+declare interface ISelectOption {
+  text: string;
+  value: string;
+}
