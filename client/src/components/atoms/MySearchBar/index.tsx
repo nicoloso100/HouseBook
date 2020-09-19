@@ -7,6 +7,7 @@ import {
   FormGroup,
 } from "reactstrap";
 import { isNullOrEmpty } from "utils";
+import FormLabel from "../FormLabel";
 
 interface MySearchBarProps {
   value: string;
@@ -14,6 +15,8 @@ interface MySearchBarProps {
   inputProps: any;
   placeholder?: string;
   withoutMargin?: boolean;
+  required?: boolean;
+  label?: string;
 }
 
 const MySearchBar: React.FC<MySearchBarProps> = ({
@@ -22,11 +25,13 @@ const MySearchBar: React.FC<MySearchBarProps> = ({
   inputProps,
   placeholder,
   withoutMargin,
+  required,
+  label,
 }) => {
   const [invalid, setInvalid] = React.useState<boolean>(false);
 
   const onBlurCallback = (backValue: string) => {
-    if (inputProps.required) {
+    if (required) {
       setInvalid(isNullOrEmpty(backValue));
     }
   };
@@ -36,6 +41,7 @@ const MySearchBar: React.FC<MySearchBarProps> = ({
       className={invalid ? "has-danger" : ""}
       style={withoutMargin ? { margin: 0 } : {}}
     >
+      {label && <FormLabel required={required} text={label} />}
       <InputGroup className="input-group-alternative">
         <InputGroupAddon addonType="prepend">
           <InputGroupText>

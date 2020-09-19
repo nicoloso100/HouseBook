@@ -1,4 +1,4 @@
-import { isNullOrEmpty, isInvalidNumber } from "utils";
+import { isNullOrEmpty, isInvalidNumber, isInvalidEmail } from "utils";
 
 export const validateCreatePost = (data: ICreatePost): IFormValidation => {
   let validation: IFormValidation = {
@@ -98,6 +98,21 @@ export const validateCreatePost = (data: ICreatePost): IFormValidation => {
     validation = {
       valid: false,
       message: "Debe seleccionar máximo 10 imágenes!",
+    };
+  } else if (isNullOrEmpty(data.email)) {
+    validation = {
+      valid: false,
+      message: "Debe ingresar un email de contacto!",
+    };
+  } else if (isInvalidEmail(data.email)) {
+    validation = {
+      valid: false,
+      message: "Debe ingresar un email válido!",
+    };
+  } else if (data.whatsapp && data.whatsapp.toString().length !== 10) {
+    validation = {
+      valid: false,
+      message: "Debe ingresar un número de whatsapp válido!",
     };
   }
   return validation;

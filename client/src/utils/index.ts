@@ -12,3 +12,8 @@ export const isNullOrEmpty = (text: string | null | undefined) => {
 export const isInvalidNumber = (number: number | null | undefined) => {
   return number === undefined || number === null;
 };
+
+export const isInvalidEmail = (email: string) => {
+  const result = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email);
+  return !result;
+};

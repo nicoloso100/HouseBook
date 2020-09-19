@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FormGroup, Input } from "reactstrap";
 import { isNullOrEmpty } from "utils";
+import FormLabel from "../FormLabel";
 
 interface MySelectProps {
   defaultValue?: string;
@@ -8,6 +9,7 @@ interface MySelectProps {
   defaultOption?: string;
   options: ISelectOption[];
   required?: boolean;
+  label?: string;
 }
 
 const MySelect: React.FC<MySelectProps> = ({
@@ -16,6 +18,7 @@ const MySelect: React.FC<MySelectProps> = ({
   defaultOption,
   options,
   required,
+  label,
 }) => {
   const [invalid, setInvalid] = React.useState<boolean>(false);
   const [selected, setSelected] = React.useState<string | null>(null);
@@ -38,23 +41,26 @@ const MySelect: React.FC<MySelectProps> = ({
   };
 
   return (
-    <FormGroup className={invalid ? "has-danger" : ""}>
-      <Input
-        type="select"
-        className={`form-control-alternative`}
-        value={selected !== null ? selected : ""}
-        onChange={onSelect}
-      >
-        {defaultOption && <option value={""}>{defaultOption}</option>}
-        {options.map((item) => {
-          return (
-            <option key={item.value} value={item.value}>
-              {item.text}
-            </option>
-          );
-        })}
-      </Input>
-    </FormGroup>
+    <>
+      {label && <FormLabel required={required} text={label} />}
+      <FormGroup className={invalid ? "has-danger" : ""}>
+        <Input
+          type="select"
+          className={`form-control-alternative`}
+          value={selected !== null ? selected : ""}
+          onChange={onSelect}
+        >
+          {defaultOption && <option value={""}>{defaultOption}</option>}
+          {options.map((item) => {
+            return (
+              <option key={item.value} value={item.value}>
+                {item.text}
+              </option>
+            );
+          })}
+        </Input>
+      </FormGroup>
+    </>
   );
 };
 

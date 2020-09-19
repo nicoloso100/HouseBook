@@ -12,18 +12,10 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import { useToasts } from "react-toast-notifications";
 
 interface MainContactCardProps {
-  webSite?: string;
-  whatsApp?: string;
-  email: string;
-  phoneNumber?: string;
+  contactInfo: IContact;
 }
 
-const MainContactCard: React.FC<MainContactCardProps> = ({
-  webSite,
-  whatsApp,
-  email,
-  phoneNumber,
-}) => {
+const MainContactCard: React.FC<MainContactCardProps> = ({ contactInfo }) => {
   const { addToast } = useToasts();
 
   return (
@@ -31,51 +23,55 @@ const MainContactCard: React.FC<MainContactCardProps> = ({
       <span>
         Puedes contactar al dueño de publicación mediante los siguientes medios:
       </span>
-      <MainContactButtons>
-        {webSite && (
-          <>
-            <WebButton web={webSite} />
-            <MainContactSeparator />
-          </>
-        )}
-        {whatsApp && (
-          <>
-            <WhatsappButton phoneNumber={whatsApp} text="Hola!" />
-            <MainContactSeparator />
-          </>
-        )}
-        {email && (
-          <>
-            <CopyToClipboard
-              text={email}
-              onCopy={() =>
-                addToast("Se ha copiado el email al portapapeles.", {
-                  appearance: "success",
-                })
-              }
-            >
-              <span>
-                <EmailButton email={email} />
-              </span>
-            </CopyToClipboard>
-            <MainContactSeparator />
-          </>
-        )}
-        {phoneNumber && (
-          <>
-            <CopyToClipboard
-              text={email}
-              onCopy={() =>
-                addToast("Se ha copiado el teléfono al portapapeles.", {
-                  appearance: "success",
-                })
-              }
-            >
-              <CallButton phoneNumber={phoneNumber} />
-            </CopyToClipboard>
-          </>
-        )}
-      </MainContactButtons>
+      {contactInfo && (
+        <MainContactButtons>
+          {contactInfo.email && (
+            <>
+              <CopyToClipboard
+                text={contactInfo.email}
+                onCopy={() =>
+                  addToast("Se ha copiado el email al portapapeles.", {
+                    appearance: "success",
+                  })
+                }
+              >
+                <span>
+                  <EmailButton email={contactInfo.email} />
+                </span>
+              </CopyToClipboard>
+              <MainContactSeparator />
+            </>
+          )}
+          {contactInfo.whatsApp && (
+            <>
+              <WhatsappButton phoneNumber={contactInfo.whatsApp} text="Hola!" />
+              <MainContactSeparator />
+            </>
+          )}
+          {contactInfo.webSite && (
+            <>
+              <WebButton web={contactInfo.webSite} />
+              <MainContactSeparator />
+            </>
+          )}
+          {contactInfo.phoneNumber && (
+            <>
+              <CopyToClipboard
+                text={contactInfo.phoneNumber}
+                onCopy={() =>
+                  addToast("Se ha copiado el teléfono al portapapeles.", {
+                    appearance: "success",
+                  })
+                }
+              >
+                <span>
+                  <CallButton phoneNumber={contactInfo.phoneNumber} />
+                </span>
+              </CopyToClipboard>
+            </>
+          )}
+        </MainContactButtons>
+      )}
     </MainContactCardCont>
   );
 };

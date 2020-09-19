@@ -22,7 +22,7 @@ import { generalURLs } from "actions/APICalls/URLs";
 interface PropertyCardProps {
   information: ISummaryPost;
   onCardClick: (id: string) => void;
-  onButtonClick?: (id: string) => void;
+  onButtonClick?: (id: ISummaryPost) => void;
 }
 
 const PropertyCard: React.FC<PropertyCardProps> = ({
@@ -34,7 +34,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
 
   const setOnButtonClick = (event: React.MouseEvent<any, MouseEvent>) => {
     event.stopPropagation();
-    onButtonClick && onButtonClick(information._id);
+    onButtonClick && onButtonClick(information);
   };
 
   const getButtonText = React.useMemo(() => {

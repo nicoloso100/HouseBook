@@ -33,3 +33,5 @@ declare interface ISelectOption {
   text: string;
   value: string;
 }
+
+declare module "react-images-viewer";

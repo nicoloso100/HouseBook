@@ -89,7 +89,7 @@ body {
   background-color: #ddd;
 }
 
-/* Reactstrap Paggination */
+/* Reactstrap Pagination */
 
 .pagination {
   margin: 0;
@@ -101,7 +101,19 @@ body {
   background-color: #dadada !important;
 }
 
+.carousel__image {
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center top !important;
+  background-color: white !important;
+}
+
 /* Alerts */
 .react-confirm-alert-overlay {
+  z-index: 10000 !important;
+}
+
+/* Toast Notifications */
+.react-toast-notifications__container {
   z-index: 10000 !important;
 }

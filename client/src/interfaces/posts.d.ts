@@ -9,6 +9,10 @@ declare interface ISummaryPost {
   thumbnail: string;
   type_of_housing: string;
   type_of_sale: string;
+  email: string;
+  whatsapp?: number;
+  web_site?: string;
+  phone?: number;
 }
 
 declare interface IPost extends ISummaryPost {
