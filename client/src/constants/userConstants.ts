@@ -19,6 +19,7 @@ export const defaultCreatePostForm: ICreatePost = {
   stratum: 0,
   antiquity: 0,
   description: "",
+  email: "",
   images: [],
 };
 

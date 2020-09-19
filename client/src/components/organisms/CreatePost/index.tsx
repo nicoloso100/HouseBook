@@ -14,6 +14,7 @@ import MyInput from "components/atoms/MyInput";
 import MySelect from "components/atoms/MySelect";
 import MyNumberInput from "components/atoms/MyNumberInput";
 import MyTextArea from "components/atoms/MyTextArea";
+import MyPhoneInput from "components/atoms/MyPhoneInput";
 
 interface CreatePostFormProps {
   onAction: (post: ICreatePost) => Promise<void> | undefined;
@@ -78,14 +79,17 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
   return (
     <FormContainer>
       <EditFormTitle>
-        <h2>Modificar Publicación</h2>
+        {context.isEdit && <h2>Modificar Publicación</h2>}
         {onClose && <EditFormClose onClick={onClose} className="fa fa-times" />}
       </EditFormTitle>
       <Form role="form" autoComplete="off" onSubmit={onSubmit}>
+        <h4>Información de la publicación</h4>
+        <br />
         <Row>
           <Col md="6">
             <MySelect
               required
+              label="Tipo de publicación"
               defaultValue={
                 context.isEdit ? createPost.type_of_sale : undefined
               }
@@ -108,6 +112,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
           <Col md="6">
             <MySelect
               required
+              label="Agrupación"
               defaultValue={
                 context.isEdit ? createPost.type_of_housing : undefined
               }
@@ -132,6 +137,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
           <Col md="6">
             <MyInput
               required
+              label="Título"
               defaultValue={createPost.title}
               onChange={(value) =>
                 setCreatePost((x) => ({
@@ -145,6 +151,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
           <Col md="3">
             <MyNumberInput
               required
+              label="Precio"
               defaultValue={context.isEdit ? createPost.price : undefined}
               thousandSeparator={true}
               placeholder="Precio del inmueble"
@@ -161,6 +168,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyNumberInput
                 required
+                label="Área"
                 defaultValue={
                   context.isEdit ? createPost.dimensions : undefined
                 }
@@ -182,6 +190,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyNumberInput
                 required
+                label="Habitaciones"
                 defaultValue={context.isEdit ? createPost.rooms : undefined}
                 placeholder="Número de habitaciones"
                 suffix={" Habitaciones"}
@@ -198,6 +207,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyNumberInput
                 required
+                label="Baños"
                 defaultValue={context.isEdit ? createPost.bathrooms : undefined}
                 placeholder="Número de baños"
                 suffix={" Baños"}
@@ -214,6 +224,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyNumberInput
                 required
+                label="Parqueaderos"
                 defaultValue={context.isEdit ? createPost.parkings : undefined}
                 placeholder="Número de parqueaderos"
                 suffix={" Parqueaderos"}
@@ -232,6 +243,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyAutosuggest
                 required
+                label="Ciudad"
                 defaultValue={createPost.city}
                 placeholder="Ciudad"
                 APIURL={generalURLs.getCities}
@@ -248,6 +260,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyInput
                 required
+                label="Barrio"
                 defaultValue={createPost.neighborhood}
                 onChange={(value) =>
                   setCreatePost((x) => ({
@@ -263,6 +276,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyInput
                 required
+                label="Dirección"
                 defaultValue={createPost.ubication}
                 onChange={(value) =>
                   setCreatePost((x) => ({
@@ -280,6 +294,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyInput
                 required
+                label="Sitios cercanos"
                 defaultValue={createPost.nearby_sites}
                 onChange={(value) =>
                   setCreatePost((x) => ({
@@ -295,6 +310,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyNumberInput
                 required
+                label="Estrato"
                 defaultValue={context.isEdit ? createPost.stratum : undefined}
                 placeholder="Estrato"
                 prefix={"Estrato "}
@@ -311,6 +327,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             <FormGroup>
               <MyNumberInput
                 required
+                label="Antiguedad"
                 defaultValue={context.isEdit ? createPost.antiquity : undefined}
                 placeholder="Antiguedad"
                 suffix={" Años"}
@@ -326,18 +343,18 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
         </Row>
         <Row>
           <Col>
-            <FormGroup>
-              <MyTextArea
-                defaultValue={createPost.description}
-                onChange={(value) =>
-                  setCreatePost((x) => ({
-                    ...x,
-                    description: value,
-                  }))
-                }
-                placeholder="Descripción del inmueble"
-              />
-            </FormGroup>
+            <MyTextArea
+              required
+              label="Descripción"
+              defaultValue={createPost.description}
+              onChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  description: value,
+                }))
+              }
+              placeholder="Descripción del inmueble"
+            />
           </Col>
         </Row>
         {context.isCreate && (
@@ -358,6 +375,65 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({
             </Col>
           </Row>
         )}
+        <h4>Información de la contacto</h4>
+        <Row>
+          <Col md="6">
+            <MyInput
+              required
+              label="Email"
+              defaultValue={createPost.email}
+              onChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  email: value,
+                }))
+              }
+              placeholder="Email de contacto"
+            />
+          </Col>
+          <Col md="6">
+            <MyPhoneInput
+              label="Whatsapp"
+              defaultValue={context.isEdit ? createPost.whatsapp : undefined}
+              placeholder="Número de Whatsapp"
+              onNonRequiredChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  whatsapp: value,
+                }))
+              }
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col md="6">
+            <MyInput
+              label="Página web"
+              defaultValue={createPost.web_site}
+              onNonRequiredChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  web_site: value,
+                }))
+              }
+              placeholder="Página web de contacto"
+            />
+          </Col>
+          <Col md="6">
+            <MyPhoneInput
+              freeFormat
+              label="Teléfono"
+              defaultValue={context.isEdit ? createPost.phone : undefined}
+              placeholder="Número de teléfono de contacto"
+              onNonRequiredChange={(value) =>
+                setCreatePost((x) => ({
+                  ...x,
+                  phone: value,
+                }))
+              }
+            />
+          </Col>
+        </Row>
         <Button className="my-4" color="primary" onClick={onSubmit}>
           {context.isCreate ? "Crear publicación" : "Modificar publicación"}
         </Button>

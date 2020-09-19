@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const WebButtonCont = styled.div`
-  min-height: 35px;
+  min-height: 45px;
   padding: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   border-radius: 5px;
   background-color: #ff834c;
@@ -26,4 +26,5 @@ export const WebButtonIcon = styled.i`
 export const WebButtonText = styled.span`
   color: white;
   font-size: 14px;
+  word-break: break-all;
 `;

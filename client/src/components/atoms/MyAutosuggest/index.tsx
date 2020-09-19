@@ -10,6 +10,8 @@ const renderSuggestion = (suggestion: any) => (
 const customInput = (inputProps: any) => (
   <MySearchBar
     inputProps={inputProps}
+    required={inputProps.required}
+    label={inputProps.label}
     placeholder={inputProps.placeholder}
     value={inputProps.value}
     onChange={inputProps.onChange}
@@ -23,6 +25,7 @@ interface MyAutosuggestProps {
   onSelect: (text: string) => void;
   placeholder?: string;
   required?: boolean;
+  label?: string;
   withoutMargin?: boolean;
 }
 
@@ -32,6 +35,7 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
   onSelect,
   placeholder,
   required,
+  label,
   withoutMargin,
 }) => {
   const [value, setValue] = React.useState<any>("");
@@ -81,6 +85,7 @@ const MyAutosuggest: React.FC<MyAutosuggestProps> = ({
     onBlur: onBlur,
     placeholder: placeholder,
     required: required,
+    label: label,
     withoutmargin: withoutMargin,
   };
 

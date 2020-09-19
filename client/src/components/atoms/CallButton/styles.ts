@@ -1,16 +1,17 @@
 import styled from "styled-components";
 
 export const CallButtonCont = styled.div`
-  min-height: 35px;
+  min-height: 45px;
   padding: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   border-radius: 5px;
   background-color: #f2f2f2;
   display: flex;
   align-items: center;
   transition-duration: 0.2s;
+  cursor: pointer;
   :hover {
     box-shadow: 0px 0px 5px 0.5px rgba(156, 156, 156, 1);
   }
