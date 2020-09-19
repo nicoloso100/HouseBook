@@ -9,7 +9,7 @@ const CallButton: React.FC<CallButtonProps> = ({ phoneNumber }) => {
   return (
     <CallButtonCont>
       <CallButtonIcon className="fa fa-phone" />
-      <CallButtonText>Llamar al número +57 {phoneNumber}</CallButtonText>
+      <CallButtonText>Llamar al número {phoneNumber}</CallButtonText>
     </CallButtonCont>
   );
 };

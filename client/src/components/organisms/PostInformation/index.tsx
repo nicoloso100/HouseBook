@@ -25,6 +25,15 @@ const PostInformation: React.FC<PostInformationProps> = ({ information }) => {
     );
   }, [information]);
 
+  const getContactInfo: IContact = React.useMemo(() => {
+    return {
+      email: information.email,
+      phoneNumber: information.phone?.toString(),
+      webSite: information.web_site,
+      whatsApp: information.whatsapp?.toString(),
+    };
+  }, [information]);
+
   return (
     <PostInformationCont>
       <PostInformationCard>
@@ -72,7 +81,7 @@ const PostInformation: React.FC<PostInformationProps> = ({ information }) => {
             <PostInformationDivisorContent>
               <PostCarditem>
                 <strong>Área</strong>
-                <p>{information.dimensions}</p>
+                <p>{information.dimensions} m²</p>
               </PostCarditem>
               <PostCarditem>
                 <strong>Número de habitaciones</strong>
@@ -88,7 +97,7 @@ const PostInformation: React.FC<PostInformationProps> = ({ information }) => {
               </PostCarditem>
               <PostCarditem>
                 <strong>Antiguedad</strong>
-                <p>{information.antiquity}</p>
+                <p>{information.antiquity} años</p>
               </PostCarditem>
             </PostInformationDivisorContent>
           </PostInformationDivisor>
@@ -96,7 +105,7 @@ const PostInformation: React.FC<PostInformationProps> = ({ information }) => {
       </PostInformationCard>
       <PostContactCardCont>
         <PostContactCard>
-          <MainContactCard email="nico.las0315@hotmail.com" />
+          <MainContactCard contactInfo={getContactInfo} />
         </PostContactCard>
       </PostContactCardCont>
     </PostInformationCont>

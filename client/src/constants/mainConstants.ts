@@ -1,6 +1,4 @@
-export const defaultContact: IContact = {
+export const defaultContact: IOpenModal = {
   open: false,
-  URL: "",
-  email: "",
-  whatsapp: "",
+  value: undefined,
 };

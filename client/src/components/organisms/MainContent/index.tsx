@@ -36,7 +36,7 @@ const MainContent: React.FC<MainContentProps> = ({
   onFilter,
 }) => {
   const context = React.useContext(MainContentContext);
-  const [contact, setContact] = React.useState<IContact>(defaultContact);
+  const [contact, setContact] = React.useState<IOpenModal>(defaultContact);
   const [collapse, setCollapse] = React.useState<boolean>(false);
 
   const onCardClick = (id: string) => {
@@ -47,16 +47,25 @@ const MainContent: React.FC<MainContentProps> = ({
     setContact(defaultContact);
   };
 
-  const onButtonClick = (id: string) => {
-    if (context.isContact) setContact({ ...defaultContact, open: true });
-    else if (onAction && context.isEdit) onAction(id);
-    else if (onAction && context.isRemove) onAction(id);
+  const onButtonClick = (post: ISummaryPost) => {
+    if (context.isContact)
+      setContact({
+        open: true,
+        value: {
+          email: post.email,
+          webSite: post.web_site,
+          phoneNumber: post.phone,
+          whatsApp: post.whatsapp,
+        } as IContact,
+      });
+    else if (onAction && context.isEdit) onAction(post._id);
+    else if (onAction && context.isRemove) onAction(post._id);
   };
 
   return (
     <React.Fragment>
       <MyModal title="Contacto:" open={contact.open} onClose={onContactClose}>
-        <MainContactCard email="nico.las0315@hotmail.com" />
+        <MainContactCard contactInfo={contact.value} />
       </MyModal>
       <MainContentCont>
         {!isEdit && onFilter && (

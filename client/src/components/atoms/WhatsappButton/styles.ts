@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const WhatsappButtonCont = styled.div`
-  min-height: 35px;
+  min-height: 45px;
   padding: 5px;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   border-radius: 5px;
   background-color: #00bb2d;
