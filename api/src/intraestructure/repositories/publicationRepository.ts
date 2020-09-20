@@ -27,6 +27,7 @@ class PublicationRepository {
       publication.email = data.email;
       publication.phone = data.phone;
       publication.created_at = new Date();
+      publication.expiration_date = new Date(publication.created_at.getDay + "/" + publication.created_at.getMonth + "/" + (publication.created_at.getFullYear() + 1));
       publication.save();
       return publication._id;
     } catch (error) {
@@ -49,19 +50,26 @@ class PublicationRepository {
       return error;
     }
   }
-  async getPublicationByFilters(type_of_housing: object, type_of_sale: object) {
+  async getPublicationByFilters(type_of_housing: object, type_of_sale: object, city: any) {
     let query: any = {};
     if (
       Object.keys(type_of_housing).length > 0 &&
-      Object.keys(type_of_sale).length > 0
+      Object.keys(type_of_sale).length > 0 &&
+      Object.keys(city).length > 0 
     ) {
-      query = { type_of_housing, type_of_sale };
+      query = { type_of_housing, type_of_sale, city};
     } else if (Object.keys(type_of_housing).length > 0) {
       query = { type_of_housing: type_of_housing };
     } else if (Object.keys(type_of_sale).length > 0) {
       query = { type_of_sale: type_of_sale };
+    } else if (Object.keys(city).length > 0) {
+      query = { city: city};
     }
-    const publications = await PublicationModel.find(query);
+    var options = {
+      "limit": 20,
+      "skip": 10
+    }
+    const publications = await PublicationModel.find({query, expiration_date: {$gte: new Date()}}, options);
     return publications;
   }
 

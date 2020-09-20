@@ -20,6 +20,7 @@ const publicationSchema = new Schema({
   type_of_housing: String,
   type_of_sale: String,
   created_at: Date,
+  expiration_date: Date,
   thumbnail: String,
   web_site: String,
   whatsapp: String,

@@ -22,4 +22,5 @@ declare interface IPublication {
   email: string;
   phone: string;
   created_at: Date;
+  expiration_date: Date;
 }

@@ -60,9 +60,11 @@ class PublicationController {
     try {
       const type_of_housing: object = req.body.type_of_housing;
       const type_of_sale: object = req.body.type_of_sale;
+      const city: object = req.body.city;
       const publications = await publicationRepository.getPublicationByFilters(
         type_of_housing,
-        type_of_sale
+        type_of_sale,
+        city,
       );
       res.json(publications);
     } catch {
