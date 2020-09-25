@@ -36,7 +36,12 @@ class PublicationRepository {
   }
   async getPublicationById(_id: any): Promise<IPublicationModel | null> {
     try {
-      const publication = await PublicationModel.findOne({ _id: _id });
+      const publication: any = await PublicationModel.findOne({ _id: _id });
+      if (publication != null && publication.expiration_date > new Date()){
+        publication.expired = true
+      } else {
+        publication.expired = false
+      }
       return publication;
     } catch (error) {
       return error;
@@ -44,7 +49,14 @@ class PublicationRepository {
   }
   async getPublicationByUser(user_id: any) {
     try {
-      const publications = await PublicationModel.find({ user_id: user_id });
+      const publications: any = await PublicationModel.find({ user_id: user_id });
+      publications.forEach(function (publication: any) {
+          if (publication != null && publication.expiration_date > new Date()) {
+            publication.expired = true;
+          } else {
+            publication.expired = false;
+          }
+        });
       return publications;
     } catch (error) {
       return error;
